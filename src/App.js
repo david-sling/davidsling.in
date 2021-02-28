@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react'
+import './css/App.css'
 
-function App() {
+//IMPORT LIBRARIES
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
+
+//IMPORT ROUTES
+import AppBar from './components/AppBar'
+import Home from './components/Home/Home'
+import Contact from './components/Contact/Contact'
+
+export default function App() {
+  const [pageNow, setPageNow] = useState('HOME')
+  const [navOpen, setNavOpen] = useState(false)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <AppBar pageNow={pageNow} setPageNow={setPageNow} navOpen={navOpen} setNavOpen={setNavOpen} />
+      <Route exact path='/'>
+        <Home setPageNow={setPageNow} />
+      </Route>
+      <Route exact path='/contact'>
+        <Contact setPageNow={setPageNow} />
+      </Route>
+    </Router></div>
+  )
 }
-
-export default App;

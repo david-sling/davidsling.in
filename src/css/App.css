@@ -1,0 +1,911 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito");
+@-webkit-keyframes from360leftmargin {
+  from {
+    padding-left: 360px;
+  }
+}
+@keyframes from360leftmargin {
+  from {
+    padding-left: 360px;
+  }
+}
+
+@-webkit-keyframes from360rightmargin {
+  from {
+    padding-right: 360px;
+  }
+}
+
+@keyframes from360rightmargin {
+  from {
+    padding-right: 360px;
+  }
+}
+
+@-webkit-keyframes grow {
+  from {
+    height: 0;
+    width: 0;
+  }
+}
+
+@keyframes grow {
+  from {
+    height: 0;
+    width: 0;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+a {
+  color: unset;
+}
+
+h3 {
+  color: #0596FF;
+  font-size: 50px;
+  font-weight: 500;
+  letter-spacing: 14px;
+}
+
+@media screen and (max-width: 1200px) {
+  h3 {
+    font-size: 30px;
+    text-align: center;
+  }
+}
+
+.subHead {
+  margin: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.subHead .underline {
+  background-color: #0596FF;
+  width: 200px;
+  height: 3px;
+  margin-top: 20px;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Nunito';
+  text-decoration: none;
+}
+
+.App {
+  width: 100vw;
+  overflow: hidden;
+}
+
+.AppBar {
+  width: 100vw;
+  background-color: white;
+  position: fixed;
+  top: 0;
+  z-index: 50;
+}
+
+.AppBar header {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-shadow: 0 0 11px 0 #00000073;
+          box-shadow: 0 0 11px 0 #00000073;
+}
+
+.AppBar header .close, .AppBar header .menu {
+  display: none;
+}
+
+.AppBar header h2 {
+  font-size: 25px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.AppBar header h2 span {
+  color: #0596FF;
+}
+
+.AppBar header nav {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  background-color: #0596FF;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.AppBar header nav .navLink {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 20px;
+  position: relative;
+}
+
+.AppBar header nav .navLink .cover {
+  position: absolute;
+  background-color: white;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  -webkit-transition: 1s;
+  transition: 1s;
+  height: 0;
+}
+
+.AppBar header nav .navLink .text {
+  position: relative;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: white;
+  -webkit-transition: 1s;
+  transition: 1s;
+}
+
+.AppBar header nav .navLink.active .cover {
+  height: 100% !important;
+}
+
+.AppBar header nav .navLink.active .text {
+  color: #0596FF;
+}
+
+.AppBar header nav .navLink:hover .cover {
+  height: 80%;
+}
+
+.AppBar header nav .navLink:hover .text {
+  color: #0596FF;
+}
+
+.Home .Hero {
+  width: 100%;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.Home .Hero .top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  background-color: #0596FF;
+}
+
+.Home .Hero .top .left {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: white;
+  border-radius: 0 0 70px 0;
+}
+
+.Home .Hero .top .left p.grey {
+  color: grey;
+}
+
+.Home .Hero .top .left p.primary {
+  color: #0596FF;
+}
+
+.Home .Hero .top .left p {
+  font-size: 40px;
+}
+
+.Home .Hero .top .left h1 {
+  font-size: 80px;
+  font-weight: 400;
+  letter-spacing: 40px;
+}
+
+.Home .Hero .top .right {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.Home .Hero .top .right img {
+  width: 150px;
+}
+
+.Home .Hero .bottom {
+  width: 100%;
+}
+
+.Home .Hero .bottom h4 {
+  font-size: 25px;
+  letter-spacing: 2px;
+}
+
+.Home .Hero .bottom .link, .Home .Hero .bottom .arrowLine {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 20px;
+}
+
+.Home .Hero .bottom .arrow {
+  -webkit-transform: translateX(50px);
+          transform: translateX(50px);
+  -webkit-transition: 1s;
+  transition: 1s;
+}
+
+.Home .Hero .bottom .link:hover .arrow {
+  -webkit-transform: translateX(5px);
+          transform: translateX(5px);
+}
+
+.Home .Hero .bottom .one {
+  background-color: white;
+  padding-left: 100px;
+  -webkit-animation: from360leftmargin 1s;
+          animation: from360leftmargin 1s;
+}
+
+.Home .Hero .bottom .one .arrowLine {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.Home .Hero .bottom .one .inner {
+  background-color: #0596FF;
+  padding: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  border-radius: 70px 0 0 70px;
+}
+
+.Home .Hero .bottom .one .inner h4 {
+  color: white;
+}
+
+.Home .Hero .bottom .two {
+  background-color: #0596FF;
+  padding-right: 100px;
+  -webkit-animation: from360rightmargin 1s;
+          animation: from360rightmargin 1s;
+}
+
+.Home .Hero .bottom .two .link {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+}
+
+.Home .Hero .bottom .two .inner {
+  background-color: white;
+  padding: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  border-radius: 0 70px 0 0;
+}
+
+.Home .Hero .bottom .two .inner h4 {
+  color: #0596FF;
+}
+
+.Home .Skills {
+  background-color: #0596FF;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.Home .Skills * {
+  position: relative;
+}
+
+@media screen and (max-width: 1200px) {
+  .Home .Skills {
+    background-color: white;
+  }
+}
+
+.Home .Skills .absoluteBG {
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 100px;
+  bottom: 100px;
+  border-radius: 0 0 70px 0;
+}
+
+@media screen and (max-width: 1200px) {
+  .Home .Skills .absoluteBG {
+    display: none;
+  }
+}
+
+.Home .Skills .greyDivider {
+  background-color: #C9C9C9;
+  width: 50%;
+  height: 3px;
+  z-index: 1;
+}
+
+@media screen and (max-width: 1200px) {
+  .Home .Skills .greyDivider {
+    width: 90%;
+  }
+}
+
+.Home .Skills .skillsList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+@media screen and (max-width: 1200px) {
+  .Home .Skills .skillsList {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+.Home .Skills .skillsList .SkillCard {
+  max-width: 400px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin: 30px;
+  background-color: white;
+  -webkit-box-shadow: #00000014 -6px -2px 12px 0;
+          box-shadow: #00000014 -6px -2px 12px 0;
+  padding: 20px;
+  border-radius: 70px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@media screen and (max-width: 1200px) {
+  .Home .Skills .skillsList .SkillCard {
+    -webkit-box-shadow: #00000078 0 0 9px 0;
+            box-shadow: #00000078 0 0 9px 0;
+    border-radius: 0;
+    padding: 0;
+    margin: 10px 0;
+    max-width: 100vw;
+  }
+}
+
+.Home .Skills .skillsList .SkillCard .border {
+  display: none;
+}
+
+@media screen and (max-width: 1200px) {
+  .Home .Skills .skillsList .SkillCard .border {
+    display: block;
+    width: 50px;
+    -ms-flex-item-align: stretch;
+        -ms-grid-row-align: stretch;
+        align-self: stretch;
+    background-color: #0596FF;
+    position: relative;
+  }
+}
+
+.Home .Skills .skillsList .SkillCard .image {
+  height: 200px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+@media screen and (max-width: 1200px) {
+  .Home .Skills .skillsList .SkillCard .image {
+    display: none;
+  }
+}
+
+.Home .Skills .skillsList .SkillCard h4 {
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: 10px;
+  padding: 20px 0;
+  width: 100%;
+  text-align: center;
+}
+
+@media screen and (max-width: 1200px) {
+  .Home .Skills .skillsList .SkillCard h4 {
+    background-color: #0596FF;
+    color: white;
+    font-size: 20px;
+  }
+}
+
+.Home .Skills .skillsList .SkillCard ul.skills {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  margin-left: 50px;
+  margin-bottom: 50px;
+}
+
+@media screen and (max-width: 1200px) {
+  .Home .Skills .skillsList .SkillCard ul.skills {
+    margin: 50px 100px;
+  }
+}
+
+.Home .Skills .skillsList .SkillCard ul.skills li {
+  color: #424242;
+  font-size: 20px;
+  letter-spacing: 5px;
+}
+
+.Home .Works {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.Home .Works .curver {
+  background-color: #0596FF;
+  height: 100px;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: -100px;
+  z-index: -1;
+}
+
+@media screen and (max-width: 1200px) {
+  .Home .Works .curver {
+    display: none;
+  }
+}
+
+.Home .Works .curver .curve {
+  height: 200px;
+  width: 100%;
+  background-color: white;
+  border-radius: 50%;
+  -webkit-transform: scaleX(1.2);
+          transform: scaleX(1.2);
+}
+
+.Home .Works .workList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.Home .Works .workList a:nth-child(even) .WorkCard {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+}
+
+@media screen and (max-width: 750px) {
+  .Home .Works .workList a:nth-child(even) .WorkCard {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+.Home .Works .workList .WorkCard {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 10px 0;
+  -webkit-transition: .2s;
+  transition: .2s;
+}
+
+.Home .Works .workList .WorkCard:hover {
+  -webkit-box-shadow: inset 0 0 11px 0 #00000073;
+          box-shadow: inset 0 0 11px 0 #00000073;
+  background-color: #f8f8f8;
+}
+
+.Home .Works .workList .WorkCard .image {
+  max-width: 400px;
+  max-height: 300px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  overflow: hidden;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+@media screen and (max-width: 750px) {
+  .Home .Works .workList .WorkCard .image {
+    margin: 40px;
+    max-width: 100vw;
+    margin-bottom: 10px;
+  }
+}
+
+.Home .Works .workList .WorkCard .image img {
+  min-height: 100%;
+  min-width: 100%;
+}
+
+.Home .Works .workList .WorkCard .content {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin: 0 40px;
+  max-width: 500px;
+}
+
+@media screen and (max-width: 750px) {
+  .Home .Works .workList .WorkCard .content {
+    margin: 0px;
+    padding: 40px;
+    padding-top: 10px;
+    max-width: 100vw;
+  }
+}
+
+.Home .Works .workList .WorkCard .content .subtitle {
+  color: #0596FF;
+  font-size: 20px;
+}
+
+@media screen and (max-width: 750px) {
+  .Home .Works .workList .WorkCard .content .subtitle {
+    font-size: 15px;
+  }
+}
+
+.Home .Works .workList .WorkCard .content .title {
+  font-size: 30px;
+}
+
+@media screen and (max-width: 750px) {
+  .Home .Works .workList .WorkCard {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+.Contact {
+  height: 100vh;
+  width: 100vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  overflow: hidden;
+}
+
+.Contact h4 {
+  font-size: 20px;
+  letter-spacing: 5px;
+  z-index: 5;
+}
+
+.Contact .circle {
+  position: fixed;
+  background-color: #0596FF;
+  z-index: 0;
+  -webkit-animation: grow 1s;
+          animation: grow 1s;
+}
+
+.Contact .circle.one {
+  border-radius: 0 100% 0 0;
+  bottom: 0;
+  left: 0;
+  height: 500px;
+  width: 500px;
+}
+
+.Contact .circle.two {
+  border-radius: 0 0 0 100%;
+  top: 0;
+  right: 0;
+  height: 300px;
+  width: 300px;
+}
+
+@media screen and (max-width: 950px) {
+  .arrowLine {
+    display: none !important;
+  }
+  .AppBar header {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .AppBar .menu {
+    display: block !important;
+    margin: 10px;
+    cursor: pointer;
+  }
+  .AppBar header h2 {
+    font-size: 15px;
+    padding: 10px 0;
+  }
+  .AppBar header nav {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-clip-path: circle(0px at 50% 0);
+            clip-path: circle(0px at 50% 0);
+    -webkit-transition: .5s;
+    transition: .5s;
+  }
+  .AppBar header nav.open {
+    -webkit-clip-path: circle(100vh at 50% 0);
+            clip-path: circle(100vh at 50% 0);
+  }
+  .AppBar header nav .close {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-transition: .2s;
+    transition: .2s;
+    cursor: pointer;
+  }
+  .AppBar header nav .close:hover {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+  .AppBar header nav .close img {
+    width: 50px;
+  }
+  .Home .Hero .top {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+    -webkit-box-flex: unset;
+        -ms-flex: unset;
+            flex: unset;
+  }
+  .Home .Hero .top .right {
+    -webkit-box-flex: unset;
+        -ms-flex: unset;
+            flex: unset;
+    height: 50vh;
+  }
+  .Home .Hero .top .left {
+    border-radius: 0;
+    -webkit-box-flex: unset;
+        -ms-flex: unset;
+            flex: unset;
+    padding: 50px 0;
+  }
+  .Home .Hero .top .left .text {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .Home .Hero .top .left p {
+    font-size: 20px;
+    text-align: center;
+  }
+  .Home .Hero .top .left h1 {
+    font-size: 40px;
+    letter-spacing: 5px;
+    text-align: center;
+  }
+  .Home .Hero .top .right img {
+    width: 80px;
+  }
+  .Home .Hero .bottom {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    padding: 0 20px;
+    margin-bottom: 50px;
+  }
+  .Home .Hero .bottom .one, .Home .Hero .bottom .two {
+    padding: 0;
+    background-color: unset;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .Home .Hero .bottom .one .inner {
+    padding-left: 30px;
+  }
+  .Home .Hero .bottom .two .inner {
+    border: solid #0596FF 2px;
+    border-radius: 0 70px 70px 0;
+  }
+  .Home .Hero .bottom .inner {
+    padding: 10px !important;
+    height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center !important;
+        -ms-flex-pack: center !important;
+            justify-content: center !important;
+  }
+  .Home .Hero .bottom .inner h4 {
+    font-size: 15px;
+    text-align: center;
+  }
+  .Contact .circle.one,
+  .Contact .circle.two {
+    height: 250px;
+    width: 250px;
+  }
+  .AppBar header nav .navLink {
+    height: 60%;
+  }
+  .Contact h4 {
+    font-size: 15px;
+  }
+}
+/*# sourceMappingURL=App.css.map */
