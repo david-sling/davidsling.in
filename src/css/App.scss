@@ -34,7 +34,7 @@ a{
 
 h3{
   color: $primary-color;
-  font-size: 50px;
+  font-size: 4rem;
   font-weight: 500;
   letter-spacing: 14px;
   @media screen and (max-width: 1200px) {
@@ -183,12 +183,12 @@ h3{
         }
 
         p{
-          font-size: 40px;
+          font-size: 1.5rem;
         }
         h1{
-          font-size: 80px;
+          font-size: 3rem;
           font-weight: 400;
-          letter-spacing: 40px;
+          letter-spacing: 1.5rem;
         }
       }
       .right{
@@ -206,7 +206,7 @@ h3{
     .bottom{
       width: 100%;
       h4{
-        font-size: 25px;
+        font-size: 1.5rem;
         letter-spacing: 2px;
       }
 
@@ -237,7 +237,7 @@ h3{
   
         .inner{
           background-color: #0596FF;
-          padding: 50px;
+          padding: 2em;
           display: flex;
           justify-content: flex-start;
           border-radius: $curve 0 0 $curve;
@@ -258,7 +258,7 @@ h3{
   
         .inner{
           background-color: $light-color;
-          padding: 50px;
+          padding: 2em;
           display: flex;
           justify-content: flex-end;
           border-radius: 0 $curve 0 0;
@@ -283,7 +283,7 @@ h3{
     }
 
     .absoluteBG{
-      background-color: white;
+      background: linear-gradient(179deg, white, #f1f1f1);
       position: absolute;
       top: 0;
       left: 0;
@@ -307,7 +307,7 @@ h3{
 
     .skillsList{
       display: flex;
-      width: 100%;
+      width: 90%;
       justify-content: space-evenly;
       // padding: 30px;
       @media screen and (max-width: 1200px) {
@@ -316,11 +316,13 @@ h3{
 
       .SkillCard{
         // min-height: 300px;
-        max-width: 400px;
+        max-width: 330px;
         flex: 1;
         margin: 30px;
-        background-color: white;
-        box-shadow: #00000014 -6px -2px 12px 0;
+        background-color: #f7f7f7;
+        box-shadow: 
+          inset #00000014 -7px -11px 11px 3px,  
+          inset #ffffff 2px 4px 10px 2px;
         padding: 20px;
         border-radius: $curve;
         display: flex;
@@ -357,7 +359,7 @@ h3{
           }
         }
         h4{
-          font-size: 30px;
+          font-size: 1.6rem;
           font-weight: 400;
           letter-spacing: 10px;
           padding: 20px 0;
@@ -384,7 +386,7 @@ h3{
           }
           li{
             color: #424242;
-            font-size: 20px;
+            font-size: 1rem;
             letter-spacing: 5px;
           }
         }
@@ -477,13 +479,13 @@ h3{
           }
           .subtitle{
             color: $primary-color;
-            font-size: 20px;
+            font-size: 1.5rem;
             @media screen and (max-width: 750px) {
               font-size: 15px;
             }
           }
           .title{
-            font-size: 30px;
+            font-size: 2rem;
           }
         }
 

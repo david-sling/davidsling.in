@@ -46,7 +46,7 @@ a {
 
 h3 {
   color: #0596FF;
-  font-size: 50px;
+  font-size: 4rem;
   font-weight: 500;
   letter-spacing: 14px;
 }
@@ -242,13 +242,13 @@ h3 {
 }
 
 .Home .Hero .top .left p {
-  font-size: 40px;
+  font-size: 1.5rem;
 }
 
 .Home .Hero .top .left h1 {
-  font-size: 80px;
+  font-size: 3rem;
   font-weight: 400;
-  letter-spacing: 40px;
+  letter-spacing: 1.5rem;
 }
 
 .Home .Hero .top .right {
@@ -275,7 +275,7 @@ h3 {
 }
 
 .Home .Hero .bottom h4 {
-  font-size: 25px;
+  font-size: 1.5rem;
   letter-spacing: 2px;
 }
 
@@ -315,7 +315,7 @@ h3 {
 
 .Home .Hero .bottom .one .inner {
   background-color: #0596FF;
-  padding: 50px;
+  padding: 2em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -345,7 +345,7 @@ h3 {
 
 .Home .Hero .bottom .two .inner {
   background-color: white;
-  padding: 50px;
+  padding: 2em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -385,7 +385,7 @@ h3 {
 }
 
 .Home .Skills .absoluteBG {
-  background-color: white;
+  background: linear-gradient(179deg, white, #f1f1f1);
   position: absolute;
   top: 0;
   left: 0;
@@ -417,7 +417,7 @@ h3 {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
+  width: 90%;
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
@@ -433,14 +433,14 @@ h3 {
 }
 
 .Home .Skills .skillsList .SkillCard {
-  max-width: 400px;
+  max-width: 330px;
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
   margin: 30px;
-  background-color: white;
-  -webkit-box-shadow: #00000014 -6px -2px 12px 0;
-          box-shadow: #00000014 -6px -2px 12px 0;
+  background-color: #f7f7f7;
+  -webkit-box-shadow: inset #00000014 -7px -11px 11px 3px,   inset #ffffff 2px 4px 10px 2px;
+          box-shadow: inset #00000014 -7px -11px 11px 3px,   inset #ffffff 2px 4px 10px 2px;
   padding: 20px;
   border-radius: 70px;
   display: -webkit-box;
@@ -502,7 +502,7 @@ h3 {
 }
 
 .Home .Skills .skillsList .SkillCard h4 {
-  font-size: 30px;
+  font-size: 1.6rem;
   font-weight: 400;
   letter-spacing: 10px;
   padding: 20px 0;
@@ -533,7 +533,7 @@ h3 {
 
 .Home .Skills .skillsList .SkillCard ul.skills li {
   color: #424242;
-  font-size: 20px;
+  font-size: 1rem;
   letter-spacing: 5px;
 }
 
@@ -671,7 +671,7 @@ h3 {
 
 .Home .Works .workList .WorkCard .content .subtitle {
   color: #0596FF;
-  font-size: 20px;
+  font-size: 1.5rem;
 }
 
 @media screen and (max-width: 750px) {
@@ -681,7 +681,7 @@ h3 {
 }
 
 .Home .Works .workList .WorkCard .content .title {
-  font-size: 30px;
+  font-size: 2rem;
 }
 
 @media screen and (max-width: 750px) {
