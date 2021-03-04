@@ -1,13 +1,13 @@
 const nav = [
-    {
-        name: 'HOME',
-        link: '/',
-    },
-    
-    {
-        name: 'CONTACT',
-        link: '/contact',
-    },
-]
+  {
+    name: "HOME",
+    link: "/",
+  },
 
-export default nav
+  {
+    name: "CONTACT",
+    link: "/contact",
+  },
+];
+
+export default nav;
