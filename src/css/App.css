@@ -469,6 +469,22 @@ h3 {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.Home .Skills .skillsList .SkillCard img {
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.Home .Skills .skillsList .SkillCard:hover {
+  border-radius: 35px;
+}
+
+.Home .Skills .skillsList .SkillCard:hover img {
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
 }
 
 @media screen and (max-width: 1200px) {
@@ -630,11 +646,24 @@ h3 {
   margin: 10px 0;
   -webkit-transition: 0.2s;
   transition: 0.2s;
+  background-color: #fff;
+  overflow: hidden;
 }
 
 .Home .Works .workList .WorkCard:hover {
-  -webkit-box-shadow: 0 0 11px 0 #00000073;
-          box-shadow: 0 0 11px 0 #00000073;
+  -webkit-box-shadow: 0 0 19px 4px #00000038;
+          box-shadow: 0 0 19px 4px #00000038;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+  z-index: 5;
+  border-radius: 5px;
+}
+
+@media screen and (max-width: 1300px) {
+  .Home .Works .workList .WorkCard:hover {
+    -webkit-transform: none;
+            transform: none;
+  }
 }
 
 .Home .Works .workList .WorkCard .image {
@@ -657,7 +686,7 @@ h3 {
 @media screen and (max-width: 750px) {
   .Home .Works .workList .WorkCard .image {
     margin: 40px;
-    max-width: 100%;
+    max-width: 100vw;
     margin-bottom: 10px;
   }
 }
@@ -680,7 +709,7 @@ h3 {
     margin: 0px;
     padding: 40px;
     padding-top: 10px;
-    max-width: 100%;
+    max-width: 100vw;
   }
 }
 
