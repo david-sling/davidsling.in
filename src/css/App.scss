@@ -205,6 +205,10 @@ h3 {
 
       .link {
         padding: 2em;
+        @media screen and (max-width: 950px) {
+          padding: 10px;
+          margin: 0 !important;
+        }
       }
 
       .link,
@@ -638,7 +642,8 @@ h3 {
         display: flex;
         flex-direction: row;
         padding: 0 20px;
-        margin-bottom: 50px;
+        margin: 0 auto 50px auto;
+        max-width: 500px;
 
         .one,
         .two {
@@ -659,7 +664,7 @@ h3 {
         }
 
         .inner {
-          padding: 10px !important ;
+          // padding: 10px !important ;
           height: 100%;
           display: flex;
           align-items: center;

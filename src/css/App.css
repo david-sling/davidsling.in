@@ -284,6 +284,13 @@ h3 {
   padding: 2em;
 }
 
+@media screen and (max-width: 950px) {
+  .Home .Hero .bottom .link {
+    padding: 10px;
+    margin: 0 !important;
+  }
+}
+
 .Home .Hero .bottom .link,
 .Home .Hero .bottom .arrowLine {
   display: -webkit-box;
@@ -903,7 +910,8 @@ h3 {
         -ms-flex-direction: row;
             flex-direction: row;
     padding: 0 20px;
-    margin-bottom: 50px;
+    margin: 0 auto 50px auto;
+    max-width: 500px;
   }
   .Home .Hero .bottom .one,
   .Home .Hero .bottom .two {
@@ -927,7 +935,6 @@ h3 {
     border-radius: 0 70px 70px 0;
   }
   .Home .Hero .bottom .inner {
-    padding: 10px !important;
     height: 100%;
     display: -webkit-box;
     display: -ms-flexbox;
