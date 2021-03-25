@@ -89,12 +89,12 @@ h3 {
 }
 
 .App {
-  width: 100vw;
+  width: 100%;
   overflow: hidden;
 }
 
 .AppBar {
-  width: 100vw;
+  width: 100%;
   background-color: white;
   position: fixed;
   top: 0;
@@ -310,6 +310,13 @@ h3 {
           animation: from360leftmargin 1s;
 }
 
+@media screen and (max-width: 950px) {
+  .Home .Hero .bottom .one {
+    -webkit-animation: none;
+            animation: none;
+  }
+}
+
 .Home .Hero .bottom .one .arrowLine {
   -webkit-transform: rotate(180deg);
           transform: rotate(180deg);
@@ -336,6 +343,13 @@ h3 {
   padding-right: 100px;
   -webkit-animation: from360rightmargin 1s;
           animation: from360rightmargin 1s;
+}
+
+@media screen and (max-width: 950px) {
+  .Home .Hero .bottom .two {
+    -webkit-animation: none;
+            animation: none;
+  }
 }
 
 .Home .Hero .bottom .two .link {
@@ -464,7 +478,7 @@ h3 {
     border-radius: 0;
     padding: 0;
     margin: 10px 0;
-    max-width: 100vw;
+    max-width: 100%;
   }
 }
 
@@ -643,7 +657,7 @@ h3 {
 @media screen and (max-width: 750px) {
   .Home .Works .workList .WorkCard .image {
     margin: 40px;
-    max-width: 100vw;
+    max-width: 100%;
     margin-bottom: 10px;
   }
 }
@@ -666,7 +680,7 @@ h3 {
     margin: 0px;
     padding: 40px;
     padding-top: 10px;
-    max-width: 100vw;
+    max-width: 100%;
   }
 }
 
@@ -696,7 +710,7 @@ h3 {
 
 .Contact {
   height: 100vh;
-  width: 100vw;
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -765,7 +779,7 @@ h3 {
     position: fixed;
     top: 0;
     height: 100vh;
-    width: 100vw;
+    width: 100%;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
