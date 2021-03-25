@@ -280,6 +280,10 @@ h3 {
   letter-spacing: 2px;
 }
 
+.Home .Hero .bottom .link {
+  padding: 2em;
+}
+
 .Home .Hero .bottom .link,
 .Home .Hero .bottom .arrowLine {
   display: -webkit-box;
@@ -324,7 +328,6 @@ h3 {
 
 .Home .Hero .bottom .one .inner {
   background-color: #0596ff;
-  padding: 2em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -361,7 +364,6 @@ h3 {
 
 .Home .Hero .bottom .two .inner {
   background-color: white;
-  padding: 2em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
