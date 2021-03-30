@@ -266,13 +266,14 @@ h3 {
   -webkit-transition: 0.2s;
   transition: 0.2s;
   cursor: pointer;
-  -webkit-box-shadow: 4px 5px 11px 0 #00000073, inset 0 0 0 0 #00000073;
-          box-shadow: 4px 5px 11px 0 #00000073, inset 0 0 0 0 #00000073;
+  -webkit-box-shadow: 9px 9px 8px 0 #0000003d, inset 0 0 0 0 #0000003d;
+          box-shadow: 9px 9px 8px 0 #0000003d, inset 0 0 0 0 #0000003d;
 }
 
 .Home .Hero .top .left button:hover, .Home .Hero .top .left button:focus {
-  -webkit-box-shadow: 0 0 0 0 #00000073, inset 4px 5px 11px 0 #00000073;
-          box-shadow: 0 0 0 0 #00000073, inset 4px 5px 11px 0 #00000073;
+  -webkit-box-shadow: 0 0 0 0 #0000003d, inset 9px 9px 8px 0 #0000003d;
+          box-shadow: 0 0 0 0 #0000003d, inset 9px 9px 8px 0 #0000003d;
+  outline: none;
 }
 
 @media screen and (max-width: 950px) {
@@ -532,7 +533,7 @@ h3 {
 }
 
 @media screen and (max-width: 1200px) {
-  .Home .Skills .skillsList {
+  .Home .Skills .skillsList .SkillCard {
     -webkit-box-shadow: #00000078 0 0 9px 0;
             box-shadow: #00000078 0 0 9px 0;
     border-radius: 0;
@@ -990,8 +991,32 @@ h3 {
     height: 250px;
     width: 250px;
   }
+  .AppBar header nav {
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .AppBar header nav * {
+    -webkit-transition: 0s;
+    transition: 0s;
+  }
   .AppBar header nav .navLink {
     height: 60%;
+  }
+  .AppBar header nav .navLink:hover .cover {
+    height: unset;
+  }
+  .AppBar header nav .navLink:hover .text {
+    color: white;
+  }
+  .AppBar header nav .navLink.active .text {
+    color: white;
+    background-color: #0596ff;
+    padding: 20px;
+  }
+  .AppBar header nav .navLink.active .cover {
+    height: 5px !important;
+    top: unset;
   }
   .Contact h4 {
     font-size: 15px;

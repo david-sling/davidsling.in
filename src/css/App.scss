@@ -195,10 +195,11 @@ h3 {
           border: none;
           transition: 0.2s;
           cursor: pointer;
-          box-shadow: 4px 5px 11px 0 #00000073, inset 0 0 0 0 #00000073;
+          box-shadow: 9px 9px 8px 0 #0000003d, inset 0 0 0 0 #0000003d;
           &:hover,
           &:focus {
-            box-shadow: 0 0 0 0 #00000073, inset 4px 5px 11px 0 #00000073;
+            box-shadow: 0 0 0 0 #0000003d, inset 9px 9px 8px 0 #0000003d;
+            outline: none;
           }
           @media screen and (max-width: 950px) {
             grid-gap: 0;
@@ -372,14 +373,14 @@ h3 {
           transition: 0.5s;
           transform: rotate(360deg);
         }
-      }
-      @media screen and (max-width: 1200px) {
-        box-shadow: #00000078 0 0 9px 0;
-        border-radius: 0;
-        padding: 0;
-        // flex-direction: row;
-        margin: 10px 0;
-        max-width: 100%;
+        @media screen and (max-width: 1200px) {
+          box-shadow: #00000078 0 0 9px 0;
+          border-radius: 0;
+          padding: 0;
+          // flex-direction: row;
+          margin: 10px 0;
+          max-width: 100%;
+        }
       }
 
       .border {
@@ -710,8 +711,33 @@ h3 {
     // animation: grow 1s !important;
   }
 
-  .AppBar header nav .navLink {
-    height: 60%;
+  .AppBar header nav {
+    justify-content: center;
+    * {
+      transition: 0s;
+    }
+    .navLink {
+      height: 60%;
+      &:hover {
+        .cover {
+          height: unset;
+        }
+        .text {
+          color: white;
+        }
+      }
+      &.active {
+        .text {
+          color: white;
+          background-color: $primary-color;
+          padding: 20px;
+        }
+        .cover {
+          height: 5px !important;
+          top: unset;
+        }
+      }
+    }
   }
 
   .Contact h4 {
