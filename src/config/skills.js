@@ -19,6 +19,8 @@ const skills = [
       "Socket.io",
       "Firebase",
       "SQL",
+      "AWS ec2",
+      "GitHub Actions",
     ],
   },
   {

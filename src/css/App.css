@@ -524,16 +524,9 @@ h3 {
   transition: 0.2s;
 }
 
-.Home .Skills .skillsList .SkillCard img {
+.Home .Skills .skillsList .SkillCard:hover img {
   -webkit-transition: 0.5s;
   transition: 0.5s;
-}
-
-.Home .Skills .skillsList .SkillCard:hover {
-  border-radius: 35px;
-}
-
-.Home .Skills .skillsList .SkillCard:hover img {
   -webkit-transform: rotate(360deg);
           transform: rotate(360deg);
 }

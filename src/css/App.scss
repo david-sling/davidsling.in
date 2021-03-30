@@ -368,14 +368,8 @@ h3 {
         flex-direction: column;
         align-items: center;
         transition: 0.2s;
-        img {
-          transition: 0.5s;
-        }
-        &:hover {
-          // box-shadow: inset #00000014 -15px -20px 0px 3px,
-          //   inset #ffffff 19px 20px 0px 2px;
-          border-radius: 35px;
-          img {
+        &:hover img {
+            transition: 0.5s;
             transform: rotate(360deg);
           }
         }
