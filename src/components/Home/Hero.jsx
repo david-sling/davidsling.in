@@ -6,6 +6,7 @@ import BlueArrow from "../../assets/blueArrow.svg";
 import BlueLine from "../../assets/blueLine.svg";
 import WhiteArrow from "../../assets/whiteArrow.svg";
 import WhiteLine from "../../assets/whiteLine.svg";
+import githubIcon from "../../assets/github.svg";
 
 export default function Hero() {
   return (
@@ -16,6 +17,12 @@ export default function Hero() {
             <p className="grey">Hi, I'm</p>
             <h1>DAVID</h1>
             <p className="primary">I build websites</p>
+            <a href="https://github.com/david-sling">
+              <button>
+                <p>See GitHub Profile</p>
+                <img src={githubIcon} alt="GitHub logo" />
+              </button>
+            </a>
           </div>
         </div>
         <div className="right">
