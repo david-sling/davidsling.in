@@ -1,24 +1,23 @@
 import starpolaris from "../assets/starpolaris.svg";
-// import krypton from "../assets/krypton.svg";
 import pebble from "../assets/pebble.svg";
 import flamebond from "../assets/flamebond.svg";
+import dreamcap from "../assets/dreamcap.svg";
 
 const works = [
   {
     image: pebble,
-    subHead: "MERN + Socket.io + Design",
+    subHead: "MERN + React-Native + Socket.io + Design",
     title: "Pebble",
-    description: "Pebble is a chat application currently under development",
+    description: "Pebble is a chat application built for the Web and android",
     link: "https://pebble.davidsling.in",
   },
-  // {
-  //   image: krypton,
-  //   subHead: "Frontend Development (React JS) + Design",
-  //   title: "Krypton (Under Construction)",
-  //   description:
-  //     "This page is currently under construction. It has 3 pages and smooth transitions via a trendy navbar",
-  //   link: "#none",
-  // },
+  {
+    image: dreamcap,
+    subHead: "HTML + CSS + Design",
+    title: "DREAMCAP",
+    description: "A fun project made for my friends using only HTML and CSS",
+    link: "https://dreamcap.netlify.app/",
+  },
   {
     image: flamebond,
     subHead: "Frontend Development (React JS) + Firebase + Design",
