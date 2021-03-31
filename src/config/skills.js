@@ -6,7 +6,14 @@ const skills = [
   {
     image: frontImg,
     title: "FRONTEND",
-    skills: ["React JS", "HTML", "CSS", "Javascript", "Typescript"],
+    skills: [
+      "React JS",
+      "React Native",
+      "HTML",
+      "CSS",
+      "Javascript",
+      "Typescript",
+    ],
   },
   {
     image: backImg,
