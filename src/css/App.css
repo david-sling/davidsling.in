@@ -605,7 +605,7 @@ h3 {
 
 @media screen and (max-width: 1200px) {
   .Home .Skills .skillsList ul.skills {
-    margin: 50px 100px;
+    margin: 50px;
   }
 }
 

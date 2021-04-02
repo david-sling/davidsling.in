@@ -426,9 +426,7 @@ h3 {
         margin-left: 50px;
         margin-bottom: 50px;
         @media screen and (max-width: 1200px) {
-          // margin: unset;
-          // align-self: unset;
-          margin: 50px 100px;
+          margin: 50px;
         }
         li {
           color: #424242;
