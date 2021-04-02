@@ -16,6 +16,7 @@ export default function AppBar({ pageNow, setPageNow, navOpen, setNavOpen }) {
         <nav className={navOpen ? "open" : null}>
           {nav.map((link) => (
             <Link
+              key={link.link}
               to={link.link}
               onClick={() => {
                 setPageNow(link.name);

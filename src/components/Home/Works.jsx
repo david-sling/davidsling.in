@@ -16,7 +16,7 @@ export default function Works() {
       </div>
       <div className="workList">
         {works.map((work, i = 0) => (
-          <WorkCard work={work} />
+          <WorkCard work={work} key={work.title} />
         ))}
       </div>
     </div>

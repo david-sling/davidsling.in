@@ -9,10 +9,11 @@ const skills = [
     skills: [
       "React JS",
       "React Native",
+      "Material UI",
+      "Typescript",
       "HTML",
       "CSS",
       "Javascript",
-      "Typescript",
     ],
   },
   {
@@ -33,7 +34,13 @@ const skills = [
   {
     image: designImg,
     title: "DESIGN",
-    skills: ["Figma", "Adobe Illustrator", "Adobe Photoshop", "Adobe XD"],
+    skills: [
+      "Figma",
+      "Adobe Illustrator",
+      "Adobe Photoshop",
+      "Adobe XD",
+      "LowPoly Illustration",
+    ],
   },
 ];
 
