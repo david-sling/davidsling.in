@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function WorkCard({ work }) {
   return (
-    <a href={work.link}>
+    <a href={work.link} target="_blank">
       <div className="WorkCard">
         <div className="image">
           <img src={work.image} alt={work.title + "-davidsling"} />

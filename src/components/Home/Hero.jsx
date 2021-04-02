@@ -17,7 +17,7 @@ export default function Hero() {
             <p className="grey">Hi, I'm</p>
             <h1>DAVID</h1>
             <p className="primary">I build websites</p>
-            <a href="https://github.com/david-sling">
+            <a href="https://github.com/david-sling" target="_blank">
               <button>
                 <p>See GitHub Profile</p>
                 <img src={githubIcon} alt="GitHub logo" />
