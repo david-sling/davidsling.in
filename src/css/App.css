@@ -115,16 +115,17 @@ h3 {
   display: none;
 }
 
-.AppBar header h2 {
+.AppBar header p {
   font-size: 25px;
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
   padding: 20px 0;
   text-align: center;
+  font-weight: 700;
 }
 
-.AppBar header h2 span {
+.AppBar header p span {
   color: #0596ff;
 }
 
@@ -1166,5 +1167,48 @@ h3 {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+}
+
+.NotFound {
+  height: 100vh;
+  width: 100%;
+  z-index: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.NotFound * {
+  text-align: center;
+}
+
+.NotFound h1 {
+  font-size: 5rem;
+  color: #0596ff;
+}
+
+.NotFound p {
+  font-size: 1rem;
+}
+
+.NotFound button {
+  margin: 20px;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  background-color: #0596ff;
+  border: none;
+  cursor: pointer;
 }
 /*# sourceMappingURL=App.css.map */

@@ -9,11 +9,11 @@ export default function AppBar({ pageNow, setPageNow, navOpen, setNavOpen }) {
   return (
     <div className="AppBar">
       <header>
-        <h2>
+        <p>
           <Link to="/">
             DAVID<span>SLING</span>
           </Link>
-        </h2>
+        </p>
         <img
           alt="menu"
           onClick={() => setNavOpen(true)}

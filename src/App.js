@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 //IMPORT ROUTES
 import AppBar from "./components/AppBar";
 import Loading from "./components/Loading";
+import NotFound from "./components/Home/NotFound";
 // import Home from "./components/Home/Home";
 // import Contact from "./components/Contact/Contact";
 
@@ -36,8 +37,8 @@ export default function App() {
               <Contact setPageNow={setPageNow} />
             </Suspense>
           </Route>
-          <Route path="/">
-            <h1>404</h1>
+          <Route path="/" status={404}>
+            <NotFound setPageNow={setPageNow} />
           </Route>
         </Switch>
       </Router>
