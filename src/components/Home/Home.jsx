@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Footer from "./Footer";
 
 import Hero from "./Hero";
 import Skills from "./Skills";
@@ -14,6 +15,7 @@ export default function Home({ setPageNow }) {
       <Hero />
       <Skills />
       <Works />
+      <Footer />
     </div>
   );
 }

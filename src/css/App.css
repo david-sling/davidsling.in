@@ -1093,4 +1093,62 @@ h3 {
     font-size: 15px;
   }
 }
+
+.Footer {
+  margin-top: 30px;
+  background-color: #0596ff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 50px;
+}
+
+.Footer h4 {
+  font-size: 2rem;
+  color: white;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.Footer a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.Footer button {
+  background-color: white;
+  border: none;
+  color: #0596ff;
+  padding: 10px 30px;
+  border-radius: 999px;
+  font-size: 1.7rem;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 0px 8px 0 #0000003d;
+          box-shadow: 0px 0px 8px 0 #0000003d;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.Footer button:hover, .Footer button:focus {
+  -webkit-box-shadow: 0 0 0 0 #0000003d;
+          box-shadow: 0 0 0 0 #0000003d;
+  letter-spacing: 5px;
+}
 /*# sourceMappingURL=App.css.map */

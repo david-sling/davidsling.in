@@ -794,3 +794,40 @@ h3 {
     font-size: 15px;
   }
 }
+
+.Footer {
+  margin-top: 30px;
+  background-color: $primary-color;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+  h4 {
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  button {
+    background-color: white;
+    border: none;
+    color: $primary-color;
+    padding: 10px 30px;
+    border-radius: 999px;
+    font-size: 1.7rem;
+    cursor: pointer;
+    box-shadow: 0px 0px 8px 0 #0000003d;
+    transition: 0.2s;
+    &:hover,
+    &:focus {
+      box-shadow: 0 0 0 0 #0000003d;
+      letter-spacing: 5px;
+    }
+  }
+}
