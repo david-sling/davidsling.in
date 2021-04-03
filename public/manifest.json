@@ -17,8 +17,7 @@
     {
       "src": "logo.jpg",
       "type": "image/jpg",
-      "sizes": "1080x1080",
-      "purpose": "any"
+      "sizes": "1080x1080"
     }
   ],
   "shortcuts": [
