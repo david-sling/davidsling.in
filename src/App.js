@@ -10,7 +10,7 @@ import Home from "./components/Home/Home";
 import Contact from "./components/Contact/Contact";
 
 export default function App() {
-  const [pageNow, setPageNow] = useState("HOME");
+  const [pageNow, setPageNow] = useState(null);
   const [navOpen, setNavOpen] = useState(false);
   return (
     <div className="App">
