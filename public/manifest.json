@@ -12,7 +12,13 @@
       "src": "splash.png",
       "type": "image/png",
       "sizes": "1080x1080",
-      "purpose": "splash any"
+      "purpose": "splash"
+    },
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "1080x1080",
+      "purpose": "any"
     },
     {
       "src": "logo.jpg",
