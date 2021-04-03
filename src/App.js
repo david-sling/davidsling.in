@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 //IMPORT ROUTES
 import AppBar from "./components/AppBar";
-import Loading from "./components/Home/Loading";
+import Loading from "./components/Loading";
 // import Home from "./components/Home/Home";
 // import Contact from "./components/Contact/Contact";
 
@@ -16,6 +16,7 @@ const Contact = lazy(() => import("./components/Contact/Contact"));
 export default function App() {
   const [pageNow, setPageNow] = useState(null);
   const [navOpen, setNavOpen] = useState(false);
+  // return <Loading />;
   return (
     <div className="App">
       <Router>
