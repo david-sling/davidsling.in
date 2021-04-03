@@ -5,16 +5,19 @@
     {
       "src": "logo.svg",
       "type": "image/svg",
+      "sizes": "1080x1080",
       "purpose": "maskable any"
     },
     {
       "src": "logo.png",
       "type": "image/png",
+      "sizes": "1080x1080",
       "purpose": "splash any"
     },
     {
       "src": "logo.jpg",
       "type": "image/jpg",
+      "sizes": "1080x1080",
       "purpose": "any"
     }
   ],
