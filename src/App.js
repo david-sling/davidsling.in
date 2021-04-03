@@ -1,6 +1,5 @@
 import React, { useState, lazy, Suspense } from "react";
 import "./css/App.css";
-
 //IMPORT LIBRARIES
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 

@@ -1,5 +1,5 @@
-import firebase from "./init";
+import firebase, { analytics } from "./init";
 import firestore from "./firestore";
 
 export default firebase;
-export { firestore };
+export { firestore, analytics };

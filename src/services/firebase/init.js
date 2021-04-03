@@ -5,6 +5,7 @@ import params from "../../config/firebase";
 
 firebase.initializeApp(params);
 
-firebase.analytics();
+const analytics = firebase.analytics();
 
 export default firebase;
+export { analytics };

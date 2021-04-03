@@ -2,6 +2,7 @@ import { TextField } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { firestore } from "../../services/firebase";
 import Alert from "../Alert";
+import { analytics } from "../../services/firebase";
 
 export default function Contact({ setPageNow }) {
   const [formData, setFormData] = useState({
@@ -16,6 +17,10 @@ export default function Contact({ setPageNow }) {
 
   useEffect(() => {
     setPageNow("CONTACT");
+    analytics.logEvent("event", "page_view", {
+      page_path: "/contact",
+      page_title: "CONTACT",
+    });
   }, []);
 
   const handleSubmit = async (e) => {
