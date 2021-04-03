@@ -1,15 +1,15 @@
 {
   "short_name": "David Sling",
-  "name": "David Sling | Web Developer / Designer",
+  "name": "David Sling",
   "icons": [
     {
-      "src": "logo.svg",
+      "src": "icon.svg",
       "type": "image/svg",
       "sizes": "1080x1080",
       "purpose": "maskable any"
     },
     {
-      "src": "logo.png",
+      "src": "splash.png",
       "type": "image/png",
       "sizes": "1080x1080",
       "purpose": "splash any"
