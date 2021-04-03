@@ -22,6 +22,12 @@
   ],
   "shortcuts": [
     {
+      "name": "David Sling",
+      "short_name": "Home",
+      "description": "See my work",
+      "url": "/"
+    },
+    {
       "name": "Contact David Sling",
       "short_name": "Contact",
       "description": "Let's get in touch",
