@@ -34,6 +34,9 @@ export default function Contact({ setPageNow }) {
       email: "",
       message: "",
     });
+    analytics.logEvent("event", "screen_view", {
+      screen_name: "Contact info submitted",
+    });
   };
 
   return (
