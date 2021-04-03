@@ -5,11 +5,12 @@
     {
       "src": "logo.svg",
       "type": "image/svg",
-      "purpose": "any"
+      "purpose": "maskable any"
     },
     {
       "src": "logo.png",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "splash any"
     },
     {
       "src": "logo.jpg",
