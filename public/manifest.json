@@ -12,7 +12,16 @@
     },
     {
       "src": "logo.jpg",
-      "type": "image/jpg"
+      "type": "image/jpg",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Contact David Sling",
+      "short_name": "Contact",
+      "description": "Let's get in touch",
+      "url": "/contact"
     }
   ],
   "start_url": "/",
