@@ -90,6 +90,9 @@ h3 {
       padding: 20px 0;
       text-align: center;
       font-weight: 700;
+      @media screen and (max-width: 950px) {
+        padding: 5px 0;
+      }
 
       span {
         color: $primary-color;
