@@ -6,16 +6,16 @@
       "src": "icon.svg",
       "type": "image/svg",
       "sizes": "1080x1080",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "splash.png",
-      "type": "image/png",
-      "sizes": "1080x1080",
-      "purpose": "splash"
+      "purpose": "maskable"
     },
     {
       "src": "icon.png",
+      "type": "image/png",
+      "sizes": "1080x1080",
+      "purpose": "maskable"
+    },
+    {
+      "src": "splash.png",
       "type": "image/png",
       "sizes": "1080x1080",
       "purpose": "any"
