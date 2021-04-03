@@ -5,7 +5,7 @@ export default function SkillCard({ skill }) {
     <div className="SkillCard">
       {/* <div className="border"></div> */}
       <div className="image">
-        <img src={skill.image} alt="" />
+        <img src={skill.image} alt={skill.title} />
       </div>
       <h4>{skill.title}</h4>
       <ul className="skills">

@@ -14,7 +14,12 @@ export default function AppBar({ pageNow, setPageNow, navOpen, setNavOpen }) {
             DAVID<span>SLING</span>
           </Link>
         </h2>
-        <img onClick={() => setNavOpen(true)} src={menu} className="menu" />
+        <img
+          alt="menu"
+          onClick={() => setNavOpen(true)}
+          src={menu}
+          className="menu"
+        />
         <nav className={navOpen ? "open" : null}>
           {nav.map((link) => (
             <Link
@@ -35,7 +40,7 @@ export default function AppBar({ pageNow, setPageNow, navOpen, setNavOpen }) {
           ))}
           <div className="close" onClick={() => setNavOpen(false)}>
             {" "}
-            <img src={close} />{" "}
+            <img alt="close" src={close} />{" "}
           </div>
         </nav>
       </header>

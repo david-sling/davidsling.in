@@ -36,8 +36,8 @@ export default function Hero() {
               <div className="link">
                 <h4>MY SKILLS</h4>
                 <div className="arrowLine">
-                  <img className="arrow" src={WhiteArrow} alt="" />
-                  <img className="line" src={WhiteLine} alt="" />
+                  <img className="arrow" src={WhiteArrow} alt="arrow" />
+                  <img className="line" src={WhiteLine} alt="line" />
                 </div>
               </div>
             </a>
@@ -49,8 +49,8 @@ export default function Hero() {
               <div className="link">
                 <h4>MY WORK</h4>
                 <div className="arrowLine">
-                  <img className="arrow" src={BlueArrow} alt="" />
-                  <img className="line" src={BlueLine} alt="" />
+                  <img className="arrow" src={BlueArrow} alt="arrow" />
+                  <img className="line" src={BlueLine} alt="line" />
                 </div>
               </div>
             </a>
