@@ -29,16 +29,30 @@
   ],
   "shortcuts": [
     {
-      "name": "David Sling",
-      "short_name": "Home",
+      "name": "Home",
       "description": "See my work",
-      "url": "/"
+      "url": "/",
+      "icons": [
+        {
+          "src": "home.png",
+          "sizes": "24x24",
+          "type": "image/png",
+          "purpose": "any"
+        }
+      ]
     },
     {
-      "name": "Contact David Sling",
-      "short_name": "Contact",
+      "name": "Contact",
       "description": "Let's get in touch",
-      "url": "/contact"
+      "url": "/contact",
+      "icons": [
+        {
+          "src": "contact.png",
+          "sizes": "24x24",
+          "type": "image/png",
+          "purpose": "any"
+        }
+      ]
     }
   ],
   "start_url": "/",
