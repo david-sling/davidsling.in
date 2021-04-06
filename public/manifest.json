@@ -31,7 +31,7 @@
     {
       "name": "Home",
       "description": "See my work",
-      "url": "/",
+      "url": "https://davidsling.in",
       "icons": [
         {
           "src": "home.png",
@@ -44,7 +44,7 @@
     {
       "name": "Contact",
       "description": "Let's get in touch",
-      "url": "/contact",
+      "url": "https://davidsling.in/contact",
       "icons": [
         {
           "src": "contact.png",

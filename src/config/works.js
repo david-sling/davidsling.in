@@ -3,6 +3,7 @@ import flamebond from "../assets/flamebond.svg";
 import davidslingadmin from "../assets/davidslingadmin.svg";
 import dreamcap from "../assets/dreamcap.svg";
 import abrahams from "../assets/abrahams.svg";
+import itag from "../assets/itag.svg";
 
 const works = [
   {
@@ -41,6 +42,13 @@ const works = [
     title: "Abraham's Associates",
     description: "Abrahams's associates is a trading and service company.",
     link: "https://www.instagram.com/abrahamsasociates/",
+  },
+  {
+    image: itag,
+    subHead: "LOGO Design",
+    title: "I-Tag",
+    description:
+      "A logo prototype for a web development company that has 'I' in their name. The <i> tag in HTML is used to italicize text. This creative logo is tilted to represent this.",
   },
 ];
 
