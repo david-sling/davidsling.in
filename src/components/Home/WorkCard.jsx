@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-
-import { Link } from "react-router-dom";
+import Loading from "../Loading";
 import ReactVisibilitySensor from "react-visibility-sensor";
 
 export default function WorkCard({ work }) {
@@ -17,8 +16,10 @@ export default function WorkCard({ work }) {
           }}
         >
           <div className="image">
-            {imageLoaded && (
+            {imageLoaded ? (
               <img src={work.image} alt={work.title + "-davidsling"} />
+            ) : (
+              <Loading />
             )}
           </div>
         </ReactVisibilitySensor>
