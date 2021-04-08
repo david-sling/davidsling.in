@@ -14,9 +14,9 @@ export default function Hero() {
       <div className="top">
         <div className="left">
           <div className="text">
-            <p className="grey">Hi, I'm</p>
+            <p className="grey">Hey, I'm</p>
             <h1>DAVID</h1>
-            <p className="primary">I build websites</p>
+            <p className="primary">I Design and Build Websites</p>
             <a href="https://github.com/david-sling" target="_blank">
               <button>
                 <p>See GitHub Profile</p>
