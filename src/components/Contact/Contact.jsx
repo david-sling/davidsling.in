@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { firestore } from "../../services/firebase";
 import Alert from "../Alert";
 import { analytics } from "../../services/firebase";
+import contact from "../../config/contact";
 
 export default function Contact({ setPageNow }) {
   const [formData, setFormData] = useState({
@@ -45,6 +46,7 @@ export default function Contact({ setPageNow }) {
         <div className="circle one"></div>
         <div className="circle two"></div>
         <form action="submit" onSubmit={handleSubmit}>
+          <h1>Lets's get in touch!</h1>
           <TextField
             label="Name"
             required
@@ -86,12 +88,11 @@ export default function Contact({ setPageNow }) {
           />
           <button type="submit">SUBMIT</button>
           <div className="details">
-            <a href="tel:+918072539328">
-              <h4>+91 80725 39328</h4>
-            </a>
-            <a href="mailto:sddavid.johan@gmail.com">
-              <h4>sddavid.johan@gmail.com</h4>
-            </a>
+            {contact.map((item) => (
+              <a href={item.link} target="_blank">
+                <h4>{item.content}</h4>
+              </a>
+            ))}
           </div>
         </form>
       </div>

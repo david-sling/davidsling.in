@@ -815,6 +815,12 @@ h3 {
   overflow: hidden;
 }
 
+.Contact h1 {
+  color: #0596ff;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 .Contact form {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -864,6 +870,11 @@ h3 {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 @media screen and (max-width: 950px) {
@@ -876,10 +887,8 @@ h3 {
 }
 
 .Contact form .details a {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
   text-align: center;
+  margin: 0 5px 5px 5px;
 }
 
 .Contact form .details a:hover {

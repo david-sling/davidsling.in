@@ -559,6 +559,11 @@ h3 {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  h1 {
+    color: $primary-color;
+    text-align: center;
+    margin-bottom: 20px;
+  }
 
   form {
     display: flex;
@@ -596,12 +601,14 @@ h3 {
     }
     .details {
       display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
       @media screen and (max-width: 950px) {
         flex-direction: column;
       }
       a {
-        flex: 1;
         text-align: center;
+        margin: 0 5px 5px 5px;
         &:hover {
           color: $primary-color;
           text-decoration: underline;
