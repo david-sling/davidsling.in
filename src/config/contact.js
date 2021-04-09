@@ -13,7 +13,7 @@ const contact = [
   },
   {
     content: "GitHub@david-sling",
-    link: "https://www.linkedin.com/in/david-sling/",
+    link: "https://github.com/david-sling/",
   },
 ];
 
