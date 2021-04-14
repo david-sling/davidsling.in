@@ -1,4 +1,5 @@
 import pebble from "../assets/pebble.svg";
+import mimic from "../assets/mimic.svg";
 import flamebond from "../assets/flamebond.svg";
 import davidslingadmin from "../assets/davidslingadmin.svg";
 import dreamcap from "../assets/dreamcap.svg";
@@ -6,6 +7,14 @@ import abrahams from "../assets/abrahams.svg";
 import itag from "../assets/itag.svg";
 
 const works = [
+  {
+    image: mimic,
+    subHead: "LOGO Design + React JS",
+    title: "mimic-react-native",
+    description:
+      "Mimic is a npm package. It can be used to mimic react-native components in react-dom",
+    link: "https://www.npmjs.com/package/mimic-react-native",
+  },
   {
     image: pebble,
     subHead: "LOGO Design + MERN + React-Native + Socket.io",
