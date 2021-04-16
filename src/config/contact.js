@@ -1,9 +1,5 @@
 const contact = [
   {
-    content: "+91 80725 39328",
-    link: "tel:+918072539328",
-  },
-  {
     content: "sddavid.johan@gmail.com",
     link: "mailto:sddavid.johan@gmail.com",
   },
