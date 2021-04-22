@@ -4,6 +4,7 @@ import { firestore } from "../../services/firebase";
 import Alert from "../Alert";
 import { analytics } from "../../services/firebase";
 import contact from "../../config/contact";
+import MuiPhoneNumber from "material-ui-phone-number";
 
 export default function Contact({ setPageNow }) {
   const [formData, setFormData] = useState({
@@ -56,15 +57,15 @@ export default function Contact({ setPageNow }) {
               setFormData({ ...formData, name: value })
             }
           />
-          <TextField
-            label="Phone Number"
+          <MuiPhoneNumber
+            name="phone"
             required
-            type="number"
+            label="Phone Number"
+            data-cy="user-phone"
+            defaultCountry={"in"}
             variant="filled"
             value={formData.ph}
-            onChange={({ target: { value } }) =>
-              setFormData({ ...formData, ph: value })
-            }
+            onChange={(value) => setFormData({ ...formData, ph: value })}
           />
           <TextField
             label="E-mail"
@@ -86,7 +87,13 @@ export default function Contact({ setPageNow }) {
               setFormData({ ...formData, message: value })
             }
           />
-          <button type="submit">SUBMIT</button>
+          <button
+            id="button"
+            className={successMessage && "sent"}
+            type="submit"
+          >
+            {successMessage ? "SENT" : "SUBMIT"}
+          </button>
           <div className="details">
             {contact.map((item) => (
               <a href={item.link} target="_blank">

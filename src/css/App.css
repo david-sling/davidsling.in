@@ -670,6 +670,14 @@ h3 {
           flex-direction: column;
 }
 
+.Works .workList a {
+  z-index: 1;
+}
+
+.Works .workList a:hover {
+  z-index: 5;
+}
+
 .Works .workList a:nth-child(even) .WorkCard {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: reverse;
@@ -825,7 +833,7 @@ h3 {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin: 50px 0;
+  margin: 100px 0 50px 0;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -844,7 +852,7 @@ h3 {
   margin-bottom: 20px;
 }
 
-.Contact form button {
+.Contact form #button {
   background-color: #0596ff;
   color: white;
   border: none;
@@ -857,13 +865,21 @@ h3 {
   margin-bottom: 30px;
 }
 
-.Contact form button:hover, .Contact form button:focus {
+.Contact form #button:hover, .Contact form #button:focus {
   outline: none;
   letter-spacing: 10px;
   color: #0596ff;
   background-color: white;
   -webkit-box-shadow: inset 9px 9px 8px 0 #0000003d;
           box-shadow: inset 9px 9px 8px 0 #0000003d;
+}
+
+.Contact form #button.sent {
+  background-color: #4caf50;
+  color: white;
+  cursor: not-allowed;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .Contact form .details {
