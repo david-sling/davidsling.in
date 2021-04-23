@@ -66,7 +66,8 @@ const works = [
     title: "Low - Poly Illustrations",
     description:
       "I have made a few more similar designs. click here to see them",
-    link: "https://instagram.com/thevectorator",
+    link:
+      "https://www.instagram.com/thevectorator/guide/a-collection-of-my-low-poly-illustrations/17881633106272294/",
   },
 ];
 
