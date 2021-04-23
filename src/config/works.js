@@ -5,6 +5,7 @@ import davidslingadmin from "../assets/davidslingadmin.svg";
 import dreamcap from "../assets/dreamcap.svg";
 import abrahams from "../assets/abrahams.svg";
 import itag from "../assets/itag.svg";
+import lowpoly from "../assets/lowpoly.png";
 
 const works = [
   {
@@ -58,6 +59,14 @@ const works = [
     title: "I-Tag",
     description:
       "A logo prototype for a web development company that has 'I' in their name. The <i> tag in HTML is used to italicize text. This creative logo is tilted to represent this.",
+  },
+  {
+    image: lowpoly,
+    subHead: "Adobe Illustrator",
+    title: "Low - Poly Illustrations",
+    description:
+      "I have made a few more similar designs. click here to see them",
+    link: "https://instagram.com/thevectorator",
   },
 ];
 
