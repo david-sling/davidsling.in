@@ -40,7 +40,7 @@ const works = [
   },
   {
     image: davidslingadmin,
-    subHead: "LOGO Design + Develpment",
+    subHead: "LOGO Design + Development",
     title: "Admin panel for davidsling.in",
     description:
       "An admin panel to view messages sent from davidsling.in/contact. This app is built using the above project, 'Flame Bond'. You can see the login page by clicking here, but you cannot login.",
