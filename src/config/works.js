@@ -35,16 +35,16 @@ const works = [
     subHead: "LOGO Design + React JS + Firebase",
     title: "Flame Bond",
     description:
-      "A reusable content management system that connects React js with firebase.",
-    link: "https://github.com/david-sling/flame-bond",
+      "A reusable content management system that supports multi-user login with seperate databases for each user. It can generate GET, GET ONE, POST, PATCH and DELETE endpoints for each route. The content owner can select which routes to make public",
+    link: "https://flamebond.davidsling.in",
   },
   {
     image: davidslingadmin,
     subHead: "LOGO Design + Development",
     title: "Admin panel for davidsling.in",
     description:
-      "An admin panel to view messages sent from davidsling.in/contact. This app is built using the above project, 'Flame Bond'. You can see the login page by clicking here, but you cannot login.",
-    link: "https://admin.davidsling.in",
+      "An admin panel to view messages sent from davidsling.in/contact. This app is built by cloning and making changes to the above project, 'Flame Bond'. You can see the login page by click here to see source code. The panel is live at admin.davidsling.in",
+    link: "https://github.com/david-sling/davidsling-admin",
   },
   {
     image: abrahams,
