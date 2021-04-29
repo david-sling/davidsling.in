@@ -43,7 +43,7 @@ const works = [
     subHead: "LOGO Design + Development",
     title: "Admin panel for davidsling.in",
     description:
-      "An admin panel to view messages sent from davidsling.in/contact. This app is built by cloning and making changes to the above project, 'Flame Bond'. You can see the login page by click here to see source code. The panel is live at admin.davidsling.in",
+      "An admin panel to view messages sent from davidsling.in/contact. This app is built by cloning and making changes to the above project, 'Flame Bond'. Click here to see source code. The panel is live at admin.davidsling.in",
     link: "https://github.com/david-sling/davidsling-admin",
   },
   {
