@@ -2,7 +2,6 @@ import pebble from "../assets/pebble.svg";
 import mimic from "../assets/mimic.svg";
 import flamebond from "../assets/flamebond.svg";
 import davidslingadmin from "../assets/davidslingadmin.svg";
-import dreamcap from "../assets/dreamcap.svg";
 import abrahams from "../assets/abrahams.svg";
 import itag from "../assets/itag.svg";
 import lowpoly from "../assets/lowpoly.png";
@@ -22,13 +21,6 @@ const works = [
     title: "Pebble",
     description: "Pebble is a chat application built for the Web and android.",
     link: "https://pebble.davidsling.in",
-  },
-  {
-    image: dreamcap,
-    subHead: "HTML + CSS + Design",
-    title: "DREAMCAP",
-    description: "A fun project made for my friends using only HTML and CSS.",
-    link: "https://dreamcap.netlify.app/",
   },
   {
     image: flamebond,
