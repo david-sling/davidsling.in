@@ -10,6 +10,14 @@ import navigatelabs from "../assets/navigatelabs.svg";
 
 const works = [
   {
+    image: flamebond,
+    subHead: "Logo Design + React JS + Firebase",
+    title: "Flame Bond",
+    description:
+      "A reusable content management system that supports multi-user login with seperate databases for each user. It can generate GET, GET ONE, POST, PATCH and DELETE endpoints for each route. The content owner can select which routes to make public",
+    link: "https://flamebond.davidsling.in",
+  },
+  {
     image: mimic,
     subHead: "Logo Design + React JS",
     title: "mimic-react-native",
@@ -23,14 +31,6 @@ const works = [
     title: "Pebble",
     description: "Pebble is a chat application built for the Web and android.",
     link: "https://pebble.davidsling.in",
-  },
-  {
-    image: flamebond,
-    subHead: "Logo Design + React JS + Firebase",
-    title: "Flame Bond",
-    description:
-      "A reusable content management system that supports multi-user login with seperate databases for each user. It can generate GET, GET ONE, POST, PATCH and DELETE endpoints for each route. The content owner can select which routes to make public",
-    link: "https://flamebond.davidsling.in",
   },
   {
     image: codeeditor,
