@@ -7,6 +7,7 @@ import BlueLine from "../../assets/blueLine.svg";
 import WhiteArrow from "../../assets/whiteArrow.svg";
 import WhiteLine from "../../assets/whiteLine.svg";
 import githubIcon from "../../assets/github.svg";
+import LogoAnim from "./LogoAnim";
 
 export default function Hero() {
   return (
@@ -26,7 +27,7 @@ export default function Hero() {
           </div>
         </div>
         <div className="right">
-          <img src={Logo} alt="David Sling Logo" />
+          <LogoAnim />
         </div>
       </div>
       <div className="bottom">

@@ -1,0 +1,106 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ParticleSlider</title>
+  </head>
+  <body id="particle-slider">
+    <style>
+      html,
+      body {
+        background-color: #0596ff;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      .slides,
+      .dg {
+        display: none;
+      }
+    </style>
+    <div id="abc"></div>
+
+    <div class="slides">
+      <div
+        id="first-slide"
+        class="slide"
+        data-src="data:image/png;base64,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"
+      ></div>
+    </div>
+    <canvas class="draw"></canvas>
+    <script>
+      // Tamino Martinius - All rights reserved
+
+      // Copyright © 2013 Tamino Martinius (http://zaku.eu)
+      // Copyright © 2013 Particleslider.com (http://particleslider.com
+
+      // Terms of usage: http://particleslider.com/legal/license
+
+      var init = function () {
+        var isMobile =
+          navigator.userAgent &&
+          navigator.userAgent.toLowerCase().indexOf("mobile") >= 0;
+        var isSmall = window.innerWidth < 1000;
+
+        var ps = new ParticleSlider({
+          ptlGap: isMobile || isSmall ? 0 : 0,
+          ptlSize: isMobile || isSmall ? 0 : 1,
+          width: 1e9,
+          height: 1e9,
+        });
+
+        var gui = new dat.GUI();
+        gui
+          .add(ps, "ptlGap")
+          .min(0)
+          .max(5)
+          .step(1)
+          .onChange(function () {
+            ps.init(true);
+          });
+        gui
+          .add(ps, "ptlSize")
+          .min(1)
+          .max(5)
+          .step(1)
+          .onChange(function () {
+            ps.init(true);
+          });
+        gui.add(ps, "restless");
+        gui.addColor(ps, "color").onChange(function (value) {
+          ps.monochrome = true;
+          ps.setColor(value);
+          ps.init(true);
+        });
+
+        window.addEventListener
+          ? window.addEventListener(
+              "click",
+              function () {
+                ps.init(true);
+              },
+              false
+            )
+          : (window.onclick = function () {
+              ps.init(true);
+            });
+      };
+
+      var initParticleSlider = (function () {
+        var psScript = document.createElement("script");
+        psScript.addEventListener
+          ? psScript.addEventListener("load", init, false)
+          : (psScript.onload = init);
+        psScript.src =
+          "https://s3-us-west-2.amazonaws.com/s.cdpn.io/23500/ps-0.9.js";
+        psScript.setAttribute("type", "text/javascript");
+        document.body.appendChild(psScript);
+      })(
+        window.addEventListener
+          ? window.addEventListener("load", initParticleSlider, false)
+          : (window.onload = initParticleSlider)
+      );
+    </script>
+  </body>
+</html>
