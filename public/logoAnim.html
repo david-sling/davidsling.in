@@ -18,6 +18,10 @@
       .dg {
         display: none;
       }
+      canvas {
+        padding-left: 10px;
+        transform: scale(1.2);
+      }
     </style>
     <div id="abc"></div>
 
@@ -44,8 +48,8 @@
         var isSmall = window.innerWidth < 1000;
 
         var ps = new ParticleSlider({
-          ptlGap: isMobile || isSmall ? 0 : 0,
-          ptlSize: isMobile || isSmall ? 0 : 1,
+          ptlGap: 0,
+          ptlSize: 0.75,
           width: 1e9,
           height: 1e9,
         });

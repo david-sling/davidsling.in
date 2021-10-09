@@ -6,7 +6,11 @@ export default function LogoAnim() {
   return (
     <>
       <iframe
-        style={{ width: "100%", height: "100%", border: "none" }}
+        style={{
+          width: "100%",
+          height: "100%",
+          border: "none",
+        }}
         src={`${
           dev ? "http://localhost:3000" : "https://davidsling.in"
         }/logoAnim.html`}
