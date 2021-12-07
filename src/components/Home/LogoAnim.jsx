@@ -1,7 +1,5 @@
 import React, { useEffect, useLayoutEffect } from "react";
 
-const dev = process.env.NODE_ENV === "development";
-
 export default function LogoAnim() {
   return (
     <>
@@ -12,7 +10,9 @@ export default function LogoAnim() {
           border: "none",
         }}
         src={`${
-          dev ? "http://localhost:3000" : "https://davidsling.in"
+          process.env.NODE_ENV === "development"
+            ? "http://localhost:3000"
+            : "https://davidsling.in"
         }/logoAnim.html`}
       />
     </>
