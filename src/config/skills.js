@@ -14,6 +14,8 @@ const skills = [
       "HTML",
       "CSS",
       "Javascript",
+      "Web3.js",
+      "Metamask",
     ],
   },
   {

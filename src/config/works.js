@@ -60,7 +60,6 @@ const works = [
     subHead: "Logo Design",
     title: "Abraham's Associates",
     description: "Abrahams's associates is a trading and service company.",
-    link: "https://www.instagram.com/abrahamsasociates/",
   },
   {
     image: itag,
