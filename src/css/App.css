@@ -533,11 +533,19 @@ h3 {
   transition: 0.2s;
 }
 
-.Home .Skills .skillsList .SkillCard:hover img {
+.Home .Skills .skillsList .SkillCard img {
   -webkit-transition: 0.5s;
   transition: 0.5s;
-  -webkit-transform: rotate(360deg);
-          transform: rotate(360deg);
+}
+
+.Home .Skills .skillsList .SkillCard.BACKEND:hover img {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.Home .Skills .skillsList .SkillCard.FRONTEND:hover img, .Home .Skills .skillsList .SkillCard.DESIGN:hover img {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
 }
 
 @media screen and (max-width: 1200px) {

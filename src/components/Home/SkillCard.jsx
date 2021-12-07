@@ -2,8 +2,7 @@ import React from "react";
 
 export default function SkillCard({ skill }) {
   return (
-    <div className="SkillCard">
-      {/* <div className="border"></div> */}
+    <div className={["SkillCard", skill.title].join(" ")}>
       <div className="image">
         <img src={skill.image} alt={skill.title} />
       </div>
