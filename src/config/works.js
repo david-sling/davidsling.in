@@ -7,6 +7,7 @@ import itag from "../assets/itag.svg";
 import lowpoly from "../assets/lowpoly.png";
 import codeeditor from "../assets/codeeditor.svg";
 import navigatelabs from "../assets/navigatelabs.svg";
+import incdecentral from "../assets/incdecentral.svg";
 
 const works = [
   {
@@ -31,6 +32,14 @@ const works = [
     title: "Pebble",
     description: "Pebble is a chat application built for the Web and android.",
     link: "https://pebble.davidsling.in",
+  },
+  {
+    image: incdecentral,
+    subHead: "React JS",
+    title: "IncDecentral",
+    description:
+      "IncDecentral is a service that makes business filing easier. This is one of the biggest projects we built at Trademarkia. My role was to build the entire frontend using React JS",
+    link: "https://orders.incdecentral.com",
   },
   {
     image: codeeditor,
