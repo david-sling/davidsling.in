@@ -5,7 +5,7 @@ import ReactVisibilitySensor from "react-visibility-sensor";
 export default function WorkCard({ work }) {
   const [imageLoaded, setImageLoaded] = useState(false);
   return (
-    <a href={work.link} target="_blank">
+    <a href={work.link} target="_blank" rel="noreferrer">
       <div className="WorkCard">
         <ReactVisibilitySensor
           onChange={(isVisible) => {

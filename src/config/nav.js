@@ -1,13 +1,6 @@
 const nav = [
-  {
-    name: "HOME",
-    link: "/",
-  },
-
-  {
-    name: "CONTACT",
-    link: "/contact",
-  },
+  { name: "HOME", link: "/" },
+  { name: "CONTACT", link: "/contact" },
 ];
 
 export default nav;

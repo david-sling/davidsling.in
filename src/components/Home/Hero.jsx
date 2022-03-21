@@ -1,7 +1,4 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
-import Logo from "../../assets/logo-white.svg";
 import BlueArrow from "../../assets/blueArrow.svg";
 import BlueLine from "../../assets/blueLine.svg";
 import WhiteArrow from "../../assets/whiteArrow.svg";
@@ -18,7 +15,11 @@ export default function Hero() {
             <p className="grey">Hey, I'm</p>
             <h1>DAVID</h1>
             <p className="primary">I Design and Build Websites</p>
-            <a href="https://github.com/david-sling" target="_blank">
+            <a
+              href="https://github.com/david-sling"
+              target="_blank"
+              rel="noreferrer"
+            >
               <button>
                 <p>See GitHub Profile</p>
                 <img src={githubIcon} alt="GitHub logo" />

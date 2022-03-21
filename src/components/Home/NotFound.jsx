@@ -9,7 +9,7 @@ export default function NotFound({ setPageNow }) {
       page_path: "/404",
       page_title: "NOT FOUND",
     });
-  }, []);
+  }, [setPageNow]);
   return (
     <div className="NotFound">
       <h1>404</h1>

@@ -13,7 +13,7 @@ export default function Home({ setPageNow }) {
       page_path: "/",
       page_title: "HOME",
     });
-  }, []);
+  }, [setPageNow]);
 
   return (
     <div className="Home">
