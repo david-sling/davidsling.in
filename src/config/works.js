@@ -8,8 +8,17 @@ import lowpoly from "../assets/lowpoly.png";
 import codeeditor from "../assets/codeeditor.svg";
 import navigatelabs from "../assets/navigatelabs.svg";
 import incdecentral from "../assets/incdecentral.svg";
+import cryptosender from "../assets/cryptosender.svg";
 
 const works = [
+  {
+    image: cryptosender,
+    subHead: "React JS + Ethers JS",
+    title: "Cryptosender",
+    description:
+      "A defi application to send WBTC, ETH and MATIC to multiple wallets at the same time",
+    link: "https://cryptosender.davidsling.in",
+  },
   {
     image: flamebond,
     subHead: "Logo Design + React JS + Firebase",
@@ -83,8 +92,7 @@ const works = [
     title: "Low - Poly Illustrations",
     description:
       "I have made a few more similar designs. click here to see them",
-    link:
-      "https://www.instagram.com/thevectorator/guide/a-collection-of-my-low-poly-illustrations/17881633106272294/",
+    link: "https://www.instagram.com/thevectorator/guide/a-collection-of-my-low-poly-illustrations/17881633106272294/",
   },
 ];
 
