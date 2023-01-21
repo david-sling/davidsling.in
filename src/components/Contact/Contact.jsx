@@ -5,8 +5,10 @@ import Alert from "../Alert";
 import { analytics } from "../../services/firebase";
 import contact from "../../config/contact";
 import MuiPhoneNumber from "material-ui-phone-number";
+import { useHistory } from "react-router-dom";
 
 export default function Contact({ setPageNow }) {
+  const { push } = useHistory();
   const [formData, setFormData] = useState({
     name: "",
     ph: "",
@@ -39,6 +41,7 @@ export default function Contact({ setPageNow }) {
     analytics.logEvent("event", "screen_view", {
       screen_name: "Contact info submitted",
     });
+    push("/contact?requested=true");
   };
 
   return (
