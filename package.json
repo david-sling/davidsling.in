@@ -10,7 +10,7 @@
     "@testing-library/user-event": "^12.6.0",
     "firebase": "^8.3.1",
     "material-ui-phone-number": "^2.2.6",
-    "node-sass": "^5.0.0",
+    "sass": "^1.57.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-dotenv": "^0.1.3",

@@ -5,6 +5,7 @@ import WhiteArrow from "../../assets/whiteArrow.svg";
 import WhiteLine from "../../assets/whiteLine.svg";
 import githubIcon from "../../assets/github.svg";
 import LogoAnim from "./LogoAnim";
+import { Link } from "react-router-dom";
 
 export default function Hero() {
   return (
@@ -15,16 +16,11 @@ export default function Hero() {
             <p className="grey">Hey, I'm</p>
             <h1>DAVID</h1>
             <p className="primary">I Design and Build Websites</p>
-            <a
-              href="https://github.com/david-sling"
-              target="_blank"
-              rel="noreferrer"
-            >
+            <Link href="/contact">
               <button>
-                <p>See GitHub Profile</p>
-                <img src={githubIcon} alt="GitHub logo" />
+                <p>Let's Talk</p>
               </button>
-            </a>
+            </Link>
           </div>
         </div>
         <div className="right">

@@ -190,15 +190,13 @@ h3 {
           letter-spacing: 1.5rem;
         }
         button {
-          display: grid;
-          grid-template-columns: auto auto;
-          place-items: center;
-          grid-gap: 20px;
+          display: flex;
           padding: 15px 20px;
+          background: $primary-color;
           margin-top: 20px;
-          background-color: white;
           border: none;
           transition: 0.2s;
+          border-radius: 8px;
           cursor: pointer;
           box-shadow: 9px 9px 8px 0 #0000003d, inset 0 0 0 0 #0000003d;
           &:hover,
@@ -216,6 +214,9 @@ h3 {
           }
           p {
             font-size: 1.2rem;
+            flex: 1;
+            text-align: center;
+            color: white;
           }
           img {
             height: 40px;
