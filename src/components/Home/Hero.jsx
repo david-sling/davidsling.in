@@ -16,7 +16,7 @@ export default function Hero() {
             <p className="grey">Hey, I'm</p>
             <h1>DAVID</h1>
             <p className="primary">I Design and Build Websites</p>
-            <Link href="/contact">
+            <Link to="/contact">
               <button>
                 <p>Let's Talk</p>
               </button>
