@@ -208,10 +208,6 @@ h3 {
   .Home .Hero .top .left button {
     grid-gap: 0;
     padding: 10px;
-    border-radius: 50%;
-  }
-  .Home .Hero .top .left button p {
-    display: none;
   }
 }
 .Home .Hero .top .left button p {
