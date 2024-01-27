@@ -9,8 +9,17 @@ import codeeditor from "../assets/codeeditor.svg";
 import navigatelabs from "../assets/navigatelabs.svg";
 import incdecentral from "../assets/incdecentral.svg";
 import cryptosender from "../assets/cryptosender.svg";
+import trademarkia from "../assets/trademarkia.svg";
 
 const works = [
+  {
+    image: trademarkia,
+    subHead: "Next JS + Node JS + Mongo DB",
+    title: "Trademarkia",
+    description:
+      "Built the search engine (frontend) and blogs (frontend and backend) for Trademarkia. Trademarkia is the largest trademark search engine in the world. It is a SaaS product that helps people search for trademarks and file them. It also has a blog section where they post articles related to trademarks.",
+    link: "https://cryptosender.davidsling.in",
+  },
   {
     image: cryptosender,
     subHead: "React JS + Ethers JS",
@@ -44,7 +53,7 @@ const works = [
   },
   {
     image: incdecentral,
-    subHead: "React JS",
+    subHead: "Next JS",
     title: "IncDecentral",
     description:
       "IncDecentral is a service that makes business filing easier. This is one of the biggest projects we built at Trademarkia. My role was to build the entire frontend using React JS",
@@ -92,7 +101,8 @@ const works = [
     title: "Low - Poly Illustrations",
     description:
       "I have made a few more similar designs. click here to see them",
-    link: "https://www.instagram.com/thevectorator/guide/a-collection-of-my-low-poly-illustrations/17881633106272294/",
+    link:
+      "https://www.instagram.com/thevectorator/guide/a-collection-of-my-low-poly-illustrations/17881633106272294/",
   },
 ];
 
