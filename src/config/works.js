@@ -18,7 +18,7 @@ const works = [
     title: "Trademarkia",
     description:
       "Built the search engine (frontend) and blogs (frontend and backend) for Trademarkia. Trademarkia is the largest trademark search engine in the world. It is a SaaS product that helps people search for trademarks and file them. It also has a blog section where they post articles related to trademarks.",
-    link: "https://cryptosender.davidsling.in",
+    link: "https://trademarkia.com",
   },
   {
     image: cryptosender,
