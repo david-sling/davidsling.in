@@ -1,26 +1,24 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from '@tanstack/react-router'
-import { ArrowRight, ArrowUpRight, CheckIcon, CopyIcon, FileText, GitCommitHorizontal } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, CheckIcon, CopyIcon, FileText } from 'lucide-react'
 import { siGithub, siInstagram } from 'simple-icons'
 import { Button } from '@/components/button'
 import { FlowButton } from '@/components/flow-button'
-import { Logo } from '@/components/logo'
 import { Pendulum } from '@/components/pendulum'
 import { WordsStagger } from '@/components/words-stagger'
-import { timeAgo, useJson, type Load } from '@/components/home/pulse'
+import { useJson, type Load } from '@/components/home/pulse'
 import { site } from '@/lib/content'
 import { cn } from '@/lib/utils'
 import type { GithubPulse } from '@/routes/api/github'
 
 /*
  * The landing hero: the intro card on the left and, from sm up, a 3×3 grid
- * of projects, the latest commit, a post, the resume, socials and email.
+ * of projects, the Equanim playground, a post, the resume, socials and email.
  * Phones get the intro card alone, with social icons under the buttons.
  */
 
 const HEADLINE = 'Engineer with a designer’s eye.'
 const SUB = 'I build real products with AI agents, and sweat the details they miss.'
-const INK_DARK = 'text-[oklch(0.21_0.014_245)]'
 
 const LINKEDIN =
   'M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.847 3.37-1.847 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'
@@ -183,66 +181,23 @@ function SocialsTile({ github }: { github: Load<GithubPulse> }) {
   )
 }
 
-/** Repos this site features get their own mark; anything else gets a commit glyph. */
-function RepoMark({ repo, small }: { repo?: string; small?: boolean }) {
-  const name = repo?.split('/').pop()?.toLowerCase()
-  const box = (small ? 'size-9 rounded-xl ' : 'size-12 rounded-2xl ') + 'grid shrink-0 place-items-center overflow-hidden transition-transform duration-200 ease-out-expo group-hover/t:-rotate-6 group-hover/t:scale-110 group-hover/t:duration-500 motion-reduce:group-hover/t:transform-none'
-  if (name === 'wave')
-    return (
-      <span className={cn(box, 'bg-[var(--wave)]')}>
-        <img src="/media/wave/mark.webp" alt="" width={160} height={160} className={small ? 'size-6' : 'size-8'} />
-      </span>
-    )
-  if (name === 'equanim')
-    return (
-      <span className={cn(box, 'relative bg-[var(--equanim)]')}>
-        <Pendulum className="absolute inset-0 size-full" />
-      </span>
-    )
-  if (name === 'davidsling.in')
-    return (
-      <span className={cn(box, 'rounded-full bg-blue', INK_DARK)}>
-        <Logo className={cn('ml-0.5', small ? 'h-3' : 'h-4')} />
-      </span>
-    )
-  return (
-    <span className={cn(box, 'bg-sheet-sunk shadow-[inset_0_0_0_1px_var(--line)]')}>
-      <GitCommitHorizontal aria-hidden className="size-5 text-blue-text" />
-    </span>
-  )
-}
 
-function CommitTile({ state }: { state: Load<GithubPulse> }) {
-  const commit = state.status === 'ready' ? state.data.commit : null
+function PlaygroundTile() {
   return (
-    <a
-      href={commit?.url ?? 'https://github.com/david-sling'}
-      target="_blank"
-      rel="noreferrer"
-      className={cn(bentoTile, 'bg-sheet text-ink hover:bg-[color-mix(in_oklch,var(--blue)_8%,var(--sheet))]', focusRing)}
+    <Link
+      to="/work/$slug"
+      params={{ slug: 'equanim' }}
+      hash="playground"
+      className={cn(bentoTile, 'bg-[oklch(0.21_0.014_245)] text-[oklch(0.95_0.006_225)] hover:bg-[oklch(0.25_0.018_245)]', focusRing)}
     >
-      <span className="flex items-start justify-between gap-3">
-        <RepoMark repo={commit?.repo} small />
-        <TileArrow external />
+      {/* The pendulum draws in dark ink; inverted and faded, it reads as a light trace on black. */}
+      <Pendulum bob={5} className="absolute inset-0 size-full translate-x-[14%] -translate-y-[14%] opacity-30 invert transition-opacity duration-200 group-hover/t:opacity-50 group-hover/t:duration-500" />
+      <span className="relative flex justify-end"><TileArrow /></span>
+      <span className="relative block">
+        <span className="block text-[0.8rem] font-semibold text-[oklch(0.64_0.01_235)]">Playground</span>
+        <span className="block text-[1.3rem] font-semibold tracking-[-0.02em] text-[var(--equanim)]">Equanim</span>
       </span>
-      {commit ? (
-        <span className="block min-w-0">
-          <span className="block text-[0.8rem] font-semibold text-ink-3">Latest commit</span>
-          <span className="mt-0.5 line-clamp-2 block font-semibold leading-snug tracking-[-0.01em]">{commit.message}</span>
-          <span className="mt-1 block truncate text-[0.8rem] text-ink-3">
-            {commit.repo.split('/').pop()} · {timeAgo(commit.date)}
-          </span>
-        </span>
-      ) : state.status === 'loading' ? (
-        <span aria-hidden className="block space-y-2">
-          <span className="block h-3.5 w-2/5 rounded-full bg-sheet-sunk" />
-          <span className="block h-4 w-4/5 rounded-full bg-sheet-sunk" />
-        </span>
-      ) : (
-        <span className="block font-semibold leading-snug">Latest work on GitHub</span>
-      )}
-      <span className="sr-only">(opens GitHub in a new tab)</span>
-    </a>
+    </Link>
   )
 }
 
@@ -300,15 +255,15 @@ export function Hero() {
   return (
     <section aria-labelledby="hero-title" className="relative mx-auto max-w-[1240px] px-4 pt-4 sm:px-6">
       <div className="grid gap-3 lg:grid-cols-[0.9fr_1.1fr]">
-      <div className="flex flex-col items-start justify-end rounded-[40px] bg-sheet px-7 pb-10 pt-12 shadow-[0_1px_0_oklch(1_0_0/0.7)_inset] sm:px-11 lg:pb-9 lg:pt-8">
+      <div className="flex flex-col items-center justify-end overflow-hidden rounded-[40px] bg-sheet text-center sm:items-start sm:text-left px-7 pb-10 pt-12 shadow-[0_1px_0_oklch(1_0_0/0.7)_inset] sm:px-11 lg:pb-9 lg:pt-8">
         {/* Scaled from its bottom-left on desktop; the negative margin gives back the space the scale frees. */}
         <div className="origin-bottom-left lg:-mt-[34px] lg:scale-[0.85]">
           <Portrait />
         </div>
         <Headline className="mt-8 max-w-[13ch] text-[clamp(2.4rem,min(4.4vw,8vh),4.25rem)] lg:mt-5 lg:text-[clamp(2.4rem,min(3.8vw,7vh),3.75rem)]" />
         <Sub className="mt-4 max-w-[32ch] lg:mt-3" />
-        <Actions className="mt-8 lg:mt-6" />
-        <ul className="m-0 mt-7 flex gap-2 p-0 sm:hidden">
+        <Actions className="mt-8 justify-center sm:justify-start lg:mt-6" />
+        <ul className="m-0 mt-7 flex justify-center gap-2 p-0 sm:hidden">
           {site.socials.map((s) => (
             <li key={s.href} className="list-none">
               <a
@@ -363,7 +318,7 @@ export function Hero() {
           </Link>
         </li>
         <li className="list-none sm:row-span-2"><SocialsTile github={github} /></li>
-        <li className="list-none"><CommitTile state={github} /></li>
+        <li className="list-none"><PlaygroundTile /></li>
         <li className="list-none">
           <Link to="/blogs/$slug" params={{ slug: 'consistent-randomness' }} className={cn(bentoTile, 'bg-sheet text-ink hover:bg-[color-mix(in_oklch,var(--blue)_8%,var(--sheet))]', focusRing)}>
             <span className="flex items-start justify-between gap-4">

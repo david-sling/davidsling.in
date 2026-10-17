@@ -64,6 +64,7 @@ export function Pendulum({
   highlight = null,
   params,
   fit,
+  bob = 9,
 }: {
   className?: string;
   active?: boolean;
@@ -73,6 +74,8 @@ export function Pendulum({
   params?: PendulumParams;
   /** The longest L1 + L2 the drawing must fit, so arm lengths read true to scale. */
   fit?: number;
+  /** Bob radius in px for the default look; live variables size bobs by mass instead. */
+  bob?: number;
 }) {
   const canvas = useRef<HTMLCanvasElement>(null);
   const lit = useRef(highlight);
@@ -174,8 +177,8 @@ export function Pendulum({
         ctx.lineTo(bx, by);
         ctx.stroke();
       }
-      // Bob size follows mass when the variables are live; the default look keeps its 9px bobs.
-      const radius = (m: number) => (live ? 3 + 6 * Math.cbrt(m) : 9);
+      // Bob size follows mass when the variables are live; the default look uses a fixed size.
+      const radius = (m: number) => (live ? 3 + 6 * Math.cbrt(m) : bob);
       const { m1, m2, g } = vars.current;
       for (const [x, y, r, part] of [
         [ox, oy, 4, "arm1"],

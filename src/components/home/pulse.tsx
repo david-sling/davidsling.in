@@ -338,7 +338,7 @@ function formatDay(iso: string) {
   });
 }
 
-export function timeAgo(iso: string) {
+function timeAgo(iso: string) {
   const s = (new Date(iso).getTime() - Date.now()) / 1000;
   const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
   const steps: [Intl.RelativeTimeFormatUnit, number][] = [
