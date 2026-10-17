@@ -90,7 +90,9 @@ function MutualFriendReveal() {
               fill="currentColor"
             />
           )}
-          {matched ? "Start over" : "Like back"}
+          <TextMorph as="span" duration={420} className="whitespace-nowrap">
+            {matched ? "Start over" : "Like back"}
+          </TextMorph>
         </button>
 
         <figcaption className="mt-6 max-w-[40ch] text-[0.92rem] font-medium text-[var(--muted)]">

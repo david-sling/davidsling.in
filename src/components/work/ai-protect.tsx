@@ -9,6 +9,7 @@ import {
   onField,
 } from "@/components/work/case";
 import { cn } from "@/lib/utils";
+import { TextMorph } from "torph/react";
 
 /**
  * AI Protect was built at NEXTech, so everything here comes from the
@@ -123,27 +124,26 @@ function PasteDemo() {
           </p>
         </div>
         <div className="mt-4 flex justify-end">
-          {stage === "pasted" ? (
-            <button
-              type="button"
-              onClick={() => setStage("caught")}
-              className="inline-flex min-h-11 select-none items-center rounded-full bg-[var(--ai-protect)] px-6 font-semibold text-white transition-[transform,background-color] duration-150 ease-out-quart hover:bg-[var(--ai-protect-strong)] active:scale-[0.97] active:duration-75"
-            >
-              Send
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => setStage("pasted")}
-              className="group/reset inline-flex min-h-11 select-none items-center gap-2 rounded-full px-4 font-semibold transition-[transform,background-color] duration-150 ease-out-quart hover:bg-[oklch(0.28_0.1_266/0.08)] active:scale-[0.97] active:duration-75"
-            >
+          <button
+            type="button"
+            onClick={() => setStage(stage === "pasted" ? "caught" : "pasted")}
+            className={cn(
+              "group/send inline-flex min-h-11 select-none items-center gap-2 rounded-full font-semibold transition-[transform,background-color,color] duration-200 ease-out-quart active:scale-[0.97] active:duration-75",
+              stage === "pasted"
+                ? "bg-[var(--ai-protect)] px-6 text-white hover:bg-[var(--ai-protect-strong)]"
+                : "px-4 hover:bg-[oklch(0.28_0.1_266/0.08)]",
+            )}
+          >
+            {stage !== "pasted" && (
               <RotateCcw
                 aria-hidden
-                className="size-4 transition-transform duration-300 ease-out-expo group-hover/reset:-rotate-45"
+                className="size-4 transition-transform duration-300 ease-out-expo group-hover/send:-rotate-45"
               />
-              Start over
-            </button>
-          )}
+            )}
+            <TextMorph as="span" duration={420} className="whitespace-nowrap">
+              {stage === "pasted" ? "Send" : "Start over"}
+            </TextMorph>
+          </button>
         </div>
       </div>
 
@@ -161,7 +161,9 @@ function PasteDemo() {
           AI Protect
           {stage !== "pasted" && (
             <span className="ml-auto rounded-full bg-[var(--ai-protect)] px-2.5 py-0.5 text-[0.78rem] text-white">
-              {stage === "caught" ? "Coached" : "Cleaned"}
+              <TextMorph as="span" duration={420}>
+                {stage === "caught" ? "Coached" : "Cleaned"}
+              </TextMorph>
             </span>
           )}
         </p>
