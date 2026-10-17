@@ -30,4 +30,4 @@ When you understand something, you don't remember every single detail about it. 
 
 If the above claims are true, then one could argue that the ability to compress is an important prerequisite for the ability to comprehend. This implies that, one of the reasons we are able to comprehend the world around us is because our memory is finite. Because we have limited memory, we are forced to compress the data we recieve. This compression results in comprehension.
 
-And I think Tha's Beautiful
+And I think that's Beautiful
