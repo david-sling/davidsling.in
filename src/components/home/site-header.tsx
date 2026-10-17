@@ -7,7 +7,8 @@ import { SpecialText } from "@/components/special-text";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { site } from "@/lib/content";
 
-const TAMIL_NAME = "டேவிட் ஸ்லிங்";
+const [FIRST, LAST] = site.name.split(" ");
+const TAMIL_FIRST = "டேவிட்";
 
 const nav = [
   { href: "/#work", label: "Work" },
@@ -32,24 +33,28 @@ export function SiteHeader() {
         >
           <span
             aria-hidden
-            className="grid size-9 place-items-center rounded-full bg-blue text-[oklch(0.21_0.014_245)] transition-transform duration-300 ease-out-expo group-hover/mark:scale-105"
+            className="grid size-9 place-items-center rounded-full bg-blue text-[oklch(0.21_0.014_245)]"
           >
-            <Logo className="ml-0.5 h-3.5 transition-transform duration-300 ease-out-expo group-hover/mark:translate-x-[3px]" />
+            <Logo className="ml-0.5 h-3.5" />
           </span>
-          {/* On hover or focus the name scrambles into its Tamil spelling; the English stays the accessible name.
+          {/* On hover or focus "David" scrambles into its Tamil spelling; "Sling" stays put in English.
               Both spellings size the cell invisibly, so the nav never shifts. */}
           <span className="grid whitespace-nowrap max-[420px]:sr-only">
             <span aria-hidden className="invisible col-start-1 row-start-1">{site.name}</span>
-            <span aria-hidden lang="ta" className="invisible col-start-1 row-start-1">{TAMIL_NAME}</span>
-            <SpecialText
-              animateOnMount={false}
-              speed={14}
-              label={site.name}
-              textLang={tamil ? "ta" : undefined}
-              className="col-start-1 row-start-1 overflow-hidden"
-            >
-              {tamil ? TAMIL_NAME : site.name}
-            </SpecialText>
+            <span aria-hidden className="invisible col-start-1 row-start-1">
+              <span lang="ta">{TAMIL_FIRST}</span> {LAST}
+            </span>
+            <span className="col-start-1 row-start-1">
+              <SpecialText
+                animateOnMount={false}
+                speed={20}
+                label={FIRST}
+                textLang={tamil ? "ta" : undefined}
+              >
+                {tamil ? TAMIL_FIRST : FIRST}
+              </SpecialText>{" "}
+              {LAST}
+            </span>
           </span>
         </Link>
 
