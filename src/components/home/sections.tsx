@@ -365,7 +365,12 @@ export function Stack() {
                 >
                   <path
                     d={icon.path}
-                    className="group-hover/tile:fill-[var(--brand)]"
+                    // Figma's outline only fades out; its colours come from the overlay.
+                    className={
+                      s.name === "Figma"
+                        ? undefined
+                        : "group-hover/tile:fill-[var(--brand)]"
+                    }
                   />
                 </svg>
               </span>
