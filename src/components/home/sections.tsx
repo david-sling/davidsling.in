@@ -84,7 +84,7 @@ export function Experience() {
       aria-labelledby="experience-title"
       className="mx-auto grid max-w-[1240px] gap-10 px-4 pt-28 sm:px-6 sm:pt-36 lg:grid-cols-[1fr_1.6fr]"
     >
-      <div>
+      <div className="lg:sticky lg:top-28 lg:self-start">
         <h2
           id="experience-title"
           className="text-[clamp(2.2rem,4.4vw,3.6rem)] font-semibold tracking-[-0.03em]"
