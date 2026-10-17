@@ -1,0 +1,16 @@
+{
+  "name": "davidsling-video",
+  "version": "1.0.0",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts EquanimStory out/equanim-story.mp4"
+  },
+  "type": "commonjs",
+  "dependencies": {
+    "@remotion/cli": "^4.0.536",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "^4.0.536"
+  },
+  "private": true
+}
