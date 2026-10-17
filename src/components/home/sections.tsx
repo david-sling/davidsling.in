@@ -186,7 +186,26 @@ function Products({
         const inner = (
           <>
             <span className="flex items-center justify-between gap-3">
-              <span className="font-semibold tracking-[-0.01em]">{p.name}</span>
+              <span className="flex items-center gap-3">
+                {p.logo && (
+                  <span
+                    aria-hidden
+                    className="grid size-10 shrink-0 place-items-center rounded-[12px] bg-white shadow-[0_0_0_1px_var(--line)] transition-transform duration-200 ease-out-expo group-hover/product:-rotate-6"
+                  >
+                    <img
+                      src={p.logo}
+                      alt=""
+                      width={26}
+                      height={26}
+                      loading="lazy"
+                      className="size-[26px] object-contain"
+                    />
+                  </span>
+                )}
+                <span className="font-semibold tracking-[-0.01em]">
+                  {p.name}
+                </span>
+              </span>
               {p.caseStudy ? (
                 <ArrowRight
                   aria-hidden

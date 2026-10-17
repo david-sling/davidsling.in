@@ -114,6 +114,8 @@ export type Role = {
     summary: string;
     /** A case study on this site, written from public material only. */
     caseStudy?: ProjectSlug;
+    /** The product's own mark. */
+    logo?: string;
   }[];
 };
 
@@ -131,10 +133,12 @@ export const roles: Role[] = [
         summary:
           "Shows a business which AI tools its team uses, and catches client data at the paste.",
         caseStudy: "ai-protect",
+        logo: "/media/ai-protect/mark.svg",
       },
       {
         name: "HOAshare",
         url: "https://www.hoashare.com/",
+        logo: "/media/hoashare/mark.webp",
         role: "Led the frontend",
         summary:
           "Property management for HOAs, with a vendor marketplace that pays homeowners back.",
