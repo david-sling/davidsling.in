@@ -6,7 +6,7 @@ import type { NowPlaying } from "@/routes/api/now-playing";
 import { cn } from "@/lib/utils";
 import { NowBuilding } from "@/components/home/now-building";
 
-type Load<T> =
+export type Load<T> =
   { status: "loading" } | { status: "error" } | { status: "ready"; data: T };
 
 export function useJson<T>(url: string, refreshMs?: number): Load<T> {

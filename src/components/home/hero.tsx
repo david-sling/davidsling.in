@@ -7,7 +7,7 @@ import { FlowButton } from '@/components/flow-button'
 import { Logo } from '@/components/logo'
 import { Pendulum } from '@/components/pendulum'
 import { WordsStagger } from '@/components/words-stagger'
-import { timeAgo, useJson } from '@/components/home/pulse'
+import { timeAgo, useJson, type Load } from '@/components/home/pulse'
 import { site } from '@/lib/content'
 import { cn } from '@/lib/utils'
 import type { GithubPulse } from '@/routes/api/github'
@@ -103,7 +103,41 @@ const brandFill: Record<string, string> = {
   Instagram: 'bg-[linear-gradient(45deg,#feda75_0%,#fa7e1e_25%,#d62976_50%,#962fbf_75%,#4f5bd5_100%)]',
 }
 
-function SocialsTile() {
+// GitHub's own contribution greens, levels 0–4. Empty days stay white in both themes.
+const githubGreen = ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39']
+
+/** The last few weeks of contributions as an edge-to-edge grid: no gaps, no rounding. */
+function HeatFill({ state }: { state: Load<GithubPulse> }) {
+  const box = useRef<HTMLSpanElement>(null)
+  // As many weeks as fit with square cells: each cell is a seventh of the height.
+  const [weeks, setWeeks] = useState(14)
+  useEffect(() => {
+    const el = box.current
+    if (!el) return
+    const fit = () => setWeeks(Math.max(4, Math.round(el.clientWidth / (el.clientHeight / 7))))
+    fit()
+    const ro = new ResizeObserver(fit)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+  const days = state.status === 'ready' ? state.data.days : []
+  // Whole weeks ending today, so the last column is the current week.
+  const last = days.length ? new Date(days.at(-1)!.date + 'T00:00:00Z').getUTCDay() : 6
+  const recent = days.slice(-((weeks - 1) * 7 + last + 1))
+  // Pad the front so each column is one Sunday-first week, as on GitHub.
+  const lead = recent.length ? new Date(recent[0].date + 'T00:00:00Z').getUTCDay() : 0
+  const cells = [...Array(lead).fill(0), ...recent.map((d) => d.level)]
+  return (
+    <span ref={box} className="absolute inset-0 grid auto-cols-fr grid-flow-col grid-rows-7 bg-[#ebedf0]">
+      {cells.map((level, i) => (
+        <span key={i} style={{ backgroundColor: githubGreen[level] ?? githubGreen[0] }} />
+      ))}
+      <span className="absolute inset-0 bg-[linear-gradient(to_top,oklch(1_0_0/0.85),oklch(1_0_0/0.2)_65%)]" />
+    </span>
+  )
+}
+
+function SocialsTile({ github }: { github: Load<GithubPulse> }) {
   return (
     <ul className="m-0 flex h-full flex-col divide-y divide-line overflow-hidden rounded-[28px] bg-sheet p-0 text-ink shadow-[var(--shadow-tile)]">
       {site.socials.map((s) => (
@@ -113,7 +147,8 @@ function SocialsTile() {
             target="_blank"
             rel="noreferrer"
             className={cn(
-              'group/t relative flex min-h-[96px] flex-1 flex-col justify-between gap-2 overflow-hidden px-4 py-3.5 no-underline transition-colors duration-150 hover:text-white hover:delay-75 hover:duration-300 focus-visible:text-white',
+              'group/t relative flex min-h-[96px] flex-1 flex-col justify-between gap-2 overflow-hidden px-4 py-3.5 no-underline transition-colors duration-150 hover:delay-75 hover:duration-300',
+              s.label === 'GitHub' ? 'hover:text-[#1f2328] focus-visible:text-[#1f2328]' : 'hover:text-white focus-visible:text-white',
               focusRing,
               'focus-visible:outline-offset-[-4px]',
             )}
@@ -121,12 +156,14 @@ function SocialsTile() {
             <span
               aria-hidden
               className={cn(
-                'absolute inset-0 transition-[clip-path,opacity] duration-200 ease-out-expo [clip-path:circle(0%_at_34px_32px)] group-hover/t:duration-[650ms] group-hover/t:[clip-path:circle(150%_at_34px_32px)] group-focus-visible/t:[clip-path:circle(150%_at_34px_32px)] motion-reduce:opacity-0 motion-reduce:[clip-path:none] motion-reduce:group-hover/t:opacity-100 motion-reduce:group-focus-visible/t:opacity-100',
+                'absolute inset-0 overflow-hidden transition-[clip-path,opacity] duration-200 ease-out-expo [clip-path:circle(0%_at_34px_32px)] group-hover/t:duration-[650ms] group-hover/t:[clip-path:circle(150%_at_34px_32px)] group-focus-visible/t:[clip-path:circle(150%_at_34px_32px)] motion-reduce:opacity-0 motion-reduce:[clip-path:none] motion-reduce:group-hover/t:opacity-100 motion-reduce:group-focus-visible/t:opacity-100',
                 brandFill[s.label],
               )}
-            />
+            >
+              {s.label === 'GitHub' && <HeatFill state={github} />}
+            </span>
             <span className="relative flex items-start justify-between">
-              <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-sheet-sunk text-ink shadow-[inset_0_0_0_1px_var(--line)] transition-[transform,background-color,color,box-shadow] duration-200 ease-out-expo group-hover/t:duration-500 group-hover/t:-rotate-6 group-hover/t:scale-110 motion-reduce:group-hover/t:transform-none group-hover/t:bg-white group-hover/t:text-[oklch(0.21_0.014_245)] group-hover/t:shadow-none">
+              <span className={cn('grid size-9 shrink-0 place-items-center rounded-xl bg-sheet-sunk text-ink shadow-[inset_0_0_0_1px_var(--line)] transition-[transform,background-color,color,box-shadow] duration-200 ease-out-expo group-hover/t:duration-500 group-hover/t:-rotate-6 group-hover/t:scale-110 motion-reduce:group-hover/t:transform-none group-hover/t:bg-white group-hover/t:text-[oklch(0.21_0.014_245)] group-hover/t:shadow-none', s.label === 'GitHub' && 'group-hover/t:bg-[#1f2328] group-hover/t:text-white')}>
                 <SocialIcon label={s.label} className="size-[18px]" />
               </span>
               <TileArrow external />
@@ -169,8 +206,7 @@ function RepoMark({ repo, small }: { repo?: string; small?: boolean }) {
   )
 }
 
-function CommitTile() {
-  const state = useJson<GithubPulse>('/api/github')
+function CommitTile({ state }: { state: Load<GithubPulse> }) {
   const commit = state.status === 'ready' ? state.data.commit : null
   return (
     <a
@@ -254,6 +290,7 @@ function SayHiTile() {
 }
 
 export function Hero() {
+  const github = useJson<GithubPulse>('/api/github')
   return (
     <section aria-labelledby="hero-title" className="relative mx-auto max-w-[1240px] px-4 pt-4 sm:px-6">
       <div className="grid gap-3 lg:grid-cols-[0.9fr_1.1fr]">
@@ -319,8 +356,8 @@ export function Hero() {
             </span>
           </Link>
         </li>
-        <li className="list-none sm:row-span-2"><SocialsTile /></li>
-        <li className="list-none"><CommitTile /></li>
+        <li className="list-none sm:row-span-2"><SocialsTile github={github} /></li>
+        <li className="list-none"><CommitTile state={github} /></li>
         <li className="list-none">
           <Link to="/blogs/$slug" params={{ slug: 'consistent-randomness' }} className={cn(bentoTile, 'bg-sheet text-ink hover:bg-[color-mix(in_oklch,var(--blue)_8%,var(--sheet))]', focusRing)}>
             <span className="flex items-start justify-between gap-4">
