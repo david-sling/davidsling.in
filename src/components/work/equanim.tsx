@@ -142,15 +142,21 @@ function Sliders({
           Reset
         </button>
       </div>
-      <div className="mt-2 grid gap-x-6 gap-y-3 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="mt-2 grid grid-cols-2 gap-x-5 gap-y-1 sm:gap-x-6 sm:gap-y-3 lg:grid-cols-5">
         {variables.map((v) => (
-          <label key={v.key} className="block">
+          <label
+            key={v.key}
+            // Two columns on phones; the odd one out (gravity) takes a full row.
+            className="block last:col-span-2 lg:last:col-span-1"
+          >
             <span className="flex items-baseline justify-between gap-2 text-[0.85rem] font-medium">
               <span>
                 {v.label}{" "}
-                <span className="font-mono text-[var(--muted)]">{v.key}</span>
+                <span className="font-mono text-[var(--muted)] max-sm:hidden">
+                  {v.key}
+                </span>
               </span>
-              <span className="tabular font-semibold">
+              <span className="tabular whitespace-nowrap font-semibold">
                 {fmt(values[v.key])} {v.unit}
               </span>
             </span>
