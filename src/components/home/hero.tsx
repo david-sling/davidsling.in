@@ -28,14 +28,28 @@ const iconPath: Record<string, string> = {
   Instagram: siInstagram.path,
 }
 
-// Project cards: the page's sheet in light mode, near-black in dark mode;
-// hover tints them with the project's own colour (mixed in OKLab so the hue stays true).
-const projectCard = (hover: string) =>
-  cn('bg-sheet text-ink dark:bg-[oklch(0.21_0.014_245)] dark:text-[oklch(0.95_0.006_225)]', hover)
-const projectHover = {
-  wave: 'hover:bg-[color-mix(in_oklab,var(--wave)_16%,var(--sheet))] dark:hover:bg-[color-mix(in_oklab,var(--wave)_20%,oklch(0.21_0.014_245))]',
-  offlyn: 'hover:bg-[color-mix(in_oklab,var(--offlyn)_16%,var(--sheet))] dark:hover:bg-[color-mix(in_oklab,var(--offlyn)_20%,oklch(0.21_0.014_245))]',
-  equanim: 'hover:bg-[color-mix(in_oklab,var(--equanim)_16%,var(--sheet))] dark:hover:bg-[color-mix(in_oklab,var(--equanim)_20%,oklch(0.21_0.014_245))]',
+// Project cards: the page's sheet in light mode, near-black in dark mode.
+const projectCard =
+  'isolate bg-sheet text-ink dark:bg-[oklch(0.21_0.014_245)] dark:text-[oklch(0.95_0.006_225)]'
+
+/** Tracks the pointer in CSS variables so a card's glow can follow it. */
+function trackPointer(e: React.PointerEvent<HTMLElement>) {
+  const r = e.currentTarget.getBoundingClientRect()
+  e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`)
+  e.currentTarget.style.setProperty('--my', `${e.clientY - r.top}px`)
+}
+
+/** A soft circle of the project's colour under the pointer, shown on hover. */
+function Glow({ color }: { color: string }) {
+  return (
+    <span
+      aria-hidden
+      className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition-opacity duration-200 ease-out-expo group-hover/t:opacity-100 group-hover/t:duration-500"
+      style={{
+        background: `radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), color-mix(in oklab, ${color} 38%, transparent), transparent 70%)`,
+      }}
+    />
+  )
 }
 
 const focusRing =
@@ -198,8 +212,10 @@ function PlaygroundTile() {
       to="/work/$slug"
       params={{ slug: 'equanim' }}
       hash="playground"
-      className={cn(bentoTile, projectCard(projectHover.equanim), focusRing)}
+      onPointerMove={trackPointer}
+      className={cn(bentoTile, projectCard, focusRing)}
     >
+      <Glow color="var(--equanim)" />
       {/* The pendulum draws in dark ink: faded on light, inverted to a light trace on dark. */}
       <Pendulum bob={5} className="absolute inset-0 size-full translate-x-[14%] -translate-y-[14%] opacity-30 dark:invert transition-opacity duration-200 group-hover/t:opacity-50 group-hover/t:duration-500" />
       <span className="relative flex justify-end"><TileArrow /></span>
@@ -298,7 +314,8 @@ export function Hero() {
       </div>
       <ul className="m-0 hidden grid-cols-3 gap-3 p-0 sm:grid">
         <li className="list-none sm:row-span-2">
-          <Link to="/work/$slug" params={{ slug: 'wave' }} className={cn(bentoTile, projectCard(projectHover.wave), focusRing)}>
+          <Link to="/work/$slug" params={{ slug: 'wave' }} onPointerMove={trackPointer} className={cn(bentoTile, projectCard, focusRing)}>
+            <Glow color="var(--wave)" />
             <span className="flex justify-end"><TileArrow /></span>
             <span className="flex flex-1 items-center justify-center py-2">
               <img src="/media/wave/mark.webp" alt="" width={160} height={160} className="size-20 origin-[70%_85%] drop-shadow-[0_14px_22px_oklch(0.85_0.12_88/0.22)] transition-[rotate,scale,translate,filter] duration-200 ease-out-expo group-hover/t:-translate-y-1.5 group-hover/t:-rotate-[14deg] group-hover/t:scale-105 group-hover/t:drop-shadow-[0_20px_26px_oklch(0.85_0.12_88/0.35)] group-hover/t:duration-500 motion-reduce:group-hover/t:transform-none" />
@@ -315,7 +332,8 @@ export function Hero() {
           </Link>
         </li>
         <li className="list-none">
-          <Link to="/work/$slug" params={{ slug: 'offlyn' }} className={cn(bentoTile, projectCard(projectHover.offlyn), focusRing)}>
+          <Link to="/work/$slug" params={{ slug: 'offlyn' }} onPointerMove={trackPointer} className={cn(bentoTile, projectCard, focusRing)}>
+            <Glow color="var(--offlyn)" />
             <span className="flex justify-end"><TileArrow /></span>
             <span className="flex flex-1 items-center justify-center">
               <img src="/media/offlyn/logo.svg" alt="" width={55} height={44} className="w-12 drop-shadow-[0_12px_20px_oklch(0.7_0.18_0/0.3)] transition-[rotate,scale,translate,filter] duration-200 ease-out-expo group-hover/t:-translate-y-1.5 group-hover/t:-rotate-6 group-hover/t:scale-110 group-hover/t:drop-shadow-[0_18px_26px_oklch(0.7_0.18_0/0.45)] group-hover/t:duration-500 motion-reduce:group-hover/t:transform-none" />
