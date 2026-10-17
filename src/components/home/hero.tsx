@@ -28,6 +28,10 @@ const iconPath: Record<string, string> = {
   Instagram: siInstagram.path,
 }
 
+// Project cards: the page's sheet in light mode, near-black in dark mode.
+const projectCard =
+  'bg-sheet text-ink hover:bg-[color-mix(in_oklch,var(--blue)_8%,var(--sheet))] dark:bg-[oklch(0.21_0.014_245)] dark:text-[oklch(0.95_0.006_225)] dark:hover:bg-[oklch(0.25_0.018_245)]'
+
 const focusRing =
   'focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue'
 
@@ -188,14 +192,14 @@ function PlaygroundTile() {
       to="/work/$slug"
       params={{ slug: 'equanim' }}
       hash="playground"
-      className={cn(bentoTile, 'bg-[oklch(0.21_0.014_245)] text-[oklch(0.95_0.006_225)] hover:bg-[oklch(0.25_0.018_245)]', focusRing)}
+      className={cn(bentoTile, projectCard, focusRing)}
     >
-      {/* The pendulum draws in dark ink; inverted and faded, it reads as a light trace on black. */}
-      <Pendulum bob={5} className="absolute inset-0 size-full translate-x-[14%] -translate-y-[14%] opacity-30 invert transition-opacity duration-200 group-hover/t:opacity-50 group-hover/t:duration-500" />
+      {/* The pendulum draws in dark ink: faded on light, inverted to a light trace on dark. */}
+      <Pendulum bob={5} className="absolute inset-0 size-full translate-x-[14%] -translate-y-[14%] opacity-30 dark:invert transition-opacity duration-200 group-hover/t:opacity-50 group-hover/t:duration-500" />
       <span className="relative flex justify-end"><TileArrow /></span>
       <span className="relative block">
-        <span className="block text-[0.8rem] font-semibold text-[oklch(0.64_0.01_235)]">Playground</span>
-        <span className="block text-[1.3rem] font-semibold tracking-[-0.02em] text-[var(--equanim)]">Equanim</span>
+        <span className="block text-[0.8rem] font-semibold text-ink-3">Playground</span>
+        <span className="block text-[1.3rem] font-semibold tracking-[-0.02em] text-[var(--equanim-text)]">Equanim</span>
       </span>
     </Link>
   )
@@ -288,32 +292,32 @@ export function Hero() {
       </div>
       <ul className="m-0 hidden grid-cols-3 gap-3 p-0 sm:grid">
         <li className="list-none sm:row-span-2">
-          <Link to="/work/$slug" params={{ slug: 'wave' }} className={cn(bentoTile, 'bg-[oklch(0.21_0.014_245)] text-[oklch(0.95_0.006_225)] hover:bg-[oklch(0.25_0.018_245)]', focusRing)}>
+          <Link to="/work/$slug" params={{ slug: 'wave' }} className={cn(bentoTile, projectCard, focusRing)}>
             <span className="flex justify-end"><TileArrow /></span>
             <span className="flex flex-1 items-center justify-center py-2">
               <img src="/media/wave/mark.webp" alt="" width={160} height={160} className="size-20 origin-[70%_85%] drop-shadow-[0_14px_22px_oklch(0.85_0.12_88/0.22)] transition-[rotate,scale,translate,filter] duration-200 ease-out-expo group-hover/t:-translate-y-1.5 group-hover/t:-rotate-[14deg] group-hover/t:scale-105 group-hover/t:drop-shadow-[0_20px_26px_oklch(0.85_0.12_88/0.35)] group-hover/t:duration-500 motion-reduce:group-hover/t:transform-none" />
             </span>
             <span className="block">
-              <span className="block text-[0.8rem] font-semibold text-[oklch(0.64_0.01_235)]">Project</span>
-              <span className="block text-[1.6rem] font-semibold tracking-[-0.025em] text-[var(--wave)]">Wave</span>
-              <span className="mt-1 block text-[0.95rem] leading-snug text-[oklch(0.76_0.01_230)]">Group chat for AI coding agents, while you supervise.</span>
-              <span className="mt-5 block border-t border-[oklch(1_0_0/0.1)] pt-3.5 text-[0.85rem] leading-snug">
-                <span className="block font-semibold text-[oklch(0.64_0.01_235)]">Now building</span>
+              <span className="block text-[0.8rem] font-semibold text-ink-3">Project</span>
+              <span className="block text-[1.6rem] font-semibold tracking-[-0.025em] text-[var(--wave-text)]">Wave</span>
+              <span className="mt-1 block text-[0.95rem] leading-snug text-ink-2">Group chat for AI coding agents, while you supervise.</span>
+              <span className="mt-5 block border-t border-line pt-3.5 text-[0.85rem] leading-snug">
+                <span className="block font-semibold text-ink-3">Now building</span>
                 <span className="block font-semibold">End-to-end encryption</span>
               </span>
             </span>
           </Link>
         </li>
         <li className="list-none">
-          <Link to="/work/$slug" params={{ slug: 'offlyn' }} className={cn(bentoTile, 'bg-[oklch(0.21_0.014_245)] text-[oklch(0.95_0.006_225)] hover:bg-[oklch(0.25_0.018_245)]', focusRing)}>
+          <Link to="/work/$slug" params={{ slug: 'offlyn' }} className={cn(bentoTile, projectCard, focusRing)}>
             <span className="flex justify-end"><TileArrow /></span>
             <span className="flex flex-1 items-center justify-center">
               <img src="/media/offlyn/logo.svg" alt="" width={55} height={44} className="w-12 drop-shadow-[0_12px_20px_oklch(0.7_0.18_0/0.3)] transition-[rotate,scale,translate,filter] duration-200 ease-out-expo group-hover/t:-translate-y-1.5 group-hover/t:-rotate-6 group-hover/t:scale-110 group-hover/t:drop-shadow-[0_18px_26px_oklch(0.7_0.18_0/0.45)] group-hover/t:duration-500 motion-reduce:group-hover/t:transform-none" />
             </span>
             <span className="block">
-              <span className="block text-[0.8rem] font-semibold text-[oklch(0.64_0.01_235)]">Project</span>
-              <span className="block text-[1.3rem] font-semibold tracking-[-0.02em] text-[var(--offlyn)]">offlyn.love</span>
-              <span className="block text-[0.88rem] leading-snug text-[oklch(0.76_0.01_230)]">Dating through friends of friends</span>
+              <span className="block text-[0.8rem] font-semibold text-ink-3">Project</span>
+              <span className="block text-[1.3rem] font-semibold tracking-[-0.02em] text-[var(--offlyn-text)]">offlyn.love</span>
+              <span className="block text-[0.88rem] leading-snug text-ink-2">Dating through friends of friends</span>
             </span>
           </Link>
         </li>
