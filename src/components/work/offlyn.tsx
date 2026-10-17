@@ -10,6 +10,7 @@ import {
   NextProject,
   onField,
 } from "@/components/work/case";
+import { OfflynScreens } from "@/components/work/offlyn-screens";
 import { cn } from "@/lib/utils";
 
 /**
@@ -101,46 +102,6 @@ function MutualFriendReveal() {
   );
 }
 
-const screens = [
-  {
-    src: "screen-discover-feed",
-    caption: "People: friends of your friends, one at a time",
-  },
-  {
-    src: "screen-match-mutual-friend",
-    caption: "A match names the friend you share",
-  },
-  { src: "screen-conversation", caption: "The chat opens on that friend" },
-];
-
-function Screens() {
-  return (
-    <ul className="m-0 -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0">
-      {screens.map((s) => (
-        <li
-          key={s.src}
-          className="w-[62vw] max-w-[260px] shrink-0 list-none snap-start sm:w-auto sm:max-w-none"
-        >
-          <figure className="group/screen m-0">
-            <img
-              src={`/media/offlyn/${s.src}.webp`}
-              alt={`offlyn.love app screen. ${s.caption}.`}
-              width={600}
-              height={1298}
-              loading="lazy"
-              data-motion="travel"
-              className="w-full rounded-[28px] shadow-[var(--shadow-tile)] transition-[transform,box-shadow] duration-300 ease-out-expo group-hover/screen:-translate-y-1.5 group-hover/screen:shadow-[var(--shadow-lift)]"
-            />
-            <figcaption className="mt-3 px-1 text-[0.9rem] font-medium text-ink-2">
-              {s.caption}
-            </figcaption>
-          </figure>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
 export function OfflynCase({ project }: { project: Project }) {
   return (
     <>
@@ -194,11 +155,11 @@ export function OfflynCase({ project }: { project: Project }) {
         </p>
       </CaseSection>
 
-      <CaseSection id="app" title="The app" wide={<Screens />}>
+      <CaseSection id="app" title="The app" wide={<OfflynScreens />}>
         <p>
           People shows you friends of your friends. A match names the friend you
           share, and the chat opens on them, so the first message is never
-          "hey".
+          "hey". The screens below are redrawn with sample profiles.
         </p>
       </CaseSection>
 
