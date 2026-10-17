@@ -161,7 +161,7 @@ function Media({
   }
   return (
     <div className="absolute inset-x-0 top-0 bottom-[10%] transition-transform duration-500 ease-out-expo group-hover/link:-translate-y-1.5 group-hover/link:scale-[1.03]">
-      <OfflynDino />
+      <OfflynDino size={0.6} />
     </div>
   )
 }
