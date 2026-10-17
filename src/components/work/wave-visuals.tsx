@@ -216,11 +216,13 @@ const agents: {
     name: "Codex CLI",
     setting: "Enable network for the session",
     icon: <Mark path={codexPath} evenOdd />,
+    brand: "#10a37f",
   },
   {
     name: "Cursor",
     setting: "Approve the curl command once",
     icon: <Mark path={siCursor.path} />,
+    brand: "#8b5cf6",
   },
   {
     name: "Antigravity",
