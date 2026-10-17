@@ -1,0 +1,454 @@
+[
+  ["2026-09-11", "Add product definition and v1 architecture docs", 1],
+  [
+    "2026-09-11",
+    "Name the project Wave; document self-hosting and {{HOST}} convention",
+    1
+  ],
+  ["2026-09-11", "Add the project plan and the issue tracking convention", 1],
+  [
+    "2026-09-11",
+    "Scaffold the Next.js app with empty pages and a placeholder logo",
+    1
+  ],
+  [
+    "2026-09-11",
+    "Install the Impeccable design skill, agents, and hooks for this project",
+    1
+  ],
+  [
+    "2026-09-11",
+    "Document the two-level feature/task issue convention; ignore local design references",
+    1
+  ],
+  ["2026-09-11", "Build the landing page and record the design system", 1],
+  ["2026-09-11", "Apply the finish-review fixes to the landing page", 1],
+  [
+    "2026-09-11",
+    "Fix the join prompt's unassigned variables, name desync, and client field",
+    0
+  ],
+  ["2026-09-11", "Ignore the M0 spike directory", 0],
+  ["2026-09-11", "Add the typecheck script, Vitest, and a CI workflow", 0],
+  [
+    "2026-09-11",
+    "Add typed instance configuration, .env.example, and vercel.ts",
+    0
+  ],
+  ["2026-09-11", "Add channel IDs, participant IDs, and hashed tokens", 0],
+  [
+    "2026-09-11",
+    "Add the Redis layer, key layout, TTL helper, and shared item types",
+    0
+  ],
+  ["2026-09-11", "Add the auth helper and the API error vocabulary", 0],
+  ["2026-09-11", "Generate route types before typechecking", 0],
+  ["2026-09-11", "Drop the cron declaration that fails the deployment", 0],
+  ["2026-09-11", "Add the channel create, read, and close endpoints", 0],
+  ["2026-09-11", "Document BOT_CHECK in .env.example", 0],
+  ["2026-09-11", "Record the sweep design the free tier allows", 0],
+  ["2026-09-12", "Fall back to the deployment origin when HOST is unset", 0],
+  [
+    "2026-09-12",
+    "Accept a hosted Redis URL under the name its platform injects",
+    0
+  ],
+  ["2026-09-12", "Namespace every Redis key under REDIS_PREFIX", 0],
+  ["2026-09-12", "Drop bot detection from create", 0],
+  ["2026-09-12", "Capture agent-created channels as an idea", 1],
+  ["2026-09-12", "Add join, leave, and the sweep", 1],
+  ["2026-09-12", "Add posting and the long-poll", 1],
+  ["2026-09-12", "Stop the poll path rewriting TTLs on every request", 1],
+  ["2026-09-12", "Add the secret filter on post", 1],
+  ["2026-09-12", "Add rate limits and platform security headers", 1],
+  ["2026-09-12", "Drop an unused import", 1],
+  ["2026-09-12", "Add the join prompt generator", 1],
+  ["2026-09-12", "Wire the create form and build the channel page", 1],
+  ["2026-09-12", "Write vercel.ts headers as literals", 1],
+  [
+    "2026-09-12",
+    "Show agents the response they are parsing, and name their session",
+    1
+  ],
+  [
+    "2026-09-12",
+    "Render messages as Markdown, fold long ones, and ask for a purpose",
+    1
+  ],
+  [
+    "2026-09-12",
+    "Give every participant their own colour, and show where a message ends",
+    1
+  ],
+  ["2026-09-12", "Show when each participant last spoke", 1],
+  ["2026-09-12", "Say what the roster time measures", 1],
+  [
+    "2026-09-12",
+    "Put the role badge in the roster, and the roster where it can be seen",
+    1
+  ],
+  ["2026-09-12", "Rebuild the channel as an app shell", 1],
+  [
+    "2026-09-12",
+    "Put the channel name in the hero, and the settings behind it",
+    1
+  ],
+  ["2026-09-12", "Add the read line, event toasts, and a mobile menu", 1],
+  ["2026-09-12", "Show a use case rather than describing it", 1],
+  ["2026-09-12", "Make the hero's channel one you can change", 1],
+  ["2026-09-12", "Show which product each agent is", 1],
+  ["2026-09-12", "Let the agents drift past instead of sitting in a table", 1],
+  ["2026-09-12", "Say what the marquee's end state actually is", 1],
+  ["2026-09-12", "Make the case picker a rail you can swipe on a phone", 1],
+  ["2026-09-12", "Assert the client the roster now carries", 1],
+  ["2026-09-12", "Write down mentions and replies as ideas", 1],
+  ["2026-09-12", "Say what an event means, not just its name", 1],
+  ["2026-09-12", "Design the CLI and E2EE mode, sketch the MCP server", 1],
+  ["2026-09-12", "Write down the join prompt as an installed skill", 1],
+  ["2026-09-12", "Put the demo at the top of the README", 1],
+  ["2026-09-12", "License Wave under MIT", 1],
+  ["2026-09-12", "Wave at the top of the README", 1],
+  ["2026-09-12", "Count page views without learning which channel", 1],
+  ["2026-09-12", "Credit the author in the footer", 1],
+  ["2026-09-12", "Move the use cases and the agent list into lib", 1],
+  ["2026-09-12", "Give every use case its own page", 1],
+  ["2026-09-12", "Tell crawlers what is here and what is not", 1],
+  ["2026-09-12", "Draw a share card for every page", 1],
+  ["2026-09-12", "Say what Wave is in the title and the card", 1],
+  [
+    "2026-09-12",
+    "Open a channel on its transcript, and say things straight away",
+    1
+  ],
+  ["2026-09-12", "Stop offering a Cowork setting that does not exist", 1],
+  ["2026-09-12", "Prove a channel ID is not access", 1],
+  ["2026-09-12", "Let people keep the conversation", 1],
+  ["2026-09-12", "Make the API fail the way the prompt promises", 1],
+  ["2026-09-12", "Run two agents at a real instance before every release", 1],
+  ["2026-09-12", "Count the six things, and nothing else", 1],
+  ["2026-09-12", "Check the fake against the real thing", 1],
+  ["2026-09-12", "Let anyone run their own Wave", 1],
+  ["2026-09-12", "Answer the five questions the spike was for", 1],
+  ["2026-09-13", "Wake a waiting poll instead of asking every second", 1],
+  ["2026-09-13", "Stop following a channel nobody is looking at", 1],
+  [
+    "2026-09-13",
+    "Let a reconnect speak for itself instead of reading on a timer",
+    1
+  ],
+  ["2026-09-13", "Describe the close race as it is now", 1],
+  [
+    "2026-09-13",
+    "Give the right reason for the subscriber's own connection",
+    1
+  ],
+  ["2026-09-13", "Bound the one request an agent can issue without pause", 1],
+  [
+    "2026-09-13",
+    "Stop telling the store what it already knows about expiry",
+    1
+  ],
+  ["2026-09-13", "Say it once", 1],
+  ["2026-09-13", "Write down what the region cost us", 1],
+  ["2026-09-13", "Assert no key of a channel escapes its expiry", 1],
+  [
+    "2026-09-13",
+    "Drop the CLI that stopped answering, and record the four that did",
+    1
+  ],
+  ["2026-09-13", "Check that the agent keeps the token this time", 1],
+  ["2026-09-13", "Offer a name to fill in, not one to overwrite", 1],
+  ["2026-09-13", "Stop planning a build that already happened", 1],
+  ["2026-09-13", "Hold the channel to one screen on a phone", 1],
+  ["2026-09-13", "Put adding an agent one tap from the bar", 1],
+  ["2026-09-13", "Give the phone's bar a share, and turn the dots upright", 1],
+  ["2026-09-13", "Let the dialogs and the sheet arrive", 1],
+  [
+    "2026-09-13",
+    "Say the three steps plainly, and stop the page disagreeing with itself",
+    1
+  ],
+  ["2026-09-13", "Say what a channel link is before it is opened", 1],
+  ["2026-09-13", "Let the bots that draw link cards fetch a channel page", 1],
+  ["2026-09-13", "Put the channel's name on its link", 1],
+  ["2026-09-13", "Let the share card use the whole card", 1],
+  ["2026-09-13", "Stop the join prompt teaching its own failure modes", 1],
+  ["2026-09-13", "Let a long URL wrap instead of taking the page with it", 1],
+  ["2026-09-13", "Catch the password inside a connection string", 1],
+  [
+    "2026-09-14",
+    "Send the agent to read the room, and stop it blocking its human",
+    1
+  ],
+  ["2026-09-14", "Let a poll slot outlive nothing but its own request", 1],
+  ["2026-09-14", "Stop the timeout event calling a long build a departure", 1],
+  [
+    "2026-09-14",
+    "Refuse the cursor a client lost, instead of replaying the channel",
+    1
+  ],
+  ["2026-09-14", "Stop the word EXAMPLE waving a real key through", 1],
+  ["2026-09-14", "Stop a dead watcher printing the last good response", 1],
+  [
+    "2026-09-14",
+    "Say how many polls are held, and correct the record on the refresh",
+    1
+  ],
+  ["2026-09-14", "Refuse a client_id that carries a different message", 1],
+  [
+    "2026-09-14",
+    "Make the poll refusal read like a sentence, and pin what the id hashes",
+    1
+  ],
+  [
+    "2026-09-14",
+    "Give each participant its own idempotency namespace, and cap the window",
+    1
+  ],
+  [
+    "2026-09-14",
+    "Say not greater, not equal, when a post comes back a replay",
+    1
+  ],
+  ["2026-09-14", "Keep the curl exit code, which is the whole diagnosis", 1],
+  ["2026-09-14", "Cut the commentary back to what the code cannot say", 1],
+  [
+    "2026-09-14",
+    "Merge pull request #59 from david-sling/fix/channel-dropouts",
+    0
+  ],
+  [
+    "2026-09-14",
+    "Tell crawlers when the copy changed, and link all six cases",
+    1
+  ],
+  ["2026-09-14", "Wave the hand when you point at it", 1],
+  [
+    "2026-09-14",
+    "Merge pull request #60 from david-sling/seo/indexable-surface-and-logo-wave",
+    0
+  ],
+  ["2026-09-14", "Give every wrong address a room with nobody in it", 1],
+  [
+    "2026-09-14",
+    "Say goodbye properly when a channel is gone or a link lost its key",
+    1
+  ],
+  [
+    "2026-09-14",
+    "Point the hover wave at the class the hand actually wears",
+    1
+  ],
+  ["2026-09-14", "Open the next room from where the last one ended", 1],
+  ["2026-09-14", "Show the room the invite is holding shut", 1],
+  ["2026-09-14", "Tell them the link is broken and leave it there", 1],
+  ["2026-09-14", "Snap the room in two, the way the link was", 1],
+  ["2026-09-14", "Put a broken chain where the broken link is", 1],
+  ["2026-09-14", "Point two hands at each other where the link came apart", 1],
+  ["2026-09-14", "Stand the notice pages on the ground, not on the channel", 1],
+  ["2026-09-15", "Write down three things the channel keeps asking for", 1],
+  ["2026-09-15", "Say how far down the room each of them has got", 1],
+  [
+    "2026-09-15",
+    "Give the prompt somewhere to put what it cannot afford to carry",
+    1
+  ],
+  ["2026-09-15", "Stop the second agent joining into the first one's name", 1],
+  [
+    "2026-09-15",
+    "Merge pull request #65 from david-sling/receipts-and-agent-docs",
+    0
+  ],
+  ["2026-09-16", "Say what Wave is in the first line of the hero", 1],
+  ["2026-09-16", "Draw the room the headline is talking about", 1],
+  ["2026-09-16", "Put the tools' own marks on the seats", 1],
+  [
+    "2026-09-16",
+    "Show what each agent is running, everywhere a participant appears",
+    1
+  ],
+  [
+    "2026-09-16",
+    "Let the bold half of the headline answer rather than shout",
+    1
+  ],
+  ["2026-09-16", "Give the bold line room to breathe above it", 1],
+  ["2026-09-16", "Stop the lead saying what the picture already says", 1],
+  ["2026-09-16", "Put the reader inside the room instead of beside it", 1],
+  ["2026-09-16", "Give Antigravity its own aurora instead of plain ink", 1],
+  ["2026-09-16", "Let the header separate by blur alone", 1],
+  ["2026-09-16", "Answer the seven questions before the agent wall", 1],
+  ["2026-09-16", "Show the three steps happening instead of listing them", 1],
+  ["2026-09-16", "Give the demo a portrait cut, and drop the step captions", 1],
+  ["2026-09-16", "Name the agents after the machines they are stuck on", 1],
+  ["2026-09-16", "Stop an unfilled placeholder counting as Claude Code", 1],
+  [
+    "2026-09-16",
+    "Keep the vendor when the client is a model, not a product",
+    1
+  ],
+  ["2026-09-16", "Pin the seat collisions the vendor rule just closed", 1],
+  ["2026-09-16", "Let the agent hold the session, not a file on disk", 1],
+  ["2026-09-16", "Say who a message is for, and what it answers", 1],
+  [
+    "2026-09-16",
+    "Let a human answer a message, not only read one that was answered",
+    1
+  ],
+  [
+    "2026-09-17",
+    "Take the reader to what a reply quotes, and make the control findable",
+    1
+  ],
+  ["2026-09-17", "Say that the seq a post returns is not a cursor", 1],
+  [
+    "2026-09-17",
+    "Merge pull request #85 from david-sling/replies-and-mentions",
+    0
+  ],
+  [
+    "2026-09-17",
+    "Clear the temp directories the join-prompt test leaves behind",
+    1
+  ],
+  [
+    "2026-09-17",
+    "Give the CLI a package that refuses to run on the wrong Node",
+    1
+  ],
+  ["2026-09-17", "Put the session in a string and the cursor in the output", 1],
+  ["2026-09-17", "Let one URL be everything join needs", 1],
+  ["2026-09-17", "Let send take a diff on stdin and a refusal as an answer", 1],
+  [
+    "2026-09-17",
+    "Hold the whole wait in one call, and hand back the cursor with it",
+    1
+  ],
+  ["2026-09-17", "Let an agent leave, and ask who is still here", 1],
+  [
+    "2026-09-17",
+    "Fail in the app when the CLI's copy of a shape stops matching",
+    1
+  ],
+  ["2026-09-17", "Publish the CLI from a tag, with no token to leak", 1],
+  [
+    "2026-09-17",
+    "Offer the CLI prompt beside the curl one, and keep the token out of it",
+    1
+  ],
+  ["2026-09-17", "Say in the plan that the CLI is built", 1],
+  ["2026-09-17", "Say that the first release cannot come from the workflow", 1],
+  ["2026-09-17", "Stop the repository from being publishable by accident", 1],
+  [
+    "2026-09-17",
+    "Stage the release from the tag, and let a person publish it",
+    1
+  ],
+  [
+    "2026-09-21",
+    "Ask the reader to star the repo, where they would look for it",
+    1
+  ],
+  ["2026-09-21", "Merge pull request #87 from david-sling/star-the-repo", 0],
+  ["2026-09-28", "Ignore the CLI's dependencies and build output", 1],
+  ["2026-09-28", "Scroll to a quoted message only when it is out of view", 1],
+  ["2026-09-28", "Show replies and mentions in the example channels", 1],
+  [
+    "2026-09-28",
+    "Let the CLI read the session from a file the caller names",
+    1
+  ],
+  [
+    "2026-09-28",
+    "Make every command in the CLI prompt plain wave and nothing else",
+    1
+  ],
+  [
+    "2026-09-28",
+    "Ask which agent the prompt is for, and give the CLI prompt a way back to curl",
+    1
+  ],
+  [
+    "2026-09-28",
+    "Put the agent and the method on one line, and remember both",
+    1
+  ],
+  [
+    "2026-09-28",
+    "Group the agent and the method as two joined button groups",
+    1
+  ],
+  [
+    "2026-09-28",
+    "Show the person the install, and let them pick their package manager",
+    1
+  ],
+  ["2026-09-28", "Merge remote-tracking branch 'origin/main' into wave-cli", 0],
+  [
+    "2026-09-28",
+    "Give the add-agent dialog a display title, and show the prompt it hands over",
+    1
+  ],
+  ["2026-09-29", "Make Copy prompt a bar that says what it copies", 1],
+  ["2026-09-29", "Round the Copy prompt bar with the frame it sits in", 1],
+  ["2026-09-29", "Strip the comments the code already explains", 1],
+  ["2026-09-29", "Make every CLI error say what to do next", 1],
+  ["2026-09-29", "Mark replies and mentions of the reader in wait and tail", 1],
+  [
+    "2026-09-29",
+    "Add a local run that has real Claude Code agents use the CLI",
+    1
+  ],
+  [
+    "2026-09-29",
+    "Ask which OS the agent runs on, and open Add an agent as a drawer on a phone",
+    1
+  ],
+  ["2026-09-29", "Merge pull request #86 from david-sling/wave-cli", 0],
+  ["2026-09-29", "Give curl the same recovery hints the CLI prints", 1],
+  ["2026-09-29", "Add Prettier, run on staged files before every commit", 1],
+  ["2026-09-29", "Format the whole tree with Prettier", 1],
+  ["2026-09-29", "Keep the Prettier reformat out of blame", 1],
+  ["2026-09-29", "Merge pull request #88 from david-sling/api-error-hints", 0],
+  ["2026-09-29", "Merge pull request #89 from david-sling/prettier", 0],
+  ["2026-09-29", "Add the visited-channel store", 1],
+  ["2026-09-29", "Record and forget visited channels", 1],
+  ["2026-09-29", "Key the channel view by channel id", 1],
+  ["2026-09-29", "Draw the unread line on load", 1],
+  ["2026-09-29", "Merge pull request #90 from david-sling/unread-line", 0],
+  ["2026-09-29", "Add the channels pane", 1],
+  ["2026-09-29", "Order the channels pane by latest activity", 1],
+  ["2026-09-29", "Track the latest message separately from the latest item", 1],
+  ["2026-09-29", "Add the channel head probe", 1],
+  ["2026-09-29", "Show unread in the channels pane, from tabs already open", 1],
+  ["2026-09-29", "Probe rooms no open tab is covering", 1],
+  [
+    "2026-09-29",
+    "Add a /c page, a back button on phones, and a way back from other pages",
+    1
+  ],
+  ["2026-09-29", "Create a channel from one dialog, wherever you start", 1],
+  ["2026-09-29", "Compact the create dialog", 1],
+  ["2026-09-29", "Use the prompt box's choice groups in the create dialog", 1],
+  ["2026-09-29", "Make encryption a switch in the create dialog", 1],
+  ["2026-09-29", "Rework the channel page around the conversation", 1],
+  ["2026-09-29", "Merge main into channel-store", 1],
+  ["2026-09-29", "Merge pull request #91 from david-sling/channel-store", 0],
+  [
+    "2026-09-30",
+    "Record that accounts belong in Wave, not in a product built on it",
+    1
+  ],
+  [
+    "2026-09-30",
+    "Merge pull request #105 from david-sling/accounts-in-core",
+    0
+  ],
+  ["2026-10-16", "Read one invite when Next writes the fragment twice", 1],
+  ["2026-10-16", "Trim comments on the doubled-fragment fix", 1],
+  [
+    "2026-10-16",
+    "Merge pull request #106 from david-sling/fix/doubled-invite-fragment",
+    0
+  ]
+]

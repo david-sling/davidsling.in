@@ -1,5 +1,3 @@
-import { useEffect, useRef, useState } from "react";
-import { Pause, Play } from "lucide-react";
 import type { Project } from "@/lib/content";
 import {
   CaseHero,
@@ -7,6 +5,13 @@ import {
   Decisions,
   NextProject,
 } from "@/components/work/case";
+import {
+  Architecture,
+  BeforeAfter,
+  CommitGrid,
+  LoopVideo,
+  WorksWith,
+} from "@/components/work/wave-visuals";
 
 /**
  * Wave's signature: sections open the way people arrive in a Wave
@@ -35,66 +40,99 @@ function Joined({ who, time }: { who: string; time: string }) {
   );
 }
 
-/** The landing page's "how it works" video. Plays in view; always pausable. */
-function WaveVideo() {
-  const video = useRef<HTMLVideoElement>(null);
-  const [playing, setPlaying] = useState(false);
-  const [userPaused, setUserPaused] = useState(false);
-
-  useEffect(() => {
-    const v = video.current;
-    if (!v || window.matchMedia("(prefers-reduced-motion: reduce)").matches)
-      return;
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting && !userPaused) v.play().catch(() => {});
-        else v.pause();
+/** Two lanes: what comes to open Wave, and the paid layer built on it. */
+const roadmap: {
+  lane: string;
+  note: string;
+  items: { title: string; body: string; status: string }[];
+}[] = [
+  {
+    lane: "Open Wave",
+    note: "MIT, in the public repo",
+    items: [
+      {
+        title: "End-to-end encryption",
+        body: "A per-channel key that lives in the link and the prompt, AES-256-GCM per message, so the server stores ciphertext. Names and events stay readable, and the channel says so.",
+        status: "Designed",
       },
-      { threshold: 0.4 },
-    );
-    io.observe(v);
-    return () => io.disconnect();
-  }, [userPaused]);
+      {
+        title: "Accounts, still optional",
+        body: "Sign-in, an owner on the channel and a wave login for the CLI. Joining a channel someone shares with you never needs one.",
+        status: "Decided",
+      },
+      {
+        title: "An MCP server",
+        body: "A per-channel endpoint, so agents can send, wait and see who is in the room as tools instead of curl calls.",
+        status: "Sketched",
+      },
+      {
+        title: "Channel controls",
+        body: "Invite rotation, kicking a participant, reply threads and small attachments.",
+        status: "Planned",
+      },
+    ],
+  },
+  {
+    lane: "Wave Enterprise",
+    note: "A paid layer on top; open Wave never depends on it",
+    items: [
+      {
+        title: "Organisations and SSO",
+        body: "Org channels, members and roles, single sign-on with DNS-verified domains, and more than one identity provider per organisation.",
+        status: "Next",
+      },
+      {
+        title: "Org-held keys",
+        body: "Encrypted channels Wave itself cannot read. The key is split between admins, each share held in their machine's keychain, and reading an export takes a threshold of them to approve.",
+        status: "Prototyped",
+      },
+      {
+        title: "Compliance",
+        body: "Retention policies, legal hold, audit logs and configurable secret filtering, each honest about what it can and can't see under encryption.",
+        status: "Later",
+      },
+      {
+        title: "Permanent channels",
+        body: "Channels that don't expire, with archive and export instead of deletion.",
+        status: "Next",
+      },
+    ],
+  },
+];
 
-  function toggle() {
-    const v = video.current;
-    if (!v) return;
-    if (v.paused) {
-      setUserPaused(false);
-      v.play().catch(() => {});
-    } else {
-      setUserPaused(true);
-      v.pause();
-    }
-  }
-
+function Roadmap() {
   return (
-    <div className="relative overflow-hidden rounded-[22px] bg-[#f3f3f1] shadow-[0_30px_50px_-24px_oklch(0.3_0.08_80/0.6),0_0_0_1px_oklch(0.3_0.08_80/0.15)]">
-      <video
-        ref={video}
-        src="/media/wave/how-it-works.mp4"
-        poster="/media/wave/how-it-works-poster.webp"
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        onPlay={() => setPlaying(true)}
-        onPause={() => setPlaying(false)}
-        aria-label="How Wave works: a Mac agent and a Windows agent join a channel from a copied prompt, report their build results, and David steers the fix"
-        className="block aspect-video w-full"
-      />
-      <button
-        type="button"
-        onClick={toggle}
-        aria-label={playing ? "Pause video" : "Play video"}
-        className="absolute bottom-3 right-3 grid size-11 place-items-center rounded-full bg-[oklch(0.22_0.04_85/0.82)] text-white transition-[transform,background-color] duration-150 ease-out-quart hover:bg-[oklch(0.22_0.04_85)] active:scale-90"
-      >
-        {playing ? (
-          <Pause aria-hidden className="size-4" fill="currentColor" />
-        ) : (
-          <Play aria-hidden className="ml-0.5 size-4" fill="currentColor" />
-        )}
-      </button>
+    <div className="grid gap-10 lg:grid-cols-2 lg:gap-6">
+      {roadmap.map((lane) => (
+        <section
+          key={lane.lane}
+          aria-label={lane.lane}
+          className="rounded-[32px] bg-sheet p-6 shadow-[var(--shadow-tile)] sm:p-8"
+        >
+          <h3 className="text-[1.35rem] font-semibold tracking-[-0.02em]">
+            {lane.lane}
+          </h3>
+          <p className="mt-1 text-[0.92rem] text-ink-3">{lane.note}</p>
+          <ul className="m-0 mt-6 p-0">
+            {lane.items.map((item) => (
+              <li
+                key={item.title}
+                className="group/item list-none border-t border-line py-5 last:pb-0"
+              >
+                <div className="flex items-baseline justify-between gap-4">
+                  <p className="font-semibold text-ink">{item.title}</p>
+                  <span className="shrink-0 rounded-full bg-[color-mix(in_srgb,var(--wave)_30%,var(--sheet))] px-2.5 py-0.5 text-[0.78rem] font-semibold text-[var(--wave-text)] transition-colors duration-200 group-hover/item:bg-[var(--wave)] group-hover/item:text-[var(--wave-deep)]">
+                    {item.status}
+                  </span>
+                </div>
+                <p className="mt-1.5 text-[0.95rem] leading-relaxed text-ink-2">
+                  {item.body}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
     </div>
   );
 }
@@ -106,17 +144,25 @@ export function WaveCase({ project }: { project: Project }) {
         project={project}
         facts={[
           { label: "Role", value: "Designed and built it" },
-          { label: "When", value: "Sep–Oct 2026" },
+          { label: "Status", value: "Ongoing, since Sep 2026" },
           { label: "Stack", value: "Next.js, Redis, Vercel" },
           { label: "Licence", value: "MIT, self-hostable" },
         ]}
-        media={<WaveVideo />}
+        media={
+          <LoopVideo
+            src="/media/wave/how-it-works.mp4"
+            poster="/media/wave/how-it-works-poster.webp"
+            aspect="16 / 9"
+            label="How Wave works: a Mac agent and a Windows agent join a channel from a copied prompt, report their build results, and David steers the fix"
+          />
+        }
       />
 
       <CaseSection
         id="why"
         title="Why I built it"
         divider={<Joined who="Mac agent" time="09:41" />}
+        wide={<BeforeAfter />}
       >
         <p>
           I was building a cross-platform app on two laptops, a Mac and a
@@ -139,6 +185,17 @@ export function WaveCase({ project }: { project: Project }) {
         id="how"
         title="How it works"
         divider={<Joined who="Windows agent" time="09:42" />}
+        wide={
+          <>
+            <LoopVideo
+              src="/media/wave/channel-demo.mp4"
+              poster="/media/wave/channel-demo-poster.webp"
+              aspect="1040 / 650"
+              label="A Wave channel: Priya's Claude Code agent and Marco's Codex agent track down a race in a token store, and Priya answers their question from the browser"
+            />
+            <WorksWith />
+          </>
+        }
       >
         <ol>
           <li>
@@ -167,6 +224,7 @@ export function WaveCase({ project }: { project: Project }) {
         id="decisions"
         title="The decisions that mattered"
         divider={<Joined who="Claude Code" time="09:43" />}
+        wide={<Architecture />}
       >
         <p>
           The rule for v1 was the simplest thing that satisfies the spec. A few
@@ -224,6 +282,7 @@ export function WaveCase({ project }: { project: Project }) {
         id="built"
         title="How I built it"
         divider={<Joined who="David" time="09:44" />}
+        wide={<CommitGrid />}
       >
         <p>
           Spec first. The first commits are documents: a product definition, the
@@ -236,6 +295,19 @@ export function WaveCase({ project }: { project: Project }) {
           part was the spec, the review, and the calls an agent can't make on
           its own: what to leave out, what an idle agent should cost, and what a
           stranger's agent must never be able to read.
+        </p>
+      </CaseSection>
+
+      <CaseSection
+        id="next"
+        title="What's next"
+        divider={<Joined who="You" time="09:45" />}
+        wide={<Roadmap />}
+      >
+        <p>
+          Wave is still being built. v1 is live and the CLI has shipped; a
+          security audit is open in the tracker. Next comes privacy, then the
+          things a team needs before it can trust a channel with real work.
         </p>
       </CaseSection>
 
