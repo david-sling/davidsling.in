@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { Heart, RotateCcw } from "lucide-react";
 import { TextMorph } from "torph/react";
 import type { Project } from "@/lib/content";
+import { OfflynDino } from "@/components/offlyn-dino";
 import {
   CaseHero,
   CaseSection,
@@ -116,14 +117,7 @@ export function OfflynCase({ project }: { project: Project }) {
           { label: "Stack", value: "Supabase, Expo, TanStack Start" },
         ]}
         media={
-          <img
-            src="/media/offlyn/match-dino.webp"
-            alt="offlyn.love's match screen: two profile photos with the offlyn.love dino mascot"
-            width={1200}
-            height={981}
-            fetchPriority="high"
-            className="mx-auto w-full max-w-[520px] drop-shadow-[0_24px_30px_oklch(0.3_0.1_0/0.35)]"
-          />
+          <OfflynDino interactive className="mx-auto aspect-[6/5] max-w-[520px]" />
         }
       />
 

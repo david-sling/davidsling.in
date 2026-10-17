@@ -52,6 +52,7 @@ The app is not scaffolded yet. Until it is, this repo holds planning, design con
   - **Offlyn:** offlyn.love, a web app plus an Expo mobile app.
     - The `offlyn.love` and `offlyn-app` repos are **private**. Never link to their source.
     - Never quote their code or config.
+      - Exception: David approved publishing the 3D dino renderer from the offlyn.love landing page (`Matrix3D` and its dino grid), now `src/components/offlyn-dino.tsx`. Nothing else from those repos.
     - Product images from those repos are approved for use.
 - **Blog:** posts are Markdown files in `content/blog/<slug>.md` (front matter: title, date, summary, tags), served at `/blogs/<slug>`. Copy `content/blog/_template.md` to add one; files starting with `_` are never published. The two posts migrated from `david-sling/portfolio-2` keep their original dates and slugs.
 - **No resume impact numbers** (20% / 30% / 40%) anywhere on the site.

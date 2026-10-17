@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Link } from '@tanstack/react-router'
 import { SlideArrow } from '@/components/button'
 import { Pendulum } from '@/components/pendulum'
+import { OfflynDino } from '@/components/offlyn-dino'
 import { CoachedPreview } from '@/components/work/ai-protect'
 import { TiltCard } from '@/components/tilt-card'
 import { projects, type Project, type ProjectSlug } from '@/lib/content'
@@ -159,15 +160,9 @@ function Media({
     )
   }
   return (
-    <img
-      src="/media/offlyn/match-dino.webp"
-      alt="offlyn.love's match screen: two profile photos with the offlyn.love dino mascot"
-      loading="lazy"
-      width={1200}
-      height={981}
-      data-motion="travel"
-      className="absolute left-1/2 top-1/2 w-[72%] -translate-x-1/2 -translate-y-[46%] drop-shadow-[0_24px_30px_oklch(0.3_0.1_0/0.35)] transition-transform duration-500 ease-out-expo group-hover/link:-translate-y-[50%] group-hover/link:rotate-[-2deg] group-hover/link:scale-[1.03]"
-    />
+    <div className="absolute inset-x-0 top-0 bottom-[10%] transition-transform duration-500 ease-out-expo group-hover/link:-translate-y-1.5 group-hover/link:scale-[1.03]">
+      <OfflynDino />
+    </div>
   )
 }
 
