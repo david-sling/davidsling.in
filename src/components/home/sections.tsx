@@ -317,24 +317,58 @@ export function Stack() {
                 lg ? "col-span-2 row-span-2 aspect-square" : "aspect-square",
               )}
             >
-              <svg
-                viewBox="0 0 24 24"
-                aria-hidden
-                className={cn(
-                  "fill-ink-2 transition-[fill,transform] duration-300 ease-out-expo group-hover/tile:scale-110",
-                  lg ? "size-16 sm:size-20" : "size-8 sm:size-9",
+              <span className="relative grid">
+                {s.name === "Figma" && (
+                  // Figma's mark is five colours, not one: cross-fade to it on hover.
+                  <svg
+                    viewBox="0 0 38 57"
+                    aria-hidden
+                    className={cn(
+                      "absolute inset-0 m-auto h-[88%] opacity-0 transition-[opacity,transform] duration-300 ease-out-expo group-hover/tile:scale-110 group-hover/tile:opacity-100",
+                    )}
+                  >
+                    <path
+                      fill="#1abcfe"
+                      d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"
+                    />
+                    <path
+                      fill="#0acf83"
+                      d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"
+                    />
+                    <path
+                      fill="#ff7262"
+                      d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"
+                    />
+                    <path
+                      fill="#f24e1e"
+                      d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"
+                    />
+                    <path
+                      fill="#a259ff"
+                      d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"
+                    />
+                  </svg>
                 )}
-                style={
-                  {
-                    "--brand": dark ? "var(--ink)" : `#${icon.hex}`,
-                  } as React.CSSProperties
-                }
-              >
-                <path
-                  d={icon.path}
-                  className="group-hover/tile:fill-[var(--brand)]"
-                />
-              </svg>
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden
+                  className={cn(
+                    "fill-ink-2 transition-[fill,transform,opacity] duration-300 ease-out-expo group-hover/tile:scale-110",
+                    s.name === "Figma" && "group-hover/tile:opacity-0",
+                    lg ? "size-16 sm:size-20" : "size-8 sm:size-9",
+                  )}
+                  style={
+                    {
+                      "--brand": dark ? "var(--ink)" : `#${icon.hex}`,
+                    } as React.CSSProperties
+                  }
+                >
+                  <path
+                    d={icon.path}
+                    className="group-hover/tile:fill-[var(--brand)]"
+                  />
+                </svg>
+              </span>
               <span
                 className={cn(
                   "font-medium text-ink-2",
