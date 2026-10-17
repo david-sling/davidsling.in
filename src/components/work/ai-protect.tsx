@@ -9,6 +9,13 @@ import {
   onField,
 } from "@/components/work/case";
 import { cn } from "@/lib/utils";
+import {
+  siClaude,
+  siGooglegemini,
+  siGrammarly,
+  siPerplexity,
+} from "simple-icons";
+import { openaiPath } from "@/components/work/agent-marks";
 import { TextMorph } from "torph/react";
 
 /**
@@ -18,12 +25,19 @@ import { TextMorph } from "torph/react";
 
 /** Hero: the first question the product answers, with sample rows. */
 function ToolsInUse({ caption = true }: { caption?: boolean }) {
-  const rows: [string, number, string, boolean][] = [
-    ["ChatGPT", 9, "Browser", true],
-    ["Claude", 4, "Desktop app", true],
-    ["Grammarly", 6, "Extension", false],
-    ["Gemini", 3, "Browser", false],
-    ["Perplexity", 2, "Browser", false],
+  // Brand marks only identify the tools in this sample view.
+  const rows: [
+    string,
+    number,
+    string,
+    boolean,
+    { path: string; hex: string },
+  ][] = [
+    ["ChatGPT", 9, "Browser", true, { path: openaiPath, hex: "0d0d0d" }],
+    ["Claude", 4, "Desktop app", true, siClaude],
+    ["Grammarly", 6, "Extension", false, siGrammarly],
+    ["Gemini", 3, "Browser", false, siGooglegemini],
+    ["Perplexity", 2, "Browser", false, siPerplexity],
   ];
   return (
     <figure className="m-0">
@@ -38,20 +52,32 @@ function ToolsInUse({ caption = true }: { caption?: boolean }) {
             <p className="font-semibold">AI tools in use</p>
             <p className="text-[0.85rem] font-medium opacity-70">Last 7 days</p>
           </div>
-          <div className="mt-4 grid grid-cols-[1fr_auto_auto] gap-x-4 text-[0.88rem] sm:grid-cols-[1fr_auto_auto_auto]">
-            {rows.map(([tool, people, from, ok]) => (
+          <div className="mt-4 grid grid-cols-[1fr_auto_auto] gap-x-3 text-[0.82rem] sm:grid-cols-[1fr_auto_auto_auto] sm:gap-x-4 sm:text-[0.88rem]">
+            {rows.map(([tool, people, from, ok, mark]) => (
               <div
                 key={tool}
                 className="col-span-full grid grid-cols-subgrid items-center border-t border-[oklch(0.28_0.1_266/0.12)] py-2.5"
               >
-                <span className="font-semibold">{tool}</span>
-                <span className="tabular text-right opacity-80">
+                <span className="flex min-w-0 items-center gap-2 font-semibold sm:gap-2.5">
+                  <span className="grid size-6 shrink-0 place-items-center rounded-lg bg-white sm:size-7 shadow-[0_0_0_1px_oklch(0.28_0.1_266/0.08)]">
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="size-4"
+                      fill={`#${mark.hex}`}
+                      fillRule="evenodd"
+                    >
+                      <path d={mark.path} />
+                    </svg>
+                  </span>
+                  {tool}
+                </span>
+                <span className="tabular whitespace-nowrap text-right opacity-80">
                   {people} people
                 </span>
                 <span className="hidden opacity-70 sm:block">{from}</span>
                 <span
                   className={cn(
-                    "justify-self-end rounded-full px-2.5 py-0.5 text-[0.78rem] font-semibold",
+                    "justify-self-end whitespace-nowrap rounded-full px-2.5 py-0.5 text-[0.75rem] font-semibold sm:text-[0.78rem]",
                     ok
                       ? "bg-[var(--ai-protect)] text-white"
                       : "bg-[oklch(0.28_0.1_266/0.08)]",
