@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/home/sections";
 import { SiteHeader } from "@/components/home/site-header";
 import { formatDate } from "@/lib/content";
 import { getPost } from "@/lib/posts";
+import { seo } from "@/lib/seo";
 
 // Same /blogs/<slug> URLs as the old site; the text lives in content/blog/<slug>.md.
 export const Route = createFileRoute("/blogs/$slug")({
@@ -15,11 +16,13 @@ export const Route = createFileRoute("/blogs/$slug")({
   head: ({ loaderData }) => ({
     meta: loaderData
       ? [
-          { title: `${loaderData.title} — David Sling` },
-          { name: "description", content: loaderData.summary },
-          { property: "og:title", content: loaderData.title },
-          { property: "og:description", content: loaderData.summary },
-          { property: "og:type", content: "article" },
+          ...seo({
+            title: `${loaderData.title} — David Sling`,
+            description: loaderData.summary,
+            path: `/blogs/${loaderData.slug}`,
+            image: `blogs/${loaderData.slug}`,
+            type: "article",
+          }),
           { property: "article:published_time", content: loaderData.date },
         ]
       : [],

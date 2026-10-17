@@ -6,6 +6,7 @@ import { EquanimCase } from "@/components/work/equanim";
 import { OfflynCase } from "@/components/work/offlyn";
 import { WaveCase } from "@/components/work/wave";
 import { allProjects } from "@/lib/content";
+import { seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/work/$slug")({
   loader: ({ params }) => {
@@ -15,12 +16,12 @@ export const Route = createFileRoute("/work/$slug")({
   },
   head: ({ loaderData }) => ({
     meta: loaderData
-      ? [
-          { title: `${loaderData.name} — David Sling` },
-          { name: "description", content: loaderData.summary },
-          { property: "og:title", content: `${loaderData.name} — David Sling` },
-          { property: "og:description", content: loaderData.summary },
-        ]
+      ? seo({
+          title: `${loaderData.name} — David Sling`,
+          description: loaderData.summary,
+          path: `/work/${loaderData.slug}`,
+          image: `work/${loaderData.slug}`,
+        })
       : [],
   }),
   component: ProjectPage,

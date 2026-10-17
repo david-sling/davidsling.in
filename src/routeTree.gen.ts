@@ -15,6 +15,7 @@ import { Route as ApiGithubRouteImport } from './routes/api/github'
 import { Route as ApiNowPlayingRouteImport } from './routes/api/now-playing'
 import { Route as BlogsIndexRouteImport } from './routes/blogs.index'
 import { Route as BlogsSlugRouteImport } from './routes/blogs.$slug'
+import { Route as OgSplatRouteImport } from './routes/og.$'
 import { Route as WorkSlugRouteImport } from './routes/work.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -47,6 +48,11 @@ const BlogsSlugRoute = BlogsSlugRouteImport.update({
   path: '/blogs/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OgSplatRoute = OgSplatRouteImport.update({
+  id: '/og/$',
+  path: '/og/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WorkSlugRoute = WorkSlugRouteImport.update({
   id: '/work/$slug',
   path: '/work/$slug',
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/api/github': typeof ApiGithubRoute
   '/api/now-playing': typeof ApiNowPlayingRoute
   '/blogs/$slug': typeof BlogsSlugRoute
+  '/og/$': typeof OgSplatRoute
   '/work/$slug': typeof WorkSlugRoute
   '/blogs/': typeof BlogsIndexRoute
 }
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/api/github': typeof ApiGithubRoute
   '/api/now-playing': typeof ApiNowPlayingRoute
   '/blogs/$slug': typeof BlogsSlugRoute
+  '/og/$': typeof OgSplatRoute
   '/work/$slug': typeof WorkSlugRoute
   '/blogs': typeof BlogsIndexRoute
 }
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/api/github': typeof ApiGithubRoute
   '/api/now-playing': typeof ApiNowPlayingRoute
   '/blogs/$slug': typeof BlogsSlugRoute
+  '/og/$': typeof OgSplatRoute
   '/work/$slug': typeof WorkSlugRoute
   '/blogs/': typeof BlogsIndexRoute
 }
@@ -89,6 +98,7 @@ export interface FileRouteTypes {
     | '/api/github'
     | '/api/now-playing'
     | '/blogs/$slug'
+    | '/og/$'
     | '/work/$slug'
     | '/blogs/'
   fileRoutesByTo: FileRoutesByTo
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/api/github'
     | '/api/now-playing'
     | '/blogs/$slug'
+    | '/og/$'
     | '/work/$slug'
     | '/blogs'
   id:
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '/api/github'
     | '/api/now-playing'
     | '/blogs/$slug'
+    | '/og/$'
     | '/work/$slug'
     | '/blogs/'
   fileRoutesById: FileRoutesById
@@ -117,6 +129,7 @@ export interface RootRouteChildren {
   ApiGithubRoute: typeof ApiGithubRoute
   ApiNowPlayingRoute: typeof ApiNowPlayingRoute
   BlogsSlugRoute: typeof BlogsSlugRoute
+  OgSplatRoute: typeof OgSplatRoute
   WorkSlugRoute: typeof WorkSlugRoute
   BlogsIndexRoute: typeof BlogsIndexRoute
 }
@@ -165,6 +178,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/og/$': {
+      id: '/og/$'
+      path: '/og/$'
+      fullPath: '/og/$'
+      preLoaderRoute: typeof OgSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/work/$slug': {
       id: '/work/$slug'
       path: '/work/$slug'
@@ -181,6 +201,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiGithubRoute: ApiGithubRoute,
   ApiNowPlayingRoute: ApiNowPlayingRoute,
   BlogsSlugRoute: BlogsSlugRoute,
+  OgSplatRoute: OgSplatRoute,
   WorkSlugRoute: WorkSlugRoute,
   BlogsIndexRoute: BlogsIndexRoute,
 }

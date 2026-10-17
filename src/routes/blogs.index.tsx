@@ -2,18 +2,18 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PostList, SiteFooter } from "@/components/home/sections";
 import { SiteHeader } from "@/components/home/site-header";
 import { getPosts } from "@/lib/posts";
+import { seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/blogs/")({
   loader: () => getPosts(),
   head: () => ({
-    meta: [
-      { title: "Writing — David Sling" },
-      {
-        name: "description",
-        content:
-          "Notes on building with AI agents, and the odd thought that isn't about code.",
-      },
-    ],
+    meta: seo({
+      title: "Writing — David Sling",
+      description:
+        "Notes on building with AI agents, and the odd thought that isn’t about code.",
+      path: "/blogs",
+      image: "blogs",
+    }),
   }),
   component: BlogIndex,
 });

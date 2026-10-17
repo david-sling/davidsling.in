@@ -1,4 +1,5 @@
 import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router";
+import { seo } from "@/lib/seo";
 import { lazy, Suspense } from "react";
 
 import { themeScript } from "@/components/theme-toggle";
@@ -35,13 +36,13 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "David Sling — Engineer with a designer’s eye" },
-      { name: "description", content: description },
       { name: "theme-color", content: "#67D0E8" },
-      { property: "og:title", content: "David Sling" },
-      { property: "og:description", content: description },
-      { property: "og:url", content: "https://davidsling.in" },
-      { property: "og:type", content: "website" },
+      ...seo({
+        title: "David Sling — Engineer with a designer’s eye",
+        description,
+        path: "/",
+        image: "home",
+      }),
     ],
     links: [
       { rel: "stylesheet", href: appCss },
