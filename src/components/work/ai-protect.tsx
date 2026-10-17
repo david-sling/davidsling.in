@@ -74,24 +74,27 @@ function ToolsInUse({ caption = true }: { caption?: boolean }) {
 }
 
 /**
- * The home card's picture, played on a loop: a paste is caught, AI Protect
- * coaches, the number is removed, and it starts again. It opens on the
- * caught frame so nothing is hidden at rest, runs only while on screen,
- * and holds still on that frame under reduced motion. Sample data.
+ * The home card's picture, a five-second loop: the prompt is scanned until
+ * the SSN turns up, AI Protect coaches, the button is pressed, the number
+ * is removed, and it starts again. Runs only while on screen; under reduced
+ * motion it holds still on the caught frame. Sample data.
  */
 type Stage = "pasted" | "caught" | "cleaned";
+type Beat = "scan" | "found" | "press" | "cleaned" | "out";
 
-const loop: { stage: Stage; ms: number }[] = [
-  { stage: "caught", ms: 2600 },
-  { stage: "cleaned", ms: 2400 },
-  { stage: "pasted", ms: 1300 },
+const beats: { beat: Beat; ms: number }[] = [
+  { beat: "scan", ms: 1500 },
+  { beat: "found", ms: 1300 },
+  { beat: "press", ms: 350 },
+  { beat: "cleaned", ms: 1450 },
+  { beat: "out", ms: 400 },
 ];
 
 export function CoachedPreview() {
-  const [step, setStep] = useState(0);
+  // Reduced motion and the first render both show the caught frame.
+  const [beat, setBeat] = useState<Beat>("found");
+  const [cycle, setCycle] = useState(0);
   const root = useRef<HTMLDivElement>(null);
-  const stage = loop[step].stage;
-  const [moving, setMoving] = useState(false);
 
   useEffect(() => {
     const el = root.current;
@@ -99,22 +102,17 @@ export function CoachedPreview() {
       return;
     let timer: ReturnType<typeof setTimeout> | undefined;
     let visible = false;
-    setMoving(true);
-    const tick = (i: number) => {
+    const play = (i: number) => {
+      setBeat(beats[i].beat);
+      if (i === 0) setCycle((c) => c + 1);
       timer = setTimeout(() => {
-        if (!visible || document.hidden) return;
-        const next = (i + 1) % loop.length;
-        setStep(next);
-        tick(next);
-      }, loop[i].ms);
+        if (visible && !document.hidden) play((i + 1) % beats.length);
+      }, beats[i].ms);
     };
     const io = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       clearTimeout(timer);
-      if (visible) {
-        setStep(0);
-        tick(0);
-      }
+      if (visible) play(0);
     });
     io.observe(el);
     return () => {
@@ -123,18 +121,25 @@ export function CoachedPreview() {
     };
   }, []);
 
+  const caught = beat === "found" || beat === "press";
+  const cleaned = beat === "cleaned" || beat === "out";
+  const cardShown = beat !== "scan" && beat !== "out";
+
   return (
     <div
       ref={root}
       role="img"
-      aria-label="Sample: a client's Social Security number pasted into an AI assistant is caught by AI Protect, which coaches the person and removes the number before anything is sent"
+      aria-label="Sample: AI Protect scans a prompt pasted into an AI assistant, finds a client's Social Security number, and removes it at the click of a button before anything is sent"
       className="relative w-full max-w-[560px] text-[var(--ai-protect-ink)]"
     >
       <div aria-hidden>
         <div className="relative overflow-hidden rounded-[22px] bg-white p-4 shadow-[0_24px_40px_-24px_oklch(0.25_0.12_266/0.6)] sm:p-5">
-          {moving && (
-            // A soft band sweeping the prompt: the check reading the text, always running.
-            <span className="pointer-events-none absolute inset-y-0 left-0 w-1/3 animate-[scan_2.2s_cubic-bezier(0.45,0,0.55,1)_infinite] bg-[linear-gradient(90deg,transparent,oklch(0.6_0.2_264/0.16)_45%,oklch(0.6_0.2_264/0.32)_50%,oklch(0.6_0.2_264/0.16)_55%,transparent)]" />
+          {beat === "scan" && (
+            // One sweep across the prompt; it stops once the number is found.
+            <span
+              key={cycle}
+              className="pointer-events-none absolute inset-y-0 left-0 w-1/3 animate-[scan_1.5s_cubic-bezier(0.45,0,0.55,1)_forwards] bg-[linear-gradient(90deg,transparent,oklch(0.6_0.2_264/0.16)_45%,oklch(0.6_0.2_264/0.32)_50%,oklch(0.6_0.2_264/0.16)_55%,transparent)]"
+            />
           )}
           <p className="hidden rounded-lg bg-[oklch(0.28_0.1_266/0.06)] px-2.5 py-1 text-[0.8rem] font-semibold sm:inline-flex">
             Whitfield_1040_2025.pdf
@@ -144,15 +149,15 @@ export function CoachedPreview() {
             <mark
               className={cn(
                 "inline-flex rounded-md px-1 transition-colors duration-300",
-                stage === "caught"
+                caught
                   ? "bg-[var(--ai-protect)] text-white"
-                  : stage === "cleaned"
+                  : cleaned
                     ? "bg-[oklch(0.28_0.1_266/0.1)] text-inherit"
                     : "bg-transparent text-inherit",
               )}
             >
-              <TextMorph as="span" duration={420}>
-                {stage === "cleaned" ? "[SSN]" : "078-05-1120"}
+              <TextMorph as="span" duration={380}>
+                {cleaned ? "[SSN]" : "078-05-1120"}
               </TextMorph>
             </mark>
             .
@@ -161,30 +166,47 @@ export function CoachedPreview() {
         <div
           className={cn(
             "relative mt-3 ml-auto w-[82%] rounded-[20px] bg-[oklch(0.98_0.01_260)] p-3.5 shadow-[0_24px_40px_-20px_oklch(0.25_0.12_266/0.7)] transition-[opacity,transform] sm:mt-4 sm:w-[66%] sm:p-4",
-            stage === "pasted"
-              ? "translate-y-3 opacity-0 duration-200 ease-in"
-              : "translate-y-0 opacity-100 duration-500 ease-out-expo",
+            cardShown
+              ? "translate-y-0 opacity-100 duration-400 ease-out-expo"
+              : "translate-y-3 opacity-0 duration-200 ease-in",
           )}
         >
           <p className="flex items-center gap-2 text-[0.85rem] font-semibold sm:text-[0.9rem]">
             <ShieldCheck className="size-4" />
             AI Protect
             <span className="ml-auto rounded-full bg-[var(--ai-protect)] px-2 py-0.5 text-[0.7rem] text-white">
-              <TextMorph as="span" duration={420}>
-                {stage === "cleaned" ? "Cleaned" : "Coached"}
+              <TextMorph as="span" duration={380}>
+                {cleaned ? "Cleaned" : "Coached"}
               </TextMorph>
             </span>
           </p>
-          <p className="mt-1.5 text-[0.9rem] font-semibold sm:text-[1rem]">
-            <TextMorph as="span" duration={420}>
-              {stage === "cleaned"
-                ? "Number removed"
-                : "Tax return details found"}
+          <p className="mt-1 text-[0.9rem] font-semibold sm:mt-1.5 sm:text-[1rem]">
+            <TextMorph as="span" duration={380}>
+              {cleaned ? "Number removed" : "Tax return details found"}
             </TextMorph>
           </p>
-          <p className="mt-0.5 hidden text-[0.8rem] font-medium opacity-70 sm:block">
-            Checked on this computer. Nothing was sent.
-          </p>
+          <div className="mt-2.5 grid h-8 sm:mt-3 sm:h-9">
+            <span
+              className={cn(
+                "col-start-1 row-start-1 grid place-items-center rounded-full text-[0.8rem] font-semibold text-white transition-[transform,opacity,background-color] sm:text-[0.85rem]",
+                cleaned ? "opacity-0 duration-150" : "opacity-100 duration-150",
+                beat === "press"
+                  ? "scale-95 bg-[var(--ai-protect-strong)]"
+                  : "scale-100 bg-[var(--ai-protect)]",
+              )}
+            >
+              Remove the details
+            </span>
+            <span
+              className={cn(
+                "col-start-1 row-start-1 flex items-center gap-1.5 text-[0.8rem] font-medium transition-opacity duration-300 sm:text-[0.85rem]",
+                cleaned ? "opacity-70" : "opacity-0",
+              )}
+            >
+              <Check className="size-4" />
+              Nothing was sent
+            </span>
+          </div>
         </div>
       </div>
     </div>
