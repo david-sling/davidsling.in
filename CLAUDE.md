@@ -53,7 +53,7 @@ The app is not scaffolded yet. Until it is, this repo holds planning, design con
     - The `offlyn.love` and `offlyn-app` repos are **private**. Never link to their source.
     - Never quote their code or config.
     - Product images from those repos are approved for use.
-- **Blog:** migrate the MDX posts from `david-sling/portfolio-2`, keeping their original dates and slugs.
+- **Blog:** posts are Markdown files in `content/blog/<slug>.md` (front matter: title, date, summary, tags), served at `/blogs/<slug>`. Copy `content/blog/_template.md` to add one; files starting with `_` are never published. The two posts migrated from `david-sling/portfolio-2` keep their original dates and slugs.
 - **No resume impact numbers** (20% / 30% / 40%) anywhere on the site.
 - **Deploy:** Vercel.
 - **Contact and socials:** email, GitHub, LinkedIn and Instagram. Don't put a phone number on the site's pages. The exception is `public/resume.pdf` (served at `/resume`): David approved keeping his number in it.

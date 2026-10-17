@@ -167,30 +167,6 @@ export const roles: Role[] = [
   },
 ];
 
-export type Post = {
-  slug: string;
-  title: string;
-  date: string;
-  summary: string;
-};
-
-export const posts: Post[] = [
-  {
-    slug: "vibecoded-dating-app",
-    title: "I Vibecoded a Full Stack App. Here's How it Went.",
-    date: "2026-03-23",
-    summary:
-      "Building offlyn.love with AI: SQL as the API, Three.js to raw WebGL, and the rules I wish I had started with.",
-  },
-  {
-    slug: "consistent-randomness",
-    title: "Randomness is Beautifully Consistent",
-    date: "2024-09-11",
-    summary:
-      "Coin flips, compression, and why limited memory might be what makes understanding possible.",
-  },
-];
-
 export const stack = [
   { name: "Claude", icon: siClaude, size: "lg" },
   { name: "TanStack", icon: siTanstack },

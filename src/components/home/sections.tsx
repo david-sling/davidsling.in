@@ -4,7 +4,8 @@ import { SlideArrow } from "@/components/button";
 import { CopyEmail } from "@/components/copy-button";
 import { HighlightedText } from "@/components/highlighted-text";
 import { Pulse } from "@/components/home/pulse";
-import { formatDate, posts, roles, site, stack } from "@/lib/content";
+import { formatDate, roles, site, stack } from "@/lib/content";
+import type { Post } from "@/lib/posts";
 import type { Role } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
@@ -295,47 +296,74 @@ export function Stack() {
   );
 }
 
-export function Writing() {
+/** The latest posts on the home page; the rest are one click away at /blogs. */
+export function Writing({ posts }: { posts: Post[] }) {
   return (
     <section
       id="writing"
       aria-labelledby="writing-title"
       className="mx-auto max-w-[1240px] px-4 pt-28 sm:px-6 sm:pt-36"
     >
-      <h2
-        id="writing-title"
-        className="text-[clamp(2.2rem,4.4vw,3.6rem)] font-semibold tracking-[-0.03em]"
-      >
-        Writing
-      </h2>
-      <ul className="mt-10 grid gap-3 p-0">
-        {posts.map((post) => (
-          <li key={post.slug} className="list-none">
-            <Link
-              to="/blogs/$slug"
-              params={{ slug: post.slug }}
-              className="group/link grid gap-2 rounded-[24px] px-5 py-6 no-underline transition-[background-color,box-shadow] duration-200 hover:bg-sheet hover:shadow-[var(--shadow-tile)] sm:grid-cols-[9rem_1fr_auto] sm:items-baseline sm:gap-8 sm:px-7"
-            >
-              <time
-                dateTime={post.date}
-                className="tabular text-[0.95rem] text-ink-3"
-              >
-                {formatDate(post.date)}
-              </time>
-              <span>
-                <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1.5px] bg-left-bottom bg-no-repeat pb-0.5 text-[1.35rem] font-semibold tracking-[-0.015em] transition-[background-size] duration-500 ease-out-expo group-hover/link:bg-[length:100%_1.5px]">
-                  {post.title}
-                </span>
-                <span className="mt-2 block max-w-[62ch] text-ink-2">
-                  {post.summary}
-                </span>
-              </span>
-              <SlideArrow className="hidden sm:inline-flex" />
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <h2
+          id="writing-title"
+          className="text-[clamp(2.2rem,4.4vw,3.6rem)] font-semibold tracking-[-0.03em]"
+        >
+          Writing
+        </h2>
+        {posts.length > 3 && (
+          <Link
+            to="/blogs"
+            className="group/btn inline-flex min-h-11 items-center gap-2 rounded-full px-4 font-semibold no-underline transition-colors duration-150 hover:bg-sheet"
+          >
+            All {posts.length} posts
+            <SlideArrow />
+          </Link>
+        )}
+      </div>
+      <PostList posts={posts.slice(0, 3)} className="mt-10" />
     </section>
+  );
+}
+
+export function PostList({
+  posts,
+  className,
+}: {
+  posts: Post[];
+  className?: string;
+}) {
+  return (
+    <ul className={cn("grid gap-3 p-0", className)}>
+      {posts.map((post) => (
+        <li key={post.slug} className="list-none">
+          <Link
+            to="/blogs/$slug"
+            params={{ slug: post.slug }}
+            className="group/link grid gap-2 rounded-[24px] px-5 py-6 no-underline transition-[background-color,box-shadow] duration-200 hover:bg-sheet hover:shadow-[var(--shadow-tile)] sm:grid-cols-[9rem_1fr_auto] sm:items-baseline sm:gap-8 sm:px-7"
+          >
+            <time
+              dateTime={post.date}
+              className="tabular text-[0.95rem] text-ink-3"
+            >
+              {formatDate(post.date)}
+            </time>
+            <span>
+              <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1.5px] bg-left-bottom bg-no-repeat pb-0.5 text-[1.35rem] font-semibold tracking-[-0.015em] transition-[background-size] duration-500 ease-out-expo group-hover/link:bg-[length:100%_1.5px]">
+                {post.title}
+              </span>
+              <span className="mt-2 block max-w-[62ch] text-ink-2">
+                {post.summary}
+              </span>
+              <span className="tabular mt-2 block text-[0.88rem] text-ink-3">
+                {post.minutes} min read
+              </span>
+            </span>
+            <SlideArrow className="hidden sm:inline-flex" />
+          </Link>
+        </li>
+      ))}
+    </ul>
   );
 }
 

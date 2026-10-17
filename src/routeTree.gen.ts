@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as ApiGithubRouteImport } from './routes/api/github'
 import { Route as ApiNowPlayingRouteImport } from './routes/api/now-playing'
+import { Route as BlogsIndexRouteImport } from './routes/blogs.index'
 import { Route as BlogsSlugRouteImport } from './routes/blogs.$slug'
 import { Route as WorkSlugRouteImport } from './routes/work.$slug'
 
@@ -36,6 +37,11 @@ const ApiNowPlayingRoute = ApiNowPlayingRouteImport.update({
   path: '/api/now-playing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogsIndexRoute = BlogsIndexRouteImport.update({
+  id: '/blogs/',
+  path: '/blogs/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogsSlugRoute = BlogsSlugRouteImport.update({
   id: '/blogs/$slug',
   path: '/blogs/$slug',
@@ -54,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/api/now-playing': typeof ApiNowPlayingRoute
   '/blogs/$slug': typeof BlogsSlugRoute
   '/work/$slug': typeof WorkSlugRoute
+  '/blogs/': typeof BlogsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByTo {
   '/api/now-playing': typeof ApiNowPlayingRoute
   '/blogs/$slug': typeof BlogsSlugRoute
   '/work/$slug': typeof WorkSlugRoute
+  '/blogs': typeof BlogsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,6 +79,7 @@ export interface FileRoutesById {
   '/api/now-playing': typeof ApiNowPlayingRoute
   '/blogs/$slug': typeof BlogsSlugRoute
   '/work/$slug': typeof WorkSlugRoute
+  '/blogs/': typeof BlogsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -81,6 +90,7 @@ export interface FileRouteTypes {
     | '/api/now-playing'
     | '/blogs/$slug'
     | '/work/$slug'
+    | '/blogs/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -89,6 +99,7 @@ export interface FileRouteTypes {
     | '/api/now-playing'
     | '/blogs/$slug'
     | '/work/$slug'
+    | '/blogs'
   id:
     | '__root__'
     | '/'
@@ -97,6 +108,7 @@ export interface FileRouteTypes {
     | '/api/now-playing'
     | '/blogs/$slug'
     | '/work/$slug'
+    | '/blogs/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -106,6 +118,7 @@ export interface RootRouteChildren {
   ApiNowPlayingRoute: typeof ApiNowPlayingRoute
   BlogsSlugRoute: typeof BlogsSlugRoute
   WorkSlugRoute: typeof WorkSlugRoute
+  BlogsIndexRoute: typeof BlogsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -138,6 +151,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiNowPlayingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blogs/': {
+      id: '/blogs/'
+      path: '/blogs'
+      fullPath: '/blogs/'
+      preLoaderRoute: typeof BlogsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blogs/$slug': {
       id: '/blogs/$slug'
       path: '/blogs/$slug'
@@ -162,6 +182,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiNowPlayingRoute: ApiNowPlayingRoute,
   BlogsSlugRoute: BlogsSlugRoute,
   WorkSlugRoute: WorkSlugRoute,
+  BlogsIndexRoute: BlogsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
