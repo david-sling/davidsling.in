@@ -4,7 +4,7 @@ import { SlideArrow } from "@/components/button";
 import { CopyEmail } from "@/components/copy-button";
 import { HighlightedText } from "@/components/highlighted-text";
 import { Pulse } from "@/components/home/pulse";
-import { formatDate, roles, site, stack } from "@/lib/content";
+import { companyLinks, formatDate, roles, site, stack } from "@/lib/content";
 import type { Post } from "@/lib/posts";
 import type { Role } from "@/lib/content";
 import { cn } from "@/lib/utils";
@@ -105,7 +105,26 @@ export function Experience() {
           >
             <div className="flex items-baseline justify-between gap-6">
               <h3 className="text-[1.4rem] font-semibold tracking-[-0.02em]">
-                {c.company}
+                {companyLinks[c.company] ? (
+                  <a
+                    href={companyLinks[c.company]}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="group/co -mx-1 -my-1.5 inline-flex min-h-11 items-center gap-1.5 rounded-lg px-1 no-underline decoration-2 underline-offset-[0.2em] transition-colors duration-150 hover:text-blue-text hover:underline"
+                  >
+                    {c.company}
+                    <ArrowUpRight
+                      aria-hidden
+                      className="size-4 text-ink-3 transition-transform duration-200 ease-out-expo group-hover/co:-translate-y-0.5 group-hover/co:translate-x-0.5 group-hover/co:text-blue-text"
+                    />
+                    <span className="sr-only">
+                      {" "}
+                      on LinkedIn (opens in a new tab)
+                    </span>
+                  </a>
+                ) : (
+                  c.company
+                )}
               </h3>
               <p className="tabular text-[0.95rem] text-ink-3">{c.period}</p>
             </div>

@@ -96,7 +96,6 @@ export const projects: Project[] = [
   },
 ];
 
-
 export type Role = {
   title: string;
   company: string;
@@ -113,6 +112,12 @@ export type Role = {
     /** The product's own mark. */
     logo?: string;
   }[];
+};
+
+/** Each employer's LinkedIn page, linked from its name in Experience. */
+export const companyLinks: Record<string, string> = {
+  LegalForce: "https://www.linkedin.com/company/legalforce-rapc-worldwide",
+  Nonceblox: "https://www.linkedin.com/company/nonceblox",
 };
 
 export const roles: Role[] = [
