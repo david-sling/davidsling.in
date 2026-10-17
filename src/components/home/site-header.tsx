@@ -47,7 +47,8 @@ export function SiteHeader() {
             </span>
             <span className="col-start-1 row-start-1 flex">
               {/* The slot takes the final word's width up front, so "Sling" moves once, straight to
-                  where it ends up, instead of following every scrambled frame. */}
+                  where it ends up, instead of following every scrambled frame. Wider noise frames are
+                  clipped just short of the space, so they never run into "Sling". */}
               <span className="relative">
                 <span aria-hidden lang={tamil ? "ta" : undefined} className="invisible">
                   {tamil ? TAMIL_FIRST : FIRST}
@@ -57,7 +58,7 @@ export function SiteHeader() {
                   speed={20}
                   label={FIRST}
                   textLang={tamil ? "ta" : undefined}
-                  className="absolute left-0 top-0"
+                  className="absolute inset-y-0 left-0 -right-[0.12em] overflow-hidden whitespace-nowrap"
                 >
                   {tamil ? TAMIL_FIRST : FIRST}
                 </SpecialText>

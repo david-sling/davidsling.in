@@ -1,6 +1,7 @@
 @import "tailwindcss";
-/* Tamil glyphs only: General Sans has none, so the browser falls back per glyph and fetches just the Tamil subset. */
-@import "@fontsource-variable/anek-tamil";
+/* Tamil glyphs only: General Sans has none, so the browser falls back per glyph and fetches just the Tamil subset.
+   Kavivanar is a handwritten face, so the Tamil words read like a signature beside the sans. */
+@import "@fontsource/kavivanar/tamil-400.css";
 
 @custom-variant dark {
   &:where([data-theme="dark"], [data-theme="dark"] *) {
@@ -138,7 +139,7 @@
 }
 
 @theme inline {
-  --font-sans: "General Sans", "Anek Tamil Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "General Sans", "Kavivanar", ui-sans-serif, system-ui, sans-serif;
   --color-ground: var(--ground);
   --color-sheet: var(--sheet);
   --color-sheet-sunk: var(--sheet-sunk);
@@ -231,6 +232,11 @@
 }
 
 /* Spell UI logo/marquee keyframes live here, not in component-scoped <style>. */
+/* Kavivanar has one weight; never fake a bold from it. */
+:lang(ta) {
+  font-synthesis: none;
+}
+
 @keyframes sticker-wobble {
   0%,
   100% {
