@@ -43,7 +43,7 @@ export function CaseHero({
           <Link
             to="/"
             hash="work"
-            className="group/back -ml-2 inline-flex min-h-11 items-center gap-2 rounded-full px-2 text-[0.92rem] font-semibold no-underline transition-colors duration-150 hover:bg-[oklch(1_0_0/0.35)]"
+            className="group/back -ml-4 inline-flex min-h-11 items-center gap-2 rounded-full pl-4 pr-4 text-[0.92rem] font-semibold no-underline transition-colors duration-150 hover:bg-[oklch(1_0_0/0.35)]"
           >
             <ArrowLeft
               aria-hidden
