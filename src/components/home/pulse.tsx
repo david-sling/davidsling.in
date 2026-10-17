@@ -9,7 +9,7 @@ import { NowBuilding } from "@/components/home/now-building";
 type Load<T> =
   { status: "loading" } | { status: "error" } | { status: "ready"; data: T };
 
-function useJson<T>(url: string, refreshMs?: number): Load<T> {
+export function useJson<T>(url: string, refreshMs?: number): Load<T> {
   const [state, setState] = useState<Load<T>>({ status: "loading" });
   useEffect(() => {
     let alive = true;
@@ -338,7 +338,7 @@ function formatDay(iso: string) {
   });
 }
 
-function timeAgo(iso: string) {
+export function timeAgo(iso: string) {
   const s = (new Date(iso).getTime() - Date.now()) / 1000;
   const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
   const steps: [Intl.RelativeTimeFormatUnit, number][] = [
