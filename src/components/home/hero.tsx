@@ -188,7 +188,7 @@ function SocialsTile({ github }: { github: Load<GithubPulse> }) {
             <span
               aria-hidden
               className={cn(
-                'pointer-events-none absolute inset-0 -z-10 overflow-hidden opacity-0 [--spot:440px] dark:[--spot:280px] transition-opacity duration-200 ease-out-expo group-hover/t:opacity-100 group-hover/t:duration-500 group-focus-visible/t:opacity-100',
+                'pointer-events-none absolute inset-0 -z-10 overflow-hidden opacity-0 [--spot:640px] dark:[--spot:280px] transition-opacity duration-200 ease-out-expo group-hover/t:opacity-100 group-hover/t:duration-500 group-focus-visible/t:opacity-100',
                 brandFill[s.label],
               )}
               style={{ maskImage: spotMask, WebkitMaskImage: spotMask }}
