@@ -30,7 +30,7 @@ function ToolsInUse() {
         role="img"
         aria-label="Sample console view: AI tools in use over the last 7 days, with how many people use each, where from, and whether it is approved"
         data-motion="travel"
-        className="rounded-[28px] bg-[oklch(1_0_0/0.82)] p-5 text-[var(--ai-protect-deep)] shadow-[0_24px_40px_-24px_oklch(0.3_0.08_165/0.6)] sm:p-6"
+        className="rounded-[28px] bg-[oklch(1_0_0/0.82)] p-5 text-[var(--ai-protect-ink)] shadow-[0_24px_40px_-24px_oklch(0.25_0.12_266/0.6)] sm:p-6"
       >
         <div aria-hidden>
           <div className="flex items-baseline justify-between gap-4">
@@ -41,7 +41,7 @@ function ToolsInUse() {
             {rows.map(([tool, people, from, ok]) => (
               <div
                 key={tool}
-                className="col-span-full grid grid-cols-subgrid items-center border-t border-[oklch(0.22_0.045_165/0.12)] py-2.5"
+                className="col-span-full grid grid-cols-subgrid items-center border-t border-[oklch(0.28_0.1_266/0.12)] py-2.5"
               >
                 <span className="font-semibold">{tool}</span>
                 <span className="tabular text-right opacity-80">
@@ -52,8 +52,8 @@ function ToolsInUse() {
                   className={cn(
                     "justify-self-end rounded-full px-2.5 py-0.5 text-[0.78rem] font-semibold",
                     ok
-                      ? "bg-[var(--ai-protect)] text-[var(--ai-protect-deep)]"
-                      : "bg-[oklch(0.22_0.045_165/0.08)]",
+                      ? "bg-[var(--ai-protect)] text-white"
+                      : "bg-[oklch(0.28_0.1_266/0.08)]",
                   )}
                 >
                   {ok ? "Approved" : "Your call"}
@@ -82,14 +82,16 @@ function PasteDemo() {
 
   const Hit = ({ text, label }: { text: string; label: string }) =>
     stage === "cleaned" ? (
-      <span className="rounded-md bg-[oklch(0.22_0.045_165/0.1)] px-1 font-mono text-[0.85em]">
+      <span className="rounded-md bg-[oklch(0.28_0.1_266/0.1)] px-1 font-mono text-[0.85em]">
         [{label}]
       </span>
     ) : (
       <mark
         className={cn(
           "rounded-md px-0.5 text-inherit transition-colors duration-200",
-          stage === "caught" ? "bg-[var(--ai-protect)]" : "bg-transparent",
+          stage === "caught"
+            ? "bg-[var(--ai-protect)] text-white"
+            : "bg-transparent",
         )}
       >
         {text}
@@ -106,12 +108,12 @@ function PasteDemo() {
         } as React.CSSProperties
       }
     >
-      <div className="rounded-[28px] bg-[oklch(1_0_0/0.82)] p-5 sm:p-6">
+      <div className="rounded-[28px] bg-[oklch(1_0_0/0.9)] p-5 text-[var(--ai-protect-ink)] sm:p-6">
         <p className="text-[0.85rem] font-semibold opacity-70">
           An AI assistant, any of them
         </p>
-        <div className="mt-3 rounded-[18px] bg-white p-4 shadow-[0_1px_0_oklch(0.22_0.045_165/0.08)]">
-          <p className="inline-flex items-center gap-2 rounded-lg bg-[oklch(0.22_0.045_165/0.06)] px-2.5 py-1.5 text-[0.82rem] font-semibold">
+        <div className="mt-3 rounded-[18px] bg-white p-4 shadow-[0_1px_0_oklch(0.28_0.1_266/0.08)]">
+          <p className="inline-flex items-center gap-2 rounded-lg bg-[oklch(0.28_0.1_266/0.06)] px-2.5 py-1.5 text-[0.82rem] font-semibold">
             Whitfield_1040_2025.pdf
           </p>
           <p className="mt-3 leading-relaxed" aria-live="polite">
@@ -125,7 +127,7 @@ function PasteDemo() {
             <button
               type="button"
               onClick={() => setStage("caught")}
-              className="inline-flex min-h-11 select-none items-center rounded-full bg-[var(--ai-protect-deep)] px-6 font-semibold text-white transition-[transform,background-color] duration-150 ease-out-quart hover:bg-[color-mix(in_oklch,var(--ai-protect-deep)_86%,white)] active:scale-[0.97] active:duration-75"
+              className="inline-flex min-h-11 select-none items-center rounded-full bg-[var(--ai-protect)] px-6 font-semibold text-white transition-[transform,background-color] duration-150 ease-out-quart hover:bg-[var(--ai-protect-strong)] active:scale-[0.97] active:duration-75"
             >
               Send
             </button>
@@ -133,7 +135,7 @@ function PasteDemo() {
             <button
               type="button"
               onClick={() => setStage("pasted")}
-              className="group/reset inline-flex min-h-11 select-none items-center gap-2 rounded-full px-4 font-semibold transition-[transform,background-color] duration-150 ease-out-quart hover:bg-[oklch(0.22_0.045_165/0.08)] active:scale-[0.97] active:duration-75"
+              className="group/reset inline-flex min-h-11 select-none items-center gap-2 rounded-full px-4 font-semibold transition-[transform,background-color] duration-150 ease-out-quart hover:bg-[oklch(0.28_0.1_266/0.08)] active:scale-[0.97] active:duration-75"
             >
               <RotateCcw
                 aria-hidden
@@ -151,14 +153,14 @@ function PasteDemo() {
           "rounded-[28px] p-5 transition-[background-color,box-shadow] duration-300 sm:p-6",
           stage === "pasted"
             ? "bg-[oklch(1_0_0/0.3)]"
-            : "bg-[oklch(1_0_0/0.92)] shadow-[0_24px_40px_-24px_oklch(0.3_0.08_165/0.6)]",
+            : "bg-[oklch(1_0_0/0.94)] text-[var(--ai-protect-ink)] shadow-[0_24px_40px_-24px_oklch(0.25_0.12_266/0.6)]",
         )}
       >
         <p className="flex items-center gap-2 font-semibold">
           <ShieldCheck aria-hidden className="size-5" />
           AI Protect
           {stage !== "pasted" && (
-            <span className="ml-auto rounded-full bg-[var(--ai-protect)] px-2.5 py-0.5 text-[0.78rem]">
+            <span className="ml-auto rounded-full bg-[var(--ai-protect)] px-2.5 py-0.5 text-[0.78rem] text-white">
               {stage === "caught" ? "Coached" : "Cleaned"}
             </span>
           )}
@@ -179,19 +181,19 @@ function PasteDemo() {
                 <li key={t} className="flex list-none items-center gap-2">
                   <span
                     aria-hidden
-                    className="size-2 rounded-full bg-[var(--ai-protect-deep)]"
+                    className="size-2 rounded-full bg-[var(--ai-protect)]"
                   />
                   {t}
                 </li>
               ))}
             </ul>
-            <p className="mt-3 text-[0.9rem] font-medium text-[var(--muted)]">
+            <p className="mt-3 text-[0.9rem] font-medium opacity-70">
               Checked on this computer. Nothing was sent.
             </p>
             <button
               type="button"
               onClick={() => setStage("cleaned")}
-              className="mt-5 inline-flex min-h-11 w-full select-none items-center justify-center rounded-full bg-[var(--ai-protect-deep)] px-6 font-semibold text-white transition-[transform,background-color] duration-150 ease-out-quart hover:bg-[color-mix(in_oklch,var(--ai-protect-deep)_86%,white)] active:scale-[0.98] active:duration-75"
+              className="mt-5 inline-flex min-h-11 w-full select-none items-center justify-center rounded-full bg-[var(--ai-protect)] px-6 font-semibold text-white transition-[transform,background-color] duration-150 ease-out-quart hover:bg-[var(--ai-protect-strong)] active:scale-[0.98] active:duration-75"
             >
               Remove the details
             </button>
@@ -203,7 +205,7 @@ function PasteDemo() {
               <Check aria-hidden className="size-5" />
               Sent without them
             </p>
-            <p className="mt-2 font-medium text-[var(--muted)]">
+            <p className="mt-2 font-medium opacity-70">
               The email still gets drafted. The client's numbers stayed on the
               computer.
             </p>
@@ -249,7 +251,7 @@ function PrivacySplit() {
           className={cn(
             "rounded-[32px] p-6 sm:p-8",
             i === 0
-              ? "bg-[var(--ai-protect)] text-[var(--ai-protect-deep)]"
+              ? "bg-[var(--ai-protect)] text-white"
               : "bg-sheet shadow-[var(--shadow-tile)]",
           )}
         >
@@ -262,9 +264,7 @@ function PrivacySplit() {
                 key={item}
                 className={cn(
                   "list-none border-t py-3 last:pb-0",
-                  i === 0
-                    ? "border-[oklch(0.22_0.045_165/0.15)]"
-                    : "border-line text-ink-2",
+                  i === 0 ? "border-white/20" : "border-line text-ink-2",
                 )}
               >
                 {item}
