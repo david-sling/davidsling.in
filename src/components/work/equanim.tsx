@@ -215,7 +215,8 @@ function SpecBesideRender() {
 
   return (
     <figure
-      className="m-0 rounded-[40px] p-4 sm:p-6 lg:p-8"
+      id="playground"
+      className="m-0 scroll-mt-24 rounded-[40px] p-4 sm:p-6 lg:p-8"
       style={
         {
           background: "var(--equanim)",
@@ -336,6 +337,7 @@ export function EquanimCase({ project }: { project: Project }) {
     <>
       <CaseHero
         project={project}
+        jump={{ label: "Try the playground", href: "#playground" }}
         facts={[
           { label: "Role", value: "Designed and built it" },
           { label: "When", value: "4 days, March 2026" },

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowUpRight } from "lucide-react";
 import { SlideArrow } from "@/components/button";
 import { projects, type Project, type ProjectSlug } from "@/lib/content";
 import { cn } from "@/lib/utils";
@@ -20,10 +20,13 @@ export function CaseHero({
   project,
   facts,
   media,
+  jump,
 }: {
   project: Project;
   facts: { label: string; value: string }[];
   media: React.ReactNode;
+  /** An in-page shortcut beside the outbound links, e.g. to a live demo. */
+  jump?: { label: string; href: string };
 }) {
   return (
     <section
@@ -100,6 +103,24 @@ export function CaseHero({
                 <span className="sr-only">(opens in a new tab)</span>
               </a>
             ))}
+            {jump && (
+              <a
+                href={jump.href}
+                data-motion="travel"
+                className="group/jump inline-flex h-12 select-none items-center gap-2 rounded-full border-2 border-[var(--deep)]/25 pl-6 pr-5 font-semibold no-underline origin-bottom transition-[transform,background-color,border-color] duration-150 ease-out-quart hover:border-[var(--deep)]/60 hover:bg-[oklch(1_0_0/0.3)] active:scale-x-[1.02] active:scale-y-[0.92] active:duration-75"
+                style={
+                  {
+                    "--deep": `var(--${project.slug}-deep)`,
+                  } as React.CSSProperties
+                }
+              >
+                {jump.label}
+                <ArrowDown
+                  aria-hidden
+                  className="size-4 transition-transform duration-300 ease-out-expo group-hover/jump:translate-y-0.5"
+                />
+              </a>
+            )}
           </div>
         </div>
         <div className="min-w-0">{media}</div>
