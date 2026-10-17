@@ -3,8 +3,11 @@ import { Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { CopyEmail } from "@/components/copy-button";
 import { Logo } from "@/components/logo";
+import { SpecialText } from "@/components/special-text";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { site } from "@/lib/content";
+
+const TAMIL_NAME = "டேவிட் ஸ்லிங்";
 
 const nav = [
   { href: "/#work", label: "Work" },
@@ -14,12 +17,17 @@ const nav = [
 
 export function SiteHeader() {
   const [hovered, setHovered] = useState<string | null>(null);
+  const [tamil, setTamil] = useState(false);
 
   return (
     <header className="sticky top-0 z-40 bg-ground">
       <div className="mx-auto flex h-18 max-w-[1240px] items-center justify-between gap-1 px-4 sm:gap-4 sm:px-6">
         <Link
           to="/"
+          onPointerEnter={() => setTamil(true)}
+          onPointerLeave={() => setTamil(false)}
+          onFocus={(e) => setTamil(e.currentTarget.matches(":focus-visible"))}
+          onBlur={() => setTamil(false)}
           className="group/mark flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-full py-1 pr-2 text-[1.05rem] font-semibold tracking-[-0.01em] no-underline"
         >
           <span
@@ -28,18 +36,20 @@ export function SiteHeader() {
           >
             <Logo className="ml-0.5 h-3.5 transition-transform duration-300 ease-out-expo group-hover/mark:translate-x-[3px]" />
           </span>
-          {/* On hover or focus the name rolls over to its Tamil spelling; the English stays the accessible name. */}
-          <span className="grid overflow-hidden max-[420px]:sr-only">
-            <span className="col-start-1 row-start-1 transition-[transform,opacity] duration-200 ease-out-expo group-hover/mark:-translate-y-full group-hover/mark:opacity-0 group-focus-visible/mark:-translate-y-full group-focus-visible/mark:opacity-0 motion-reduce:translate-y-0!">
-              {site.name}
-            </span>
-            <span
-              aria-hidden
-              lang="ta"
-              className="col-start-1 row-start-1 translate-y-full opacity-0 transition-[transform,opacity] duration-300 ease-out-expo group-hover/mark:translate-y-0 group-hover/mark:opacity-100 group-focus-visible/mark:translate-y-0 group-focus-visible/mark:opacity-100 motion-reduce:translate-y-0"
+          {/* On hover or focus the name scrambles into its Tamil spelling; the English stays the accessible name.
+              Both spellings size the cell invisibly, so the nav never shifts. */}
+          <span className="grid whitespace-nowrap max-[420px]:sr-only">
+            <span aria-hidden className="invisible col-start-1 row-start-1">{site.name}</span>
+            <span aria-hidden lang="ta" className="invisible col-start-1 row-start-1">{TAMIL_NAME}</span>
+            <SpecialText
+              animateOnMount={false}
+              speed={14}
+              label={site.name}
+              textLang={tamil ? "ta" : undefined}
+              className="col-start-1 row-start-1 overflow-hidden"
             >
-              டேவிட் ஸ்லிங்
-            </span>
+              {tamil ? TAMIL_NAME : site.name}
+            </SpecialText>
           </span>
         </Link>
 
