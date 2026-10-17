@@ -32,6 +32,8 @@ export type Project = {
   name: string;
   year: string;
   summary: string;
+  /** Set for work built for an employer; shown as a badge on the card. */
+  builtAt?: string;
   /** One verifiable fact shown on the card. */
   fact: string;
   tags: string[];
@@ -75,16 +77,11 @@ export const projects: Project[] = [
     tags: ["React Native", "Expo", "Supabase", "TanStack Start"],
     links: [{ label: "Live", href: "https://offlyn.love" }],
   },
-];
-
-/**
- * Work built for an employer. These get case studies but stay out of
- * "Selected work"; everything on them comes from the product's public site.
- */
-export const workProjects: Project[] = [
+  // Built at NEXTech: everything on its card and case study comes from the public product site.
   {
     slug: "ai-protect",
     name: "AI Protect",
+    builtAt: "NEXTech",
     year: "2026",
     summary:
       "Shows a firm which AI tools its team uses, and catches client data at the paste, before it reaches any of them.",
@@ -99,7 +96,6 @@ export const workProjects: Project[] = [
   },
 ];
 
-export const allProjects = [...projects, ...workProjects];
 
 export type Role = {
   title: string;

@@ -17,7 +17,7 @@ import { TextMorph } from "torph/react";
  */
 
 /** Hero: the first question the product answers, with sample rows. */
-function ToolsInUse() {
+export function ToolsInUse({ caption = true }: { caption?: boolean }) {
   const rows: [string, number, string, boolean][] = [
     ["ChatGPT", 9, "Browser", true],
     ["Claude", 4, "Desktop app", true],
@@ -64,9 +64,11 @@ function ToolsInUse() {
           </div>
         </div>
       </div>
-      <figcaption className="mt-3 text-[0.88rem] font-medium text-[var(--muted)]">
-        Sample data, in the shape of the real console.
-      </figcaption>
+      {caption && (
+        <figcaption className="mt-3 text-[0.88rem] font-medium text-[var(--muted)]">
+          Sample data, in the shape of the real console.
+        </figcaption>
+      )}
     </figure>
   );
 }

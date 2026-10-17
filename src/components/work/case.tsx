@@ -188,7 +188,6 @@ export function Decisions({
 }
 
 export function NextProject({ current }: { current: ProjectSlug }) {
-  // Featured projects cycle; a work case study hands over to the first one.
   const i = projects.findIndex((p) => p.slug === current);
   const next = projects[(i + 1) % projects.length];
   return (

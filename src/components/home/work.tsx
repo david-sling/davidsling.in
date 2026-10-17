@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Link } from '@tanstack/react-router'
 import { SlideArrow } from '@/components/button'
 import { Pendulum } from '@/components/pendulum'
+import { ToolsInUse } from '@/components/work/ai-protect'
 import { TiltCard } from '@/components/tilt-card'
 import { projects, type Project, type ProjectSlug } from '@/lib/content'
 import { cn } from '@/lib/utils'
@@ -20,18 +21,20 @@ export function Work() {
       <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <h2 id="work-title" className="text-[clamp(2.2rem,4.4vw,3.6rem)] font-semibold tracking-[-0.03em]">
           Selected work
-          <sup className="tabular ml-1.5 align-super text-[0.4em] font-medium tracking-normal text-ink-3">(03)</sup>
+          <sup className="tabular ml-1.5 align-super text-[0.4em] font-medium tracking-normal text-ink-3">({String(projects.length).padStart(2, '0')})</sup>
         </h2>
         <p className="max-w-[40ch] text-ink-2">
-          Three products from the last year, each designed, built and shipped end to end with agents in the loop.
+          Four products from the last year, each shipped end to end with agents in the loop.
         </p>
       </div>
 
       <div className="mt-12 grid gap-x-6 gap-y-14 md:grid-cols-2">
         <ProjectCard project={lead} className="md:col-span-2" wide />
-        {rest.map((p) => (
-          <ProjectCard key={p.slug} project={p} />
-        ))}
+        {rest.map((p, i) => {
+          // An odd one out at the end spans the row, so the grid never leaves a hole.
+          const wide = i === rest.length - 1 && rest.length % 2 === 1
+          return <ProjectCard key={p.slug} project={p} className={wide ? 'md:col-span-2' : undefined} wide={wide} />
+        })}
       </div>
     </section>
   )
@@ -61,9 +64,16 @@ function ProjectCard({ project, className, wide }: { project: Project; className
         </TiltCard>
 
         <div className="mt-5 flex items-baseline justify-between gap-4 px-1">
-          <h3 className={cn('text-[1.6rem] font-semibold tracking-[-0.02em] transition-colors duration-200', t.text)}>
-            {project.name}
-          </h3>
+          <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
+            <h3 className={cn('text-[1.6rem] font-semibold tracking-[-0.02em] transition-colors duration-200', t.text)}>
+              {project.name}
+            </h3>
+            {project.builtAt && (
+              <span className="rounded-full bg-sheet px-3 py-1 text-[0.8rem] font-semibold text-ink-2 shadow-[0_0_0_1px_var(--line)]">
+                Built at {project.builtAt}
+              </span>
+            )}
+          </span>
           <span className="tabular text-[0.95rem] font-medium text-ink-3">{project.year}</span>
         </div>
         <p className={cn('mt-2 px-1 text-ink-2', wide ? 'max-w-[62ch]' : 'max-w-[52ch]')}>{project.summary}</p>
@@ -118,6 +128,15 @@ function Media({
   wide?: boolean
 }) {
   if (slug === 'wave') return <WaveMedia video={video} wide={wide} />
+  if (slug === 'ai-protect') {
+    return (
+      <div className="absolute inset-0 grid place-items-center p-5 sm:p-10">
+        <div className="w-full max-w-[600px] transition-transform duration-500 ease-out-expo group-hover/link:-translate-y-1.5 group-hover/link:rotate-[-1deg]">
+          <ToolsInUse caption={false} />
+        </div>
+      </div>
+    )
+  }
   if (slug === 'equanim') {
     return (
       <div className="absolute inset-0">

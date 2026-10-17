@@ -5,12 +5,12 @@ import { AiProtectCase } from "@/components/work/ai-protect";
 import { EquanimCase } from "@/components/work/equanim";
 import { OfflynCase } from "@/components/work/offlyn";
 import { WaveCase } from "@/components/work/wave";
-import { allProjects } from "@/lib/content";
+import { projects } from "@/lib/content";
 import { seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/work/$slug")({
   loader: ({ params }) => {
-    const project = allProjects.find((p) => p.slug === params.slug);
+    const project = projects.find((p) => p.slug === params.slug);
     if (!project) throw notFound();
     return project;
   },

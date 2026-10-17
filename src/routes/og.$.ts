@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { allProjects, formatDate } from "@/lib/content";
+import { projects, formatDate } from "@/lib/content";
 
 /**
  * /og/<page>: the share card for every page (a trailing .png also works).
@@ -45,7 +45,7 @@ async function cardFor(page: string) {
     };
   }
   if (kind === "work") {
-    const project = allProjects.find((p) => p.slug === slug);
+    const project = projects.find((p) => p.slug === slug);
     if (!project) return null;
     return {
       title: project.name,
