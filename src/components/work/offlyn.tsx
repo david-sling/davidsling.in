@@ -76,7 +76,7 @@ function MutualFriendReveal() {
           type="button"
           onClick={() => setMatched((m) => !m)}
           data-motion="travel"
-          className="group/like mt-8 inline-flex h-12 select-none items-center gap-2.5 rounded-full bg-[var(--offlyn-deep)] pl-5 pr-6 font-semibold text-[var(--offlyn)] origin-bottom transition-[transform,background-color] duration-150 ease-out-quart hover:bg-[color-mix(in_oklch,var(--offlyn-deep)_86%,var(--offlyn))] active:scale-x-[1.02] active:scale-y-[0.92] active:duration-75"
+          className="group/like mt-4 inline-flex h-12 select-none items-center gap-2.5 rounded-full bg-[var(--offlyn-deep)] pl-5 pr-6 font-semibold text-[var(--offlyn)] origin-bottom transition-[transform,background-color] duration-150 ease-out-quart hover:bg-[color-mix(in_oklch,var(--offlyn-deep)_86%,var(--offlyn))] active:scale-x-[1.02] active:scale-y-[0.92] active:duration-75"
         >
           {matched ? (
             <RotateCcw
