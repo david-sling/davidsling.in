@@ -44,7 +44,7 @@ function Glow({ color }: { color: string }) {
   return (
     <span
       aria-hidden
-      className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition-opacity duration-200 ease-out-expo group-hover/t:opacity-100 group-hover/t:duration-500"
+      className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition-opacity duration-200 ease-out-expo group-hover/t:opacity-100 group-hover/t:duration-500 dark:group-hover/t:opacity-55"
       style={{
         background: `radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), color-mix(in oklab, ${color} 38%, transparent), transparent 70%)`,
       }}
