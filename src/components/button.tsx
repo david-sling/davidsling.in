@@ -57,21 +57,16 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 )
 Button.displayName = 'Button'
 
-/** Arrow that exits right while its twin enters from the left. */
+/** An arrow that nudges right when its button or link is hovered. */
 export function SlideArrow({ className }: { className?: string }) {
   return (
-    <span
+    <ArrowRight
       aria-hidden
-      className={cn('relative inline-flex size-4 overflow-hidden', className)}
-    >
-      <ArrowRight
-        className="absolute inset-0 size-4 transition-transform duration-300 ease-out-expo group-hover/btn:translate-x-5 group-hover/link:translate-x-5 motion-reduce:transition-none"
-        strokeWidth={2.25}
-      />
-      <ArrowRight
-        className="absolute inset-0 size-4 -translate-x-5 transition-transform duration-300 ease-out-expo group-hover/btn:translate-x-0 group-hover/link:translate-x-0 motion-reduce:transition-none"
-        strokeWidth={2.25}
-      />
-    </span>
+      className={cn(
+        'size-4 shrink-0 transition-transform duration-200 ease-out-expo group-hover/btn:translate-x-1 group-hover/link:translate-x-1 motion-reduce:transition-none',
+        className,
+      )}
+      strokeWidth={2.25}
+    />
   )
 }
