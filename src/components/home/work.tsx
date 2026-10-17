@@ -61,15 +61,6 @@ function ProjectCard({ project, className, wide }: { project: Project; className
           className={cn('rounded-[28px]', t.field, wide ? 'aspect-[4/3] sm:aspect-[2/1] lg:aspect-[5/2] xl:aspect-[3/1]' : 'aspect-[4/3]')}
         >
           <Media slug={project.slug} video={video} wide={wide} />
-          {project.logo && (
-            <img
-              src={project.logo}
-              alt=""
-              width={80}
-              height={80}
-              className="absolute left-3 top-3 z-10 size-11 origin-[70%_85%] drop-shadow-[0_8px_14px_oklch(0.3_0.08_80/0.35)] transition-transform duration-300 ease-out-expo group-hover/link:-rotate-12 motion-reduce:transition-none sm:left-5 sm:top-5 sm:size-16 lg:size-20"
-            />
-          )}
           {project.builtAt && (
             <span className="absolute left-4 top-4 rounded-full bg-[oklch(1_0_0/0.88)] px-3.5 py-1.5 text-[0.82rem] font-semibold text-[oklch(0.25_0.02_250)] sm:left-5 sm:top-5">
               Built at {project.builtAt}
@@ -78,7 +69,21 @@ function ProjectCard({ project, className, wide }: { project: Project; className
         </TiltCard>
 
         <div className="mt-5 flex items-baseline justify-between gap-4 px-1">
-          <h3 className={cn('text-[1.6rem] font-semibold tracking-[-0.02em] transition-colors duration-200', t.text)}>
+          <h3
+            className={cn(
+              'flex items-center gap-2.5 text-[1.6rem] font-semibold tracking-[-0.02em] transition-colors duration-200',
+              t.text,
+            )}
+          >
+            {project.logo && (
+              <img
+                src={project.logo}
+                alt=""
+                width={32}
+                height={32}
+                className="size-8 origin-[70%_85%] transition-transform duration-300 ease-out-expo group-hover/link:-rotate-12 motion-reduce:transition-none"
+              />
+            )}
             {project.name}
           </h3>
           <span className="tabular text-[0.95rem] font-medium text-ink-3">{project.year}</span>
