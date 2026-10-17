@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Link } from '@tanstack/react-router'
 import { SlideArrow } from '@/components/button'
 import { Pendulum } from '@/components/pendulum'
-import { ToolsInUse } from '@/components/work/ai-protect'
+import { CoachedPreview } from '@/components/work/ai-protect'
 import { TiltCard } from '@/components/tilt-card'
 import { projects, type Project, type ProjectSlug } from '@/lib/content'
 import { cn } from '@/lib/utils'
@@ -61,19 +61,17 @@ function ProjectCard({ project, className, wide }: { project: Project; className
           className={cn('rounded-[28px]', t.field, wide ? 'aspect-[4/3] sm:aspect-[2/1]' : 'aspect-[4/3]')}
         >
           <Media slug={project.slug} video={video} wide={wide} />
+          {project.builtAt && (
+            <span className="absolute left-4 top-4 rounded-full bg-[oklch(1_0_0/0.88)] px-3.5 py-1.5 text-[0.82rem] font-semibold text-[oklch(0.25_0.02_250)] sm:left-5 sm:top-5">
+              Built at {project.builtAt}
+            </span>
+          )}
         </TiltCard>
 
         <div className="mt-5 flex items-baseline justify-between gap-4 px-1">
-          <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
-            <h3 className={cn('text-[1.6rem] font-semibold tracking-[-0.02em] transition-colors duration-200', t.text)}>
-              {project.name}
-            </h3>
-            {project.builtAt && (
-              <span className="rounded-full bg-sheet px-3 py-1 text-[0.8rem] font-semibold text-ink-2 shadow-[0_0_0_1px_var(--line)]">
-                Built at {project.builtAt}
-              </span>
-            )}
-          </span>
+          <h3 className={cn('text-[1.6rem] font-semibold tracking-[-0.02em] transition-colors duration-200', t.text)}>
+            {project.name}
+          </h3>
           <span className="tabular text-[0.95rem] font-medium text-ink-3">{project.year}</span>
         </div>
         <p className={cn('mt-2 px-1 text-ink-2', wide ? 'max-w-[62ch]' : 'max-w-[52ch]')}>{project.summary}</p>
@@ -130,9 +128,11 @@ function Media({
   if (slug === 'wave') return <WaveMedia video={video} wide={wide} />
   if (slug === 'ai-protect') {
     return (
-      <div className="absolute inset-0 grid place-items-center p-5 sm:p-10">
-        <div className="w-full max-w-[600px] transition-transform duration-500 ease-out-expo group-hover/link:-translate-y-1.5 group-hover/link:rotate-[-1deg]">
-          <ToolsInUse caption={false} />
+      <div className="absolute inset-0 grid place-items-center px-2 pb-2 pt-12 sm:p-10">
+        <div className="flex w-full justify-center transition-transform duration-500 ease-out-expo group-hover/link:-translate-y-1.5 group-hover/link:rotate-[-1deg]">
+          <div className="flex w-full scale-[0.86] justify-center sm:scale-100 md:scale-[1.1] lg:scale-[1.5]">
+            <CoachedPreview />
+          </div>
         </div>
       </div>
     )

@@ -116,6 +116,7 @@ export type Role = {
 
 /** Each employer's LinkedIn page, linked from its name in Experience. */
 export const companyLinks: Record<string, string> = {
+  NEXTech: "https://www.linkedin.com/company/nextechpvtltd",
   LegalForce: "https://www.linkedin.com/company/legalforce-rapc-worldwide",
   Nonceblox: "https://www.linkedin.com/company/nonceblox",
 };
@@ -167,7 +168,7 @@ export const roles: Role[] = [
   {
     title: "Full Stack Intern",
     company: "Nonceblox",
-    period: "2021–2022",
+    period: "2021",
     note: "Next.js, Node and web3 for blockchain products.",
   },
 ];

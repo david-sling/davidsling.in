@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Check, RotateCcw, ShieldCheck } from "lucide-react";
 import type { Project } from "@/lib/content";
 import {
@@ -17,7 +17,7 @@ import { TextMorph } from "torph/react";
  */
 
 /** Hero: the first question the product answers, with sample rows. */
-export function ToolsInUse({ caption = true }: { caption?: boolean }) {
+function ToolsInUse({ caption = true }: { caption?: boolean }) {
   const rows: [string, number, string, boolean][] = [
     ["ChatGPT", 9, "Browser", true],
     ["Claude", 4, "Desktop app", true],
@@ -73,7 +73,117 @@ export function ToolsInUse({ caption = true }: { caption?: boolean }) {
   );
 }
 
+/**
+ * The home card's picture, played on a loop: a paste is caught, AI Protect
+ * coaches, the number is removed, and it starts again. It opens on the
+ * caught frame so nothing is hidden at rest, runs only while on screen,
+ * and holds still on that frame under reduced motion. Sample data.
+ */
 type Stage = "pasted" | "caught" | "cleaned";
+
+const loop: { stage: Stage; ms: number }[] = [
+  { stage: "caught", ms: 2600 },
+  { stage: "cleaned", ms: 2400 },
+  { stage: "pasted", ms: 1300 },
+];
+
+export function CoachedPreview() {
+  const [step, setStep] = useState(0);
+  const root = useRef<HTMLDivElement>(null);
+  const stage = loop[step].stage;
+
+  useEffect(() => {
+    const el = root.current;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches)
+      return;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let visible = false;
+    const tick = (i: number) => {
+      timer = setTimeout(() => {
+        if (!visible || document.hidden) return;
+        const next = (i + 1) % loop.length;
+        setStep(next);
+        tick(next);
+      }, loop[i].ms);
+    };
+    const io = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      clearTimeout(timer);
+      if (visible) {
+        setStep(0);
+        tick(0);
+      }
+    });
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      clearTimeout(timer);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={root}
+      role="img"
+      aria-label="Sample: a client's Social Security number pasted into an AI assistant is caught by AI Protect, which coaches the person and removes the number before anything is sent"
+      className="relative w-full max-w-[560px] text-[var(--ai-protect-ink)]"
+    >
+      <div aria-hidden>
+        <div className="rounded-[22px] bg-white p-4 shadow-[0_24px_40px_-24px_oklch(0.25_0.12_266/0.6)] sm:p-5">
+          <p className="inline-flex rounded-lg bg-[oklch(0.28_0.1_266/0.06)] px-2.5 py-1 text-[0.75rem] font-semibold sm:text-[0.8rem]">
+            Whitfield_1040_2025.pdf
+          </p>
+          <p className="mt-2.5 text-[0.85rem] leading-relaxed sm:text-[0.95rem]">
+            Draft a summary email for this client. Their SSN is{" "}
+            <mark
+              className={cn(
+                "rounded-md px-1 transition-colors duration-300",
+                stage === "caught"
+                  ? "bg-[var(--ai-protect)] text-white"
+                  : stage === "cleaned"
+                    ? "bg-[oklch(0.28_0.1_266/0.1)] font-mono text-[0.9em] text-inherit"
+                    : "bg-transparent text-inherit",
+              )}
+            >
+              <TextMorph as="span" duration={420}>
+                {stage === "cleaned" ? "[SSN]" : "078-05-1120"}
+              </TextMorph>
+            </mark>
+            .
+          </p>
+        </div>
+        <div
+          className={cn(
+            "relative -mt-3 ml-auto mr-3 w-[78%] rounded-[20px] bg-[oklch(0.98_0.01_260)] p-3.5 shadow-[0_24px_40px_-20px_oklch(0.25_0.12_266/0.7)] transition-[opacity,transform] sm:-mt-4 sm:mr-6 sm:w-[64%] sm:p-4",
+            stage === "pasted"
+              ? "translate-y-3 opacity-0 duration-200 ease-in"
+              : "translate-y-0 opacity-100 duration-500 ease-out-expo",
+          )}
+        >
+          <p className="flex items-center gap-2 text-[0.85rem] font-semibold sm:text-[0.9rem]">
+            <ShieldCheck className="size-4" />
+            AI Protect
+            <span className="ml-auto rounded-full bg-[var(--ai-protect)] px-2 py-0.5 text-[0.7rem] text-white">
+              <TextMorph as="span" duration={420}>
+                {stage === "cleaned" ? "Cleaned" : "Coached"}
+              </TextMorph>
+            </span>
+          </p>
+          <p className="mt-1.5 text-[0.9rem] font-semibold sm:text-[1rem]">
+            <TextMorph as="span" duration={420}>
+              {stage === "cleaned"
+                ? "Number removed"
+                : "Tax return details found"}
+            </TextMorph>
+          </p>
+          <p className="mt-0.5 text-[0.75rem] font-medium opacity-70 sm:text-[0.8rem]">
+            Checked on this computer. Nothing was sent.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 /**
  * The signature: a paste into an AI tool, caught on the device. Send it
