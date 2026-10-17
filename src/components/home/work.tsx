@@ -58,7 +58,7 @@ function ProjectCard({ project, className, wide }: { project: Project; className
         onBlur={() => video.current?.pause()}
       >
         <TiltCard
-          className={cn('rounded-[28px]', t.field, wide ? 'aspect-[4/3] sm:aspect-[2/1]' : 'aspect-[4/3]')}
+          className={cn('rounded-[28px]', t.field, wide ? 'aspect-[4/3] sm:aspect-[2/1] lg:aspect-[5/2] xl:aspect-[3/1]' : 'aspect-[4/3]')}
         >
           <Media slug={project.slug} video={video} wide={wide} />
           {project.builtAt && (
@@ -130,7 +130,7 @@ function Media({
     return (
       <div className="absolute inset-0 grid place-items-center px-2 pb-2 pt-12 sm:p-10">
         <div className="flex w-full justify-center transition-transform duration-500 ease-out-expo group-hover/link:-translate-y-1.5 group-hover/link:rotate-[-1deg]">
-          <div className="flex w-full scale-[0.86] justify-center sm:scale-100 md:scale-[1.1] lg:scale-[1.5]">
+          <div className="flex w-full scale-[0.86] justify-center sm:scale-100 md:scale-[1.1] lg:scale-[1.08]">
             <CoachedPreview />
           </div>
         </div>
@@ -175,7 +175,7 @@ function WaveMedia({ video, wide }: { video: React.RefObject<HTMLVideoElement | 
       className={cn(
         'absolute overflow-hidden rounded-[16px] bg-[#f3f3f1] shadow-[0_30px_50px_-20px_oklch(0.3_0.08_80/0.55),0_0_0_1px_oklch(0.3_0.08_80/0.15)] transition-transform duration-500 ease-out-expo',
         wide
-          ? 'left-[6%] right-[6%] top-[12%] sm:left-[18%] sm:right-[-4%] sm:top-[14%]'
+          ? 'left-[6%] right-[6%] top-[12%] sm:left-[18%] sm:right-[-4%] sm:top-[14%] lg:left-[18%] lg:right-[6%] lg:top-[12%]'
           : 'left-[8%] right-[-6%] top-[14%]',
         'group-hover/link:-translate-y-2',
       )}
