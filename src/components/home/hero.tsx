@@ -33,7 +33,7 @@ const projectCard =
   'isolate bg-sheet text-ink dark:bg-[oklch(0.21_0.014_245)] dark:text-[oklch(0.95_0.006_225)]'
 
 // The soft circle that follows the pointer on project cards and social rows.
-const SPOT = '280px circle at var(--mx, 50%) var(--my, 50%)'
+const SPOT = 'var(--spot, 280px) circle at var(--mx, 50%) var(--my, 50%)'
 const spotMask = `radial-gradient(${SPOT}, #000, transparent 70%)`
 
 /** Tracks the pointer in CSS variables so a card's glow can follow it. */
@@ -188,7 +188,7 @@ function SocialsTile({ github }: { github: Load<GithubPulse> }) {
             <span
               aria-hidden
               className={cn(
-                'pointer-events-none absolute inset-0 -z-10 overflow-hidden opacity-0 transition-opacity duration-200 ease-out-expo group-hover/t:opacity-100 group-hover/t:duration-500 group-focus-visible/t:opacity-100',
+                'pointer-events-none absolute inset-0 -z-10 overflow-hidden opacity-0 [--spot:440px] dark:[--spot:280px] transition-opacity duration-200 ease-out-expo group-hover/t:opacity-100 group-hover/t:duration-500 group-focus-visible/t:opacity-100',
                 brandFill[s.label],
               )}
               style={{ maskImage: spotMask, WebkitMaskImage: spotMask }}
