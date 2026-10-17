@@ -180,6 +180,7 @@ function SocialsTile({ github }: { github: Load<GithubPulse> }) {
             onPointerMove={trackPointer}
             className={cn(
               'group/t relative isolate flex min-h-[96px] flex-1 flex-col justify-between gap-2 overflow-hidden px-4 py-3.5 no-underline',
+              s.label !== 'GitHub' && 'transition-colors duration-150 hover:text-white hover:duration-300 focus-visible:text-white',
               focusRing,
               'focus-visible:outline-offset-[-4px]',
             )}
