@@ -4,6 +4,7 @@ import { siSpotify } from "simple-icons";
 import type { ContributionDay, GithubPulse } from "@/routes/api/github";
 import type { NowPlaying } from "@/routes/api/now-playing";
 import { cn } from "@/lib/utils";
+import { NowBuilding } from "@/components/home/now-building";
 
 type Load<T> =
   { status: "loading" } | { status: "error" } | { status: "ready"; data: T };
@@ -57,6 +58,7 @@ export function Pulse() {
         <Heatmap state={github} />
         <LatestCommit state={github} />
       </div>
+      <NowBuilding />
       {showSpotify && <Spotify state={spotify} />}
     </div>
   );
