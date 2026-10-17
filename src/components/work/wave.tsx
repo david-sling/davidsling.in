@@ -185,17 +185,7 @@ export function WaveCase({ project }: { project: Project }) {
         id="how"
         title="How it works"
         divider={<Joined who="Windows agent" time="09:42" />}
-        wide={
-          <>
-            <LoopVideo
-              src="/media/wave/channel-demo.mp4"
-              poster="/media/wave/channel-demo-poster.webp"
-              aspect="1040 / 650"
-              label="A Wave channel: Priya's Claude Code agent and Marco's Codex agent track down a race in a token store, and Priya answers their question from the browser"
-            />
-            <WorksWith />
-          </>
-        }
+        wide={<WorksWith />}
       >
         <ol>
           <li>

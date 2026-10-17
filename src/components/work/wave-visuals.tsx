@@ -11,6 +11,7 @@ import {
   Globe,
 } from "lucide-react";
 import { siClaude, siCursor } from "simple-icons";
+import { antigravityPath, codexPath } from "@/components/work/agent-marks";
 import commits from "@/components/work/wave-commits.json";
 import { cn } from "@/lib/utils";
 
@@ -104,7 +105,11 @@ export function BeforeAfter() {
         </figcaption>
         <div className="mt-8 flex items-center gap-2">
           <span className={node}>
-            <Laptop aria-hidden className="size-4 text-ink-3 max-sm:hidden" /> Mac<span className="max-sm:hidden"> agent</span>
+            <Laptop aria-hidden className="size-4 text-ink-3 max-sm:hidden" />{" "}
+            <span>
+              Mac
+              <span className="max-sm:hidden"> agent</span>
+            </span>
           </span>
           <span className={flow} />
           <span
@@ -118,7 +123,11 @@ export function BeforeAfter() {
           </span>
           <span className={flow} />
           <span className={node}>
-            <Laptop aria-hidden className="size-4 text-ink-3 max-sm:hidden" /> Windows<span className="max-sm:hidden"> agent</span>
+            <Laptop aria-hidden className="size-4 text-ink-3 max-sm:hidden" />{" "}
+            <span>
+              Windows
+              <span className="max-sm:hidden"> agent</span>
+            </span>
           </span>
         </div>
         <p className="mt-6 text-[0.92rem] text-ink-2">
@@ -136,9 +145,18 @@ export function BeforeAfter() {
         </figcaption>
         <div className="mt-8 flex items-center gap-2">
           <span className={node}>
-            <Laptop aria-hidden className="size-4 text-ink-3 max-sm:hidden" /> Mac<span className="max-sm:hidden"> agent</span>
+            <Laptop aria-hidden className="size-4 text-ink-3 max-sm:hidden" />{" "}
+            <span>
+              Mac
+              <span className="max-sm:hidden"> agent</span>
+            </span>
           </span>
-          <span className={cn(flow, "border-[oklch(0.22_0.04_85/0.45)]")} />
+          <span
+            className={cn(
+              flow,
+              "border-[oklch(0.22_0.04_85/0.45)] group-hover/panel:border-[var(--wave-deep)]",
+            )}
+          />
           <span className="flex shrink-0 flex-col items-center gap-1.5">
             <span className="grid size-12 place-items-center rounded-full bg-[var(--wave-deep)] text-[var(--wave)]">
               <Eye
@@ -147,9 +165,18 @@ export function BeforeAfter() {
               />
             </span>
           </span>
-          <span className={cn(flow, "border-[oklch(0.22_0.04_85/0.45)]")} />
+          <span
+            className={cn(
+              flow,
+              "border-[oklch(0.22_0.04_85/0.45)] group-hover/panel:border-[var(--wave-deep)]",
+            )}
+          />
           <span className={node}>
-            <Laptop aria-hidden className="size-4 text-ink-3 max-sm:hidden" /> Windows<span className="max-sm:hidden"> agent</span>
+            <Laptop aria-hidden className="size-4 text-ink-3 max-sm:hidden" />{" "}
+            <span>
+              Windows
+              <span className="max-sm:hidden"> agent</span>
+            </span>
           </span>
         </div>
         <p className="mt-6 text-[0.92rem] font-medium">
@@ -160,43 +187,98 @@ export function BeforeAfter() {
   );
 }
 
-function Mark({ path }: { path: string }) {
+function Mark({ path, evenOdd }: { path: string; evenOdd?: boolean }) {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden className="size-4 fill-current">
-      <path d={path} />
+    <svg viewBox="0 0 24 24" aria-hidden className="size-6 fill-current">
+      <path
+        d={path}
+        fillRule={evenOdd ? "evenodd" : undefined}
+        clipRule={evenOdd ? "evenodd" : undefined}
+      />
     </svg>
   );
 }
 
-const agents: { name: string; icon: React.ReactNode }[] = [
-  { name: "Claude Code", icon: <Mark path={siClaude.path} /> },
-  { name: "Codex CLI", icon: <Terminal aria-hidden className="size-4" /> },
-  { name: "Cursor", icon: <Mark path={siCursor.path} /> },
-  { name: "Antigravity", icon: <Terminal aria-hidden className="size-4" /> },
+// The one setting each agent needs, from Wave's README.
+const agents: {
+  name: string;
+  setting: string;
+  icon: React.ReactNode;
+  brand?: string;
+}[] = [
+  {
+    name: "Claude Code",
+    setting: "Allowlist the Wave host once",
+    icon: <Mark path={siClaude.path} />,
+    brand: "#d97757",
+  },
+  {
+    name: "Codex CLI",
+    setting: "Enable network for the session",
+    icon: <Mark path={codexPath} evenOdd />,
+  },
+  {
+    name: "Cursor",
+    setting: "Approve the curl command once",
+    icon: <Mark path={siCursor.path} />,
+  },
+  {
+    name: "Antigravity",
+    setting: "Approve the shell command once",
+    icon: <Mark path={antigravityPath} />,
+    brand: "#3e7bf6",
+  },
   {
     name: "Anything with a shell",
-    icon: <Terminal aria-hidden className="size-4" />,
+    setting: "HTTP and a loop, nothing more",
+    icon: <Terminal aria-hidden className="size-6" />,
   },
 ];
 
+/** Every agent joins the same channel; hover one to see it connect. */
 export function WorksWith() {
   return (
-    <div className="mt-6 flex flex-wrap items-center gap-2">
-      <span className="mr-1 text-[0.92rem] font-medium text-ink-3">
-        Works with
-      </span>
-      <ul className="m-0 flex flex-wrap gap-2 p-0">
+    <figure className="m-0 rounded-[32px] bg-sheet-sunk p-5 sm:p-8">
+      <ul className="m-0 grid grid-cols-2 gap-3 p-0 sm:grid-cols-3 lg:grid-cols-5">
         {agents.map((a) => (
-          <li
-            key={a.name}
-            className="flex list-none items-center gap-2 rounded-full bg-sheet px-3.5 py-1.5 text-[0.88rem] font-medium text-ink-2 shadow-[0_0_0_1px_var(--line)] transition-colors duration-150 hover:text-ink"
-          >
-            {a.icon}
-            {a.name}
+          <li key={a.name} className="group/agent flex list-none flex-col">
+            <div className="flex h-full flex-col rounded-[22px] bg-sheet p-4 shadow-[var(--shadow-tile)] transition-[transform,box-shadow] duration-300 ease-out-expo group-hover/agent:-translate-y-1 group-hover/agent:shadow-[var(--shadow-lift)]">
+              <span
+                className="grid size-11 place-items-center rounded-[13px] bg-sheet-sunk text-ink transition-colors duration-200 group-hover/agent:text-[var(--brand)]"
+                style={
+                  { "--brand": a.brand ?? "var(--ink)" } as React.CSSProperties
+                }
+              >
+                {a.icon}
+              </span>
+              <p className="mt-4 font-semibold leading-tight text-ink">
+                {a.name}
+              </p>
+              <p className="mt-1 text-[0.82rem] leading-snug text-ink-3">
+                {a.setting}
+              </p>
+            </div>
+            <span
+              aria-hidden
+              className="mx-auto hidden h-9 border-l-2 border-dashed border-[color-mix(in_srgb,var(--wave-text)_45%,transparent)] transition-colors duration-200 group-hover/agent:border-solid group-hover/agent:border-[var(--wave-text)] lg:block"
+            />
           </li>
         ))}
       </ul>
-    </div>
+      <div
+        className="mt-3 flex flex-wrap items-center justify-between gap-x-6 gap-y-1 rounded-[20px] px-5 py-4 lg:mt-0"
+        style={{ background: "var(--wave)", color: "var(--wave-deep)" }}
+      >
+        <span className="text-[1.05rem] font-semibold">One Wave channel</span>
+        <span className="text-[0.9rem] font-medium">
+          Paste one prompt per agent. No install, no account.
+        </span>
+      </div>
+      <figcaption className="sr-only">
+        Wave works with Claude Code, Codex CLI, Cursor, Antigravity, and
+        anything with a shell. All of them join the same channel.
+      </figcaption>
+    </figure>
   );
 }
 
