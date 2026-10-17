@@ -103,8 +103,14 @@ const brandFill: Record<string, string> = {
   Instagram: 'bg-[linear-gradient(45deg,#feda75_0%,#fa7e1e_25%,#d62976_50%,#962fbf_75%,#4f5bd5_100%)]',
 }
 
-// GitHub's own contribution greens, levels 0–4. Empty days stay white in both themes.
-const githubGreen = ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39']
+// GitHub's own contribution greens, levels 0–4, from its light and dark themes.
+const githubGreen = [
+  'bg-[#ebedf0] dark:bg-[#161b22]',
+  'bg-[#9be9a8] dark:bg-[#0e4429]',
+  'bg-[#40c463] dark:bg-[#006d32]',
+  'bg-[#30a14e] dark:bg-[#26a641]',
+  'bg-[#216e39] dark:bg-[#39d353]',
+]
 
 /** The last few weeks of contributions as an edge-to-edge grid: no gaps, no rounding. */
 function HeatFill({ state }: { state: Load<GithubPulse> }) {
@@ -128,11 +134,11 @@ function HeatFill({ state }: { state: Load<GithubPulse> }) {
   const lead = recent.length ? new Date(recent[0].date + 'T00:00:00Z').getUTCDay() : 0
   const cells = [...Array(lead).fill(0), ...recent.map((d) => d.level)]
   return (
-    <span ref={box} className="absolute inset-0 grid auto-cols-fr grid-flow-col grid-rows-7 bg-[#ebedf0]">
+    <span ref={box} className="absolute inset-0 grid auto-cols-fr grid-flow-col grid-rows-7 bg-[#ebedf0] dark:bg-[#161b22]">
       {cells.map((level, i) => (
-        <span key={i} style={{ backgroundColor: githubGreen[level] ?? githubGreen[0] }} />
+        <span key={i} className={githubGreen[level] ?? githubGreen[0]} />
       ))}
-      <span className="absolute inset-0 bg-[linear-gradient(to_top,oklch(1_0_0/0.85),oklch(1_0_0/0.2)_65%)]" />
+      <span className="absolute inset-0 bg-[linear-gradient(to_top,oklch(1_0_0/0.85),oklch(1_0_0/0.2)_65%)] dark:bg-[linear-gradient(to_top,oklch(0_0_0/0.6),oklch(0_0_0/0.15)_65%)]" />
     </span>
   )
 }
@@ -148,7 +154,7 @@ function SocialsTile({ github }: { github: Load<GithubPulse> }) {
             rel="noreferrer"
             className={cn(
               'group/t relative flex min-h-[96px] flex-1 flex-col justify-between gap-2 overflow-hidden px-4 py-3.5 no-underline transition-colors duration-150 hover:delay-75 hover:duration-300',
-              s.label === 'GitHub' ? 'hover:text-[#1f2328] focus-visible:text-[#1f2328]' : 'hover:text-white focus-visible:text-white',
+              s.label === 'GitHub' ? 'hover:text-[#1f2328] focus-visible:text-[#1f2328] dark:hover:text-white dark:focus-visible:text-white' : 'hover:text-white focus-visible:text-white',
               focusRing,
               'focus-visible:outline-offset-[-4px]',
             )}
@@ -163,7 +169,7 @@ function SocialsTile({ github }: { github: Load<GithubPulse> }) {
               {s.label === 'GitHub' && <HeatFill state={github} />}
             </span>
             <span className="relative flex items-start justify-between">
-              <span className={cn('grid size-9 shrink-0 place-items-center rounded-xl bg-sheet-sunk text-ink shadow-[inset_0_0_0_1px_var(--line)] transition-[transform,background-color,color,box-shadow] duration-200 ease-out-expo group-hover/t:duration-500 group-hover/t:-rotate-6 group-hover/t:scale-110 motion-reduce:group-hover/t:transform-none group-hover/t:bg-white group-hover/t:text-[oklch(0.21_0.014_245)] group-hover/t:shadow-none', s.label === 'GitHub' && 'group-hover/t:bg-[#1f2328] group-hover/t:text-white')}>
+              <span className={cn('grid size-9 shrink-0 place-items-center rounded-xl bg-sheet-sunk text-ink shadow-[inset_0_0_0_1px_var(--line)] transition-[transform,background-color,color,box-shadow] duration-200 ease-out-expo group-hover/t:duration-500 group-hover/t:-rotate-6 group-hover/t:scale-110 motion-reduce:group-hover/t:transform-none group-hover/t:bg-white group-hover/t:text-[oklch(0.21_0.014_245)] group-hover/t:shadow-none', s.label === 'GitHub' && 'group-hover/t:bg-[#1f2328] group-hover/t:text-white dark:group-hover/t:bg-white dark:group-hover/t:text-[#1f2328]')}>
                 <SocialIcon label={s.label} className="size-[18px]" />
               </span>
               <TileArrow external />
