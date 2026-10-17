@@ -517,12 +517,13 @@
   }
 }
 
-/* A progress segment filling once, left to right. */
-@keyframes fill {
+
+/* A band sweeping across a block, used for AI Protect's scan. */
+@keyframes scan {
   from {
-    transform: scaleX(0);
+    transform: translateX(-100%);
   }
   to {
-    transform: scaleX(1);
+    transform: translateX(300%);
   }
 }

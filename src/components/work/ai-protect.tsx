@@ -131,7 +131,11 @@ export function CoachedPreview() {
       className="relative w-full max-w-[560px] text-[var(--ai-protect-ink)]"
     >
       <div aria-hidden>
-        <div className="rounded-[22px] bg-white p-4 shadow-[0_24px_40px_-24px_oklch(0.25_0.12_266/0.6)] sm:p-5">
+        <div className="relative overflow-hidden rounded-[22px] bg-white p-4 shadow-[0_24px_40px_-24px_oklch(0.25_0.12_266/0.6)] sm:p-5">
+          {moving && (
+            // A soft band sweeping the prompt: the check reading the text, always running.
+            <span className="pointer-events-none absolute inset-y-0 left-0 w-1/3 animate-[scan_2.2s_cubic-bezier(0.45,0,0.55,1)_infinite] bg-[linear-gradient(90deg,transparent,oklch(0.6_0.2_264/0.16)_45%,oklch(0.6_0.2_264/0.32)_50%,oklch(0.6_0.2_264/0.16)_55%,transparent)]" />
+          )}
           <p className="hidden rounded-lg bg-[oklch(0.28_0.1_266/0.06)] px-2.5 py-1 text-[0.8rem] font-semibold sm:inline-flex">
             Whitfield_1040_2025.pdf
           </p>
@@ -182,32 +186,6 @@ export function CoachedPreview() {
             Checked on this computer. Nothing was sent.
           </p>
         </div>
-        {moving && (
-          // One segment per step, filling over that step's time, so the loop always reads as live.
-          <div className="mx-auto mt-5 flex w-[60%] max-w-[240px] gap-1.5 sm:mt-6">
-            {loop.map((l, i) => (
-              <span
-                key={i}
-                className="h-1 flex-1 overflow-hidden rounded-full bg-white/30"
-              >
-                <span
-                  key={i === step ? `on-${step}` : "off"}
-                  className={cn(
-                    "block h-full origin-left rounded-full bg-white",
-                    i < step
-                      ? "scale-x-100"
-                      : i === step
-                        ? "animate-[fill_linear_forwards]"
-                        : "scale-x-0",
-                  )}
-                  style={
-                    i === step ? { animationDuration: `${l.ms}ms` } : undefined
-                  }
-                />
-              </span>
-            ))}
-          </div>
-        )}
       </div>
     </div>
   );
