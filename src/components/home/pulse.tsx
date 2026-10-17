@@ -39,7 +39,8 @@ function useJson<T>(url: string, refreshMs?: number): Load<T> {
   return state;
 }
 
-const card = "rounded-[32px] bg-sheet p-5 shadow-[var(--shadow-tile)] sm:p-7";
+const card =
+  "rounded-[32px] bg-sheet px-5 py-4 shadow-[var(--shadow-tile)] sm:px-6";
 // One region inside the shared activity card; each is its own link.
 const region =
   "block px-5 py-5 no-underline transition-colors duration-200 hover:bg-[color-mix(in_oklch,var(--blue)_7%,var(--sheet))] sm:px-7 sm:py-6";
@@ -265,22 +266,22 @@ function Spotify({ state }: { state: Load<NowPlaying> }) {
       rel="noreferrer"
       className={cn(
         card,
-        "group/pulse flex items-center gap-4 no-underline transition-[box-shadow] duration-300 hover:shadow-[var(--shadow-lift)]",
+        "group/pulse flex items-center gap-3.5 no-underline transition-[box-shadow] duration-300 hover:shadow-[var(--shadow-lift)]",
       )}
     >
-      <div className="relative size-[72px] shrink-0">
+      <div className="relative size-14 shrink-0">
         {track?.art ? (
           <img
             src={track.art}
             alt=""
-            width={72}
-            height={72}
+            width={56}
+            height={56}
             loading="lazy"
             data-motion="travel"
-            className="size-full rounded-[14px] object-cover shadow-[0_8px_18px_-8px_oklch(0_0_0/0.45)] transition-transform duration-500 ease-out-expo group-hover/pulse:-rotate-3 group-hover/pulse:scale-105"
+            className="size-full rounded-[12px] object-cover shadow-[0_8px_18px_-8px_oklch(0_0_0/0.45)] transition-transform duration-500 ease-out-expo group-hover/pulse:-rotate-3 group-hover/pulse:scale-105"
           />
         ) : (
-          <div className="size-full rounded-[14px] bg-sheet-sunk" />
+          <div className="size-full rounded-[12px] bg-sheet-sunk" />
         )}
       </div>
       <div className="min-w-0 flex-1">
@@ -297,10 +298,10 @@ function Spotify({ state }: { state: Load<NowPlaying> }) {
         </h3>
         {track ? (
           <>
-            <p className="mt-1 truncate text-[1.05rem] font-semibold tracking-[-0.01em]">
+            <p className="mt-0.5 truncate font-semibold tracking-[-0.01em]">
               {track.title}
             </p>
-            <p className="truncate text-[0.9rem] text-ink-2">{track.artist}</p>
+            <p className="truncate text-[0.88rem] text-ink-2">{track.artist}</p>
           </>
         ) : (
           <div aria-hidden className="mt-2 space-y-2">
