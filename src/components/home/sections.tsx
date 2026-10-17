@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, FileText } from "lucide-react";
 import { SlideArrow } from "@/components/button";
 import { CopyEmail } from "@/components/copy-button";
 import { HighlightedText } from "@/components/highlighted-text";
@@ -96,6 +96,23 @@ export function Experience() {
           Nearly five years of frontend, from a trademark search engine with
           12M+ records to leading a team.
         </p>
+        <a
+          href="/resume"
+          target="_blank"
+          rel="noreferrer"
+          className="group/cv mt-6 inline-flex min-h-11 select-none items-center gap-2.5 rounded-full bg-sheet pl-4 pr-5 font-semibold no-underline shadow-[var(--shadow-tile)] transition-[box-shadow,transform] duration-200 ease-out-quart hover:shadow-[var(--shadow-lift)] active:scale-[0.98] active:duration-75"
+        >
+          <FileText
+            aria-hidden
+            className="size-4 text-blue-text transition-transform duration-300 ease-out-expo group-hover/cv:-rotate-6"
+          />
+          Resume
+          <ArrowUpRight
+            aria-hidden
+            className="size-4 text-ink-3 transition-transform duration-200 ease-out-expo group-hover/cv:-translate-y-0.5 group-hover/cv:translate-x-0.5 group-hover/cv:text-ink"
+          />
+          <span className="sr-only">(PDF, opens in a new tab)</span>
+        </a>
       </div>
       <ol className="m-0 p-0">
         {companies.map((c) => (

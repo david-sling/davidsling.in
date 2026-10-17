@@ -91,6 +91,7 @@ export function CoachedPreview() {
   const [step, setStep] = useState(0);
   const root = useRef<HTMLDivElement>(null);
   const stage = loop[step].stage;
+  const [moving, setMoving] = useState(false);
 
   useEffect(() => {
     const el = root.current;
@@ -98,6 +99,7 @@ export function CoachedPreview() {
       return;
     let timer: ReturnType<typeof setTimeout> | undefined;
     let visible = false;
+    setMoving(true);
     const tick = (i: number) => {
       timer = setTimeout(() => {
         if (!visible || document.hidden) return;
@@ -130,18 +132,18 @@ export function CoachedPreview() {
     >
       <div aria-hidden>
         <div className="rounded-[22px] bg-white p-4 shadow-[0_24px_40px_-24px_oklch(0.25_0.12_266/0.6)] sm:p-5">
-          <p className="inline-flex rounded-lg bg-[oklch(0.28_0.1_266/0.06)] px-2.5 py-1 text-[0.75rem] font-semibold sm:text-[0.8rem]">
+          <p className="hidden rounded-lg bg-[oklch(0.28_0.1_266/0.06)] px-2.5 py-1 text-[0.8rem] font-semibold sm:inline-flex">
             Whitfield_1040_2025.pdf
           </p>
-          <p className="mt-2.5 text-[0.85rem] leading-relaxed sm:text-[0.95rem]">
+          <p className="text-[0.85rem] leading-relaxed sm:mt-2.5 sm:text-[0.95rem]">
             Draft a summary email for this client. Their SSN is{" "}
             <mark
               className={cn(
-                "rounded-md px-1 transition-colors duration-300",
+                "inline-flex rounded-md px-1 transition-colors duration-300",
                 stage === "caught"
                   ? "bg-[var(--ai-protect)] text-white"
                   : stage === "cleaned"
-                    ? "bg-[oklch(0.28_0.1_266/0.1)] font-mono text-[0.9em] text-inherit"
+                    ? "bg-[oklch(0.28_0.1_266/0.1)] text-inherit"
                     : "bg-transparent text-inherit",
               )}
             >
@@ -154,7 +156,7 @@ export function CoachedPreview() {
         </div>
         <div
           className={cn(
-            "relative -mt-3 ml-auto mr-3 w-[78%] rounded-[20px] bg-[oklch(0.98_0.01_260)] p-3.5 shadow-[0_24px_40px_-20px_oklch(0.25_0.12_266/0.7)] transition-[opacity,transform] sm:-mt-4 sm:mr-6 sm:w-[64%] sm:p-4",
+            "relative mt-3 ml-auto w-[82%] rounded-[20px] bg-[oklch(0.98_0.01_260)] p-3.5 shadow-[0_24px_40px_-20px_oklch(0.25_0.12_266/0.7)] transition-[opacity,transform] sm:mt-4 sm:w-[66%] sm:p-4",
             stage === "pasted"
               ? "translate-y-3 opacity-0 duration-200 ease-in"
               : "translate-y-0 opacity-100 duration-500 ease-out-expo",
@@ -176,10 +178,36 @@ export function CoachedPreview() {
                 : "Tax return details found"}
             </TextMorph>
           </p>
-          <p className="mt-0.5 text-[0.75rem] font-medium opacity-70 sm:text-[0.8rem]">
+          <p className="mt-0.5 hidden text-[0.8rem] font-medium opacity-70 sm:block">
             Checked on this computer. Nothing was sent.
           </p>
         </div>
+        {moving && (
+          // One segment per step, filling over that step's time, so the loop always reads as live.
+          <div className="mx-auto mt-5 flex w-[60%] max-w-[240px] gap-1.5 sm:mt-6">
+            {loop.map((l, i) => (
+              <span
+                key={i}
+                className="h-1 flex-1 overflow-hidden rounded-full bg-white/30"
+              >
+                <span
+                  key={i === step ? `on-${step}` : "off"}
+                  className={cn(
+                    "block h-full origin-left rounded-full bg-white",
+                    i < step
+                      ? "scale-x-100"
+                      : i === step
+                        ? "animate-[fill_linear_forwards]"
+                        : "scale-x-0",
+                  )}
+                  style={
+                    i === step ? { animationDuration: `${l.ms}ms` } : undefined
+                  }
+                />
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
