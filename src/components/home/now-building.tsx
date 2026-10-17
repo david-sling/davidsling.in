@@ -16,9 +16,16 @@ export function NowBuilding({ className }: { className?: string }) {
     >
       <span
         aria-hidden
-        className="grid size-11 shrink-0 place-items-center rounded-full bg-[var(--wave)]"
+        className="grid size-11 shrink-0 place-items-center rounded-full bg-sheet-sunk"
       >
-        <span className="size-2.5 rounded-full bg-[var(--wave-deep)] motion-safe:animate-pulse" />
+        <img
+          src="/media/wave/mark.webp"
+          alt=""
+          width={28}
+          height={28}
+          loading="lazy"
+          className="size-7 origin-[70%_85%] transition-transform duration-300 ease-out-expo group-hover/now:-rotate-[14deg] motion-reduce:transition-none"
+        />
       </span>
       <span className="min-w-0 flex-1">
         <span className="block text-[0.85rem] font-semibold text-ink-2">
