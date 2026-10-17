@@ -25,7 +25,7 @@ export const site = {
   ],
 } as const;
 
-export type ProjectSlug = "wave" | "equanim" | "offlyn";
+export type ProjectSlug = "wave" | "equanim" | "offlyn" | "ai-protect";
 
 export type Project = {
   slug: ProjectSlug;
@@ -77,13 +77,44 @@ export const projects: Project[] = [
   },
 ];
 
+/**
+ * Work built for an employer. These get case studies but stay out of
+ * "Selected work"; everything on them comes from the product's public site.
+ */
+export const workProjects: Project[] = [
+  {
+    slug: "ai-protect",
+    name: "AI Protect",
+    year: "2026",
+    summary:
+      "Shows a firm which AI tools its team uses, and catches client data at the paste, before it reaches any of them.",
+    fact: "macOS and Windows, one console",
+    tags: ["Endpoint agent", "Browser extension", "Console"],
+    links: [
+      {
+        label: "Product site",
+        href: "https://www.astralinkconnect.dev/products/ai-protect",
+      },
+    ],
+  },
+];
+
+export const allProjects = [...projects, ...workProjects];
+
 export type Role = {
   title: string;
   company: string;
   period: string;
   note: string;
   /** Shipped products, described only from their public sites. */
-  products?: { name: string; url: string; role: string; summary: string }[];
+  products?: {
+    name: string;
+    url: string;
+    role: string;
+    summary: string;
+    /** A case study on this site, written from public material only. */
+    caseStudy?: ProjectSlug;
+  }[];
 };
 
 export const roles: Role[] = [
@@ -99,6 +130,7 @@ export const roles: Role[] = [
         role: "Led it end to end with a team of four",
         summary:
           "Shows a business which AI tools its team uses, and catches client data at the paste.",
+        caseStudy: "ai-protect",
       },
       {
         name: "HOAshare",

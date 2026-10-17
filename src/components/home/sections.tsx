@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { SlideArrow } from "@/components/button";
 import { CopyEmail } from "@/components/copy-button";
 import { HighlightedText } from "@/components/highlighted-text";
@@ -181,29 +181,51 @@ function Products({
       aria-label={`Products I built at ${company}`}
       className="mt-4 grid gap-2 p-0 sm:grid-cols-2"
     >
-      {products.map((p) => (
-        <li key={p.name} className="list-none">
-          <a
-            href={p.url}
-            target="_blank"
-            rel="noreferrer"
-            className="group/product flex h-full flex-col rounded-[20px] bg-sheet p-4 no-underline shadow-[var(--shadow-tile)] transition-[box-shadow,transform] duration-200 ease-out-quart hover:-translate-y-0.5 hover:shadow-[var(--shadow-lift)] active:translate-y-0 active:scale-[0.99]"
-          >
+      {products.map((p) => {
+        const inner = (
+          <>
             <span className="flex items-center justify-between gap-3">
               <span className="font-semibold tracking-[-0.01em]">{p.name}</span>
-              <ArrowUpRight
-                aria-hidden
-                className="size-4 shrink-0 text-ink-3 transition-transform duration-200 ease-out-expo group-hover/product:-translate-y-0.5 group-hover/product:translate-x-0.5 group-hover/product:text-ink"
-              />
+              {p.caseStudy ? (
+                <ArrowRight
+                  aria-hidden
+                  className="size-4 shrink-0 text-ink-3 transition-transform duration-200 ease-out-expo group-hover/product:translate-x-0.5 group-hover/product:text-ink"
+                />
+              ) : (
+                <ArrowUpRight
+                  aria-hidden
+                  className="size-4 shrink-0 text-ink-3 transition-transform duration-200 ease-out-expo group-hover/product:-translate-y-0.5 group-hover/product:translate-x-0.5 group-hover/product:text-ink"
+                />
+              )}
             </span>
             <span className="mt-0.5 text-[0.85rem] font-medium text-blue-text">
               {p.role}
             </span>
             <span className="mt-2 text-[0.92rem] text-ink-2">{p.summary}</span>
-            <span className="sr-only">(opens in a new tab)</span>
-          </a>
-        </li>
-      ))}
+          </>
+        );
+        const cls =
+          "group/product flex h-full flex-col rounded-[20px] bg-sheet p-4 no-underline shadow-[var(--shadow-tile)] transition-[box-shadow,transform] duration-200 ease-out-quart hover:-translate-y-0.5 hover:shadow-[var(--shadow-lift)] active:translate-y-0 active:scale-[0.99]";
+        return (
+          <li key={p.name} className="list-none">
+            {p.caseStudy ? (
+              <Link
+                to="/work/$slug"
+                params={{ slug: p.caseStudy }}
+                className={cls}
+              >
+                {inner}
+                <span className="sr-only">(read the case study)</span>
+              </Link>
+            ) : (
+              <a href={p.url} target="_blank" rel="noreferrer" className={cls}>
+                {inner}
+                <span className="sr-only">(opens in a new tab)</span>
+              </a>
+            )}
+          </li>
+        );
+      })}
     </ul>
   );
 }

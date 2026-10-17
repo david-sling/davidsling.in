@@ -10,6 +10,7 @@ const theme: Record<ProjectSlug, { field: string; text: string }> = {
   wave: { field: 'bg-[var(--wave)]', text: 'group-hover/link:text-[var(--wave-text)]' },
   equanim: { field: 'bg-[var(--equanim)]', text: 'group-hover/link:text-[var(--equanim-text)]' },
   offlyn: { field: 'bg-[var(--offlyn)]', text: 'group-hover/link:text-[var(--offlyn-text)]' },
+  'ai-protect': { field: 'bg-[var(--ai-protect)]', text: 'group-hover/link:text-[var(--ai-protect-text)]' },
 }
 
 export function Work() {
