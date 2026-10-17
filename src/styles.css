@@ -294,3 +294,50 @@
 :root[data-theme="light"] {
   color-scheme: light;
 }
+
+/* Case-study body copy: one rhythm for every project page. */
+@layer components {
+  .case-prose {
+    font-size: 1.08rem;
+    line-height: 1.65;
+    color: var(--ink-2);
+  }
+  .case-prose > * + * {
+    margin-top: 1.1em;
+  }
+  .case-prose strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .case-prose code {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.86em;
+    padding: 0.12em 0.4em;
+    border-radius: 0.4em;
+    background: var(--sheet-sunk);
+    color: var(--ink);
+    box-shadow: 0 0 0 1px var(--line);
+  }
+  .case-prose a {
+    color: var(--ink);
+    font-weight: 500;
+    text-decoration-color: var(--blue);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.2em;
+    transition: text-decoration-color 150ms var(--ease-out);
+  }
+  .case-prose a:hover {
+    text-decoration-color: var(--ink);
+  }
+  .case-prose ol {
+    list-style: decimal;
+    padding-left: 1.3em;
+  }
+  .case-prose ol > li + li {
+    margin-top: 0.6em;
+  }
+  .case-prose ol > li::marker {
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+  }
+}
