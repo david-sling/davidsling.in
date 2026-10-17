@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { CopyEmail } from "@/components/copy-button";
 import { Logo } from "@/components/logo";
 import { SpecialText } from "@/components/special-text";
@@ -19,6 +19,7 @@ const nav = [
 export function SiteHeader() {
   const [hovered, setHovered] = useState<string | null>(null);
   const [tamil, setTamil] = useState(false);
+  const reduce = useReducedMotion();
 
   return (
     <header className="sticky top-0 z-40 bg-ground">
@@ -44,16 +45,30 @@ export function SiteHeader() {
             <span aria-hidden className="invisible col-start-1 row-start-1">
               <span lang="ta">{TAMIL_FIRST}</span> {LAST}
             </span>
-            <span className="col-start-1 row-start-1">
-              <SpecialText
-                animateOnMount={false}
-                speed={20}
-                label={FIRST}
-                textLang={tamil ? "ta" : undefined}
+            <span className="col-start-1 row-start-1 flex">
+              {/* The slot takes the final word's width up front, so "Sling" moves once, straight to
+                  where it ends up, instead of following every scrambled frame. */}
+              <span className="relative">
+                <span aria-hidden lang={tamil ? "ta" : undefined} className="invisible">
+                  {tamil ? TAMIL_FIRST : FIRST}
+                </span>
+                <SpecialText
+                  animateOnMount={false}
+                  speed={20}
+                  label={FIRST}
+                  textLang={tamil ? "ta" : undefined}
+                  className="absolute left-0 top-0"
+                >
+                  {tamil ? TAMIL_FIRST : FIRST}
+                </SpecialText>
+              </span>
+              <motion.span
+                layout="position"
+                transition={{ duration: reduce ? 0 : 0.25, ease: [0.16, 1, 0.3, 1] }}
+                className="ml-[0.28em]"
               >
-                {tamil ? TAMIL_FIRST : FIRST}
-              </SpecialText>{" "}
-              {LAST}
+                {LAST}
+              </motion.span>
             </span>
           </span>
         </Link>
