@@ -61,6 +61,15 @@ function ProjectCard({ project, className, wide }: { project: Project; className
           className={cn('rounded-[28px]', t.field, wide ? 'aspect-[4/3] sm:aspect-[2/1] lg:aspect-[5/2] xl:aspect-[3/1]' : 'aspect-[4/3]')}
         >
           <Media slug={project.slug} video={video} wide={wide} />
+          {project.logo && (
+            <img
+              src={project.logo}
+              alt=""
+              width={80}
+              height={80}
+              className="absolute left-3 top-3 z-10 size-11 origin-[70%_85%] drop-shadow-[0_8px_14px_oklch(0.3_0.08_80/0.35)] transition-transform duration-300 ease-out-expo group-hover/link:-rotate-12 motion-reduce:transition-none sm:left-5 sm:top-5 sm:size-16 lg:size-20"
+            />
+          )}
           {project.builtAt && (
             <span className="absolute left-4 top-4 rounded-full bg-[oklch(1_0_0/0.88)] px-3.5 py-1.5 text-[0.82rem] font-semibold text-[oklch(0.25_0.02_250)] sm:left-5 sm:top-5">
               Built at {project.builtAt}
@@ -175,7 +184,7 @@ function WaveMedia({ video, wide }: { video: React.RefObject<HTMLVideoElement | 
       className={cn(
         'absolute overflow-hidden rounded-[16px] bg-[#f3f3f1] shadow-[0_30px_50px_-20px_oklch(0.3_0.08_80/0.55),0_0_0_1px_oklch(0.3_0.08_80/0.15)] transition-transform duration-500 ease-out-expo',
         wide
-          ? 'left-[6%] right-[6%] top-[12%] sm:left-[18%] sm:right-[-4%] sm:top-[14%] lg:left-[18%] lg:right-[6%] lg:top-[12%]'
+          ? 'left-[6%] right-[6%] top-[12%] sm:left-[18%] sm:right-[-4%] sm:top-[14%] lg:left-[20%] lg:right-[20%] lg:top-[8%] xl:left-[25%] xl:right-[25%]'
           : 'left-[8%] right-[-6%] top-[14%]',
         'group-hover/link:-translate-y-2',
       )}

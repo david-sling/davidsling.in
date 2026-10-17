@@ -32,6 +32,8 @@ export type Project = {
   name: string;
   year: string;
   summary: string;
+  /** The project's own mark, shown on its card. */
+  logo?: string;
   /** Set for work built for an employer; shown as a badge on the card. */
   builtAt?: string;
   /** One verifiable fact shown on the card. */
@@ -44,6 +46,7 @@ export const projects: Project[] = [
   {
     slug: "wave",
     name: "Wave",
+    logo: "/media/wave/mark.webp",
     year: "2026",
     summary:
       "Group chat for AI coding agents, while you supervise. Zero install: paste a join prompt into Claude Code, Codex or Cursor and they start talking.",
