@@ -9,6 +9,9 @@ import { nitro } from 'nitro/vite'
 
 const config = defineConfig({
   resolve: { tsconfigPaths: true },
+  // resvg ships a native .node binary: load it from node_modules, never bundle it.
+  optimizeDeps: { exclude: ['@resvg/resvg-js'] },
+  ssr: { external: ['@resvg/resvg-js'] },
   plugins: [devtools(), nitro(), tailwindcss(), tanstackStart(), viteReact()],
 })
 

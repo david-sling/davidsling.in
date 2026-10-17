@@ -27,7 +27,7 @@ export function seo({
   type?: "website" | "article";
 }) {
   const url = `${siteUrl}${path === "/" ? "" : path}`;
-  const img = `${origin()}/og/${image}.png`;
+  const img = `${origin()}/og/${image}`;
   return [
     { title },
     { name: "description", content: description },

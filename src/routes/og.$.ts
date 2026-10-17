@@ -2,8 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { allProjects, formatDate } from "@/lib/content";
 
 /**
- * /og/<page>.png: the share card for every page.
- *   /og/home.png, /og/blogs.png, /og/blogs/<slug>.png, /og/work/<slug>.png
+ * /og/<page>: the share card for every page (a trailing .png also works).
+ *   /og/home, /og/blogs, /og/blogs/<slug>, /og/work/<slug>
  */
 const blue = { field: "#67d0e8", ink: "#0b2530" };
 const projectInk: Record<string, { field: string; ink: string }> = {
