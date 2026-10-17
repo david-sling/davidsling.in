@@ -261,7 +261,7 @@ function Products({
           </>
         );
         const cls =
-          "group/product flex h-full flex-col rounded-[20px] bg-sheet p-4 no-underline shadow-[var(--shadow-tile)] transition-[box-shadow,transform] duration-200 ease-out-quart hover:-translate-y-0.5 hover:shadow-[var(--shadow-lift)] active:translate-y-0 active:scale-[0.99]";
+          "group/product flex h-full flex-col rounded-[20px] bg-sheet p-4 no-underline shadow-[var(--shadow-tile)] transition-[box-shadow,transform] duration-200 ease-out-quart hover:shadow-[var(--shadow-lift)] active:scale-[0.99]";
         return (
           <li key={p.name} className="list-none">
             {p.caseStudy ? (
@@ -357,7 +357,7 @@ export function Stack() {
               data-motion="travel"
               className={cn(
                 "group/tile flex list-none flex-col items-center justify-center gap-3 rounded-[24px] bg-sheet shadow-[var(--shadow-tile)]",
-                "transition-[transform,box-shadow] duration-300 ease-out-expo hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]",
+                "transition-[box-shadow] duration-300 ease-out-expo hover:shadow-[var(--shadow-lift)]",
                 lg ? "col-span-2 row-span-2 aspect-square" : "aspect-square",
               )}
             >

@@ -59,6 +59,8 @@ function ProjectCard({ project, className, wide }: { project: Project; className
         onBlur={() => video.current?.pause()}
       >
         <TiltCard
+          tiltLimit={0}
+          scale={1}
           className={cn('rounded-[28px]', t.field, wide ? 'aspect-[4/3] sm:aspect-[2/1] lg:aspect-[5/2] xl:aspect-[3/1]' : 'aspect-[4/3]')}
         >
           <Media slug={project.slug} video={video} wide={wide} />

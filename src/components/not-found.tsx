@@ -341,7 +341,7 @@ function HangingZero({ path }: { path: string }) {
                 params={{ slug: p.slug }}
                 data-motion="travel"
                 style={{ ...onField(p.slug), background: `var(--${p.slug})` }}
-                className="group/link flex h-full items-center gap-4 rounded-[20px] p-3 pr-5 text-left no-underline transition-transform duration-200 ease-out-quart hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] active:duration-75 motion-reduce:hover:translate-y-0"
+                className="group/link flex h-full items-center gap-4 rounded-[20px] p-3 pr-5 text-left no-underline transition-transform duration-200 ease-out-quart active:scale-[0.98] active:duration-75"
               >
                 <span className="grid size-12 shrink-0 place-items-center rounded-[14px] bg-[oklch(1_0_0/0.92)] transition-transform duration-300 ease-out-expo group-hover/link:-rotate-6 motion-reduce:transition-none">
                   {marks[p.slug] ? (

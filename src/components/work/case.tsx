@@ -198,7 +198,7 @@ export function NextProject({ current }: { current: ProjectSlug }) {
       <Link
         to="/work/$slug"
         params={{ slug: next.slug }}
-        className="group/link flex flex-col gap-6 rounded-[40px] px-6 py-10 no-underline transition-transform duration-300 ease-out-expo hover:-translate-y-1 active:translate-y-0 sm:flex-row sm:items-end sm:justify-between sm:px-12 sm:py-14"
+        className="group/link flex flex-col gap-6 rounded-[40px] px-6 py-10 no-underline transition-transform duration-300 ease-out-expo sm:flex-row sm:items-end sm:justify-between sm:px-12 sm:py-14"
         style={
           {
             background: `var(--${next.slug})`,

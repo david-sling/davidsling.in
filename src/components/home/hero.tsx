@@ -104,7 +104,7 @@ function SocialIcon({ label, className }: { label: string; className?: string })
 }
 
 const bentoTile =
-  'group/t relative flex h-full min-h-[148px] flex-col justify-between overflow-hidden rounded-[28px] p-5 lg:p-4 xl:p-5 no-underline shadow-[var(--shadow-tile)] transition-[transform,box-shadow,background-color,color] duration-200 ease-out-expo hover:duration-500 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)] active:translate-y-0 active:scale-[0.985] active:duration-100 motion-reduce:hover:translate-y-0 motion-reduce:active:scale-100'
+  'group/t relative flex h-full min-h-[148px] flex-col justify-between overflow-hidden rounded-[28px] p-5 lg:p-4 xl:p-5 no-underline shadow-[var(--shadow-tile)] transition-[transform,box-shadow,background-color,color] duration-200 ease-out-expo hover:duration-500 hover:shadow-[var(--shadow-lift)] active:scale-[0.985] active:duration-100 motion-reduce:active:scale-100'
 
 function TileArrow({ external }: { external?: boolean }) {
   const Icon = external ? ArrowUpRight : ArrowRight
