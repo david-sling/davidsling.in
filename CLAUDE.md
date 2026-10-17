@@ -56,7 +56,7 @@ The app is not scaffolded yet. Until it is, this repo holds planning, design con
 - **Blog:** migrate the MDX posts from `david-sling/portfolio-2`, keeping their original dates and slugs.
 - **No resume impact numbers** (20% / 30% / 40%) anywhere on the site.
 - **Deploy:** Vercel.
-- **Contact and socials:** email, GitHub, LinkedIn and Instagram. Don't publish a phone number.
+- **Contact and socials:** email, GitHub, LinkedIn and Instagram. Don't put a phone number on the site's pages. The exception is `public/resume.pdf` (served at `/resume`): David approved keeping his number in it.
 
 ## Security
 

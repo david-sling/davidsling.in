@@ -23,6 +23,3 @@ todos.json
 !.env.example
 .claude/scheduled_tasks.lock
 .claude/settings.local.json
-
-# resume carries a phone number; kept out until a public version replaces it
-public/resume.pdf
