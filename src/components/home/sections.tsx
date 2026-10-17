@@ -5,6 +5,7 @@ import { CopyEmail } from "@/components/copy-button";
 import { HighlightedText } from "@/components/highlighted-text";
 import { Pulse } from "@/components/home/pulse";
 import { formatDate, posts, roles, site, stack } from "@/lib/content";
+import type { Role } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 export function HowIBuild() {
@@ -84,57 +85,114 @@ export function Experience() {
         </p>
       </div>
       <ol className="m-0 p-0">
-        {roles.map((r) => (
+        {companies.map((c) => (
           <li
-            key={r.title + r.company}
-            className="grid list-none grid-cols-[1fr_auto] gap-x-6 gap-y-1 border-t border-line py-6 last:border-b"
+            key={c.company}
+            className="list-none border-t border-line py-7 last:border-b"
           >
-            <p className="text-[1.15rem] font-semibold tracking-[-0.01em]">
-              {r.title} <span className="font-medium text-ink-3">at</span>{" "}
-              {r.company}
-            </p>
-            <p className="tabular text-right text-[0.95rem] text-ink-3">
-              {r.period}
-            </p>
-            <p className="col-span-2 max-w-[60ch] text-ink-2">{r.note}</p>
-            {r.products && (
-              <ul
-                aria-label={`Products I built at ${r.company}`}
-                className="col-span-2 mt-4 grid gap-2 p-0 sm:grid-cols-2"
-              >
-                {r.products.map((p) => (
-                  <li key={p.name} className="list-none">
-                    <a
-                      href={p.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="group/product flex h-full flex-col rounded-[20px] bg-sheet p-4 no-underline shadow-[var(--shadow-tile)] transition-[box-shadow,transform] duration-200 ease-out-quart hover:-translate-y-0.5 hover:shadow-[var(--shadow-lift)] active:translate-y-0 active:scale-[0.99]"
-                    >
-                      <span className="flex items-center justify-between gap-3">
-                        <span className="font-semibold tracking-[-0.01em]">
-                          {p.name}
-                        </span>
-                        <ArrowUpRight
-                          aria-hidden
-                          className="size-4 shrink-0 text-ink-3 transition-transform duration-200 ease-out-expo group-hover/product:-translate-y-0.5 group-hover/product:translate-x-0.5 group-hover/product:text-ink"
-                        />
-                      </span>
-                      <span className="mt-0.5 text-[0.85rem] font-medium text-blue-text">
-                        {p.role}
-                      </span>
-                      <span className="mt-2 text-[0.92rem] text-ink-2">
-                        {p.summary}
-                      </span>
-                      <span className="sr-only">(opens in a new tab)</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            )}
+            <div className="flex items-baseline justify-between gap-6">
+              <h3 className="text-[1.4rem] font-semibold tracking-[-0.02em]">
+                {c.company}
+              </h3>
+              <p className="tabular text-[0.95rem] text-ink-3">{c.period}</p>
+            </div>
+            <ol
+              className={cn(
+                "m-0 mt-4 p-0",
+                // Several roles at one company read as a ladder: a line joins the dots.
+                c.roles.length > 1 &&
+                  "relative before:absolute before:bottom-3 before:left-[5px] before:top-3 before:w-px before:bg-line",
+              )}
+            >
+              {c.roles.map((r) => (
+                <li
+                  key={r.title}
+                  className={cn(
+                    "relative list-none",
+                    c.roles.length > 1 && "pl-7 [&+&]:mt-5",
+                  )}
+                >
+                  {c.roles.length > 1 && (
+                    <span
+                      aria-hidden
+                      className="absolute left-0 top-[0.45rem] size-[11px] rounded-full border-2 border-ground bg-blue"
+                    />
+                  )}
+                  <div className="flex items-baseline justify-between gap-6">
+                    <p className="font-semibold tracking-[-0.01em]">
+                      {r.title}
+                    </p>
+                    {c.roles.length > 1 && (
+                      <p className="tabular text-[0.88rem] text-ink-3">
+                        {r.period}
+                      </p>
+                    )}
+                  </div>
+                  <p className="mt-1 max-w-[60ch] text-ink-2">{r.note}</p>
+                  {r.products && (
+                    <Products company={c.company} products={r.products} />
+                  )}
+                </li>
+              ))}
+            </ol>
           </li>
         ))}
       </ol>
     </section>
+  );
+}
+
+/** Roles are listed newest first; group the consecutive ones that share a company. */
+const companies = roles.reduce<
+  { company: string; period: string; roles: Role[] }[]
+>((groups, r) => {
+  const last = groups.at(-1);
+  if (last?.company === r.company) {
+    last.roles.push(r);
+    // Earliest start of the group, latest end stays from its first role.
+    last.period = `${r.period.split("–")[0]}–${last.period.split("–")[1]}`;
+  } else {
+    groups.push({ company: r.company, period: r.period, roles: [r] });
+  }
+  return groups;
+}, []);
+
+function Products({
+  company,
+  products,
+}: {
+  company: string;
+  products: NonNullable<Role["products"]>;
+}) {
+  return (
+    <ul
+      aria-label={`Products I built at ${company}`}
+      className="mt-4 grid gap-2 p-0 sm:grid-cols-2"
+    >
+      {products.map((p) => (
+        <li key={p.name} className="list-none">
+          <a
+            href={p.url}
+            target="_blank"
+            rel="noreferrer"
+            className="group/product flex h-full flex-col rounded-[20px] bg-sheet p-4 no-underline shadow-[var(--shadow-tile)] transition-[box-shadow,transform] duration-200 ease-out-quart hover:-translate-y-0.5 hover:shadow-[var(--shadow-lift)] active:translate-y-0 active:scale-[0.99]"
+          >
+            <span className="flex items-center justify-between gap-3">
+              <span className="font-semibold tracking-[-0.01em]">{p.name}</span>
+              <ArrowUpRight
+                aria-hidden
+                className="size-4 shrink-0 text-ink-3 transition-transform duration-200 ease-out-expo group-hover/product:-translate-y-0.5 group-hover/product:translate-x-0.5 group-hover/product:text-ink"
+              />
+            </span>
+            <span className="mt-0.5 text-[0.85rem] font-medium text-blue-text">
+              {p.role}
+            </span>
+            <span className="mt-2 text-[0.92rem] text-ink-2">{p.summary}</span>
+            <span className="sr-only">(opens in a new tab)</span>
+          </a>
+        </li>
+      ))}
+    </ul>
   );
 }
 
