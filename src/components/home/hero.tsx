@@ -423,7 +423,7 @@ export function Portrait() {
       </div>
       <span
         data-motion="travel"
-        className="absolute -right-[12px] top-[150px] inline-block text-[0.8rem] sm:-right-[32px] sm:top-[134px] sm:text-[0.88rem] cursor-default select-none rounded-full bg-ink px-3.5 py-1.5 font-semibold text-sheet sm:px-4 sm:py-2 shadow-[0_10px_20px_-10px_oklch(0.21_0.014_245/0.6)] [--tilt:-7deg] [transform:rotate(var(--tilt))] hover:animate-[sticker-wobble_0.6s_var(--ease-out)]"
+        className="absolute -right-[44px] top-[162px] inline-block text-[0.8rem] sm:-right-[62px] sm:top-[146px] sm:text-[0.88rem] cursor-default select-none rounded-full bg-ink px-3.5 py-1.5 font-semibold text-sheet sm:px-4 sm:py-2 shadow-[0_10px_20px_-10px_oklch(0.21_0.014_245/0.6)] [--tilt:-7deg] [transform:rotate(var(--tilt))] hover:animate-[sticker-wobble_0.6s_var(--ease-out)]"
       >
         <span aria-hidden>🙏</span>{" "}
         <span lang="ta" className="opacity-65">வணக்கம்</span>, I’m David
