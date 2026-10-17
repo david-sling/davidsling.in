@@ -115,7 +115,7 @@ function Media({
   return (
     <img
       src="/media/offlyn/match-dino.webp"
-      alt="Offlyn's match screen: two profile photos with the Offlyn dino mascot"
+      alt="offlyn.love's match screen: two profile photos with the offlyn.love dino mascot"
       loading="lazy"
       width={1200}
       height={981}

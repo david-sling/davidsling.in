@@ -28,7 +28,7 @@ const Devtools = import.meta.env.DEV
   : () => null;
 
 const description =
-  "David Sling is a frontend lead and engineer with a designer’s eye, building real products with AI agents. Wave, Equanim, Offlyn and writing.";
+  "David Sling is a frontend lead and engineer with a designer’s eye, building real products with AI agents. Wave, Equanim, offlyn.love and writing.";
 
 export const Route = createRootRoute({
   head: () => ({

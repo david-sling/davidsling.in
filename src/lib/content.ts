@@ -67,7 +67,7 @@ export const projects: Project[] = [
   },
   {
     slug: "offlyn",
-    name: "Offlyn",
+    name: "offlyn.love",
     year: "2026",
     summary:
       "Dating through friends of friends, like normal people. Your pool is the people your friends actually know. Web app plus an Expo app for iOS and Android.",
@@ -148,7 +148,7 @@ export const posts: Post[] = [
     title: "I Vibecoded a Full Stack App. Here's How it Went.",
     date: "2026-03-23",
     summary:
-      "Building Offlyn with AI: SQL as the API, Three.js to raw WebGL, and the rules I wish I had started with.",
+      "Building offlyn.love with AI: SQL as the API, Three.js to raw WebGL, and the rules I wish I had started with.",
   },
   {
     slug: "consistent-randomness",
