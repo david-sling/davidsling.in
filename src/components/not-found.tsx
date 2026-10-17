@@ -1,16 +1,25 @@
 import { useEffect, useRef } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Button } from "@/components/button";
+import { SquareFunction } from "lucide-react";
+import { Button, SlideArrow } from "@/components/button";
 import { FlowButton } from "@/components/flow-button";
 import { SiteFooter } from "@/components/home/sections";
 import { SiteHeader } from "@/components/home/site-header";
 import { rk4, type PendulumParams, type State } from "@/components/pendulum";
-import { projects } from "@/lib/content";
+import { onField } from "@/components/work/case";
+import { projects, type ProjectSlug } from "@/lib/content";
+
+// Each project's own mark; Equanim has none, so it gets a drawn icon instead.
+const marks: Partial<Record<ProjectSlug, string>> = {
+  wave: "/media/wave/mark.webp",
+  offlyn: "/media/offlyn/logo.svg",
+  "ai-protect": "/media/ai-protect/mark.svg",
+};
 
 /**
  * The 404. The zero hangs from a double pendulum (the same RK4 physics as
  * Equanim's example) pinned to the top of the sheet. At rest it reads as
- * a plain "404"; grab it and throw it, or push it from the keyboard, and
+ * a plain "404"; grab it and throw it, and
  * it swings chaotically before damping settles it back into place.
  */
 export function NotFound() {
@@ -40,7 +49,6 @@ function HangingZero({ path }: { path: string }) {
   const arm2 = useRef<SVGLineElement>(null);
   const pin = useRef<SVGCircleElement>(null);
   const bob = useRef<SVGCircleElement>(null);
-  const push = useRef<() => void>(() => {});
 
   useEffect(() => {
     const box = card.current;
@@ -224,14 +232,6 @@ function HangingZero({ path }: { path: string }) {
       run();
     };
 
-    let side = 1;
-    push.current = () => {
-      side = -side;
-      const k = reduce ? 0.35 : 1;
-      state = [state[0], state[1], state[2] + side * 3.4 * k, state[3] - side * 5.2 * k];
-      run();
-    };
-
     measure();
     paint();
     // Once the real font is in, re-measure; then one small sway says "this moves".
@@ -327,30 +327,33 @@ function HangingZero({ path }: { path: string }) {
         </FlowButton>
       </div>
 
-      <button
-        type="button"
-        onClick={() => push.current()}
-        data-motion="travel"
-        className="relative mt-5 inline-flex min-h-11 items-center rounded-full px-4 text-[0.95rem] font-medium text-ink-2 transition-[background-color,color,transform] duration-150 ease-out-quart hover:bg-sheet-sunk hover:text-ink active:scale-[0.96] active:duration-75"
-      >
-        Give the zero a push
-      </button>
 
       <nav
         aria-label="Projects"
-        className="relative mx-auto mt-10 max-w-[640px] border-t border-line pt-8"
+        className="relative mx-auto mt-10 max-w-[880px] border-t border-line pt-8"
       >
         <p className="text-[0.95rem] text-ink-3">Or start with a project</p>
-        <ul className="mt-3 flex flex-wrap justify-center gap-2 p-0">
+        <ul className="mt-4 grid grid-cols-2 gap-2.5 p-0 sm:grid-cols-4">
           {projects.map((p) => (
             <li key={p.slug} className="list-none">
               <Link
                 to="/work/$slug"
                 params={{ slug: p.slug }}
                 data-motion="travel"
-                className="inline-flex min-h-11 items-center rounded-full bg-sheet-sunk px-4 font-medium text-ink no-underline shadow-[inset_0_0_0_1px_var(--line)] transition-[background-color,box-shadow,transform] duration-150 ease-out-quart hover:bg-sheet hover:shadow-[var(--shadow-tile)] active:scale-[0.96] active:duration-75"
+                style={{ ...onField(p.slug), background: `var(--${p.slug})` }}
+                className="group/link flex h-full min-h-32 flex-col justify-between gap-6 rounded-[22px] p-4 text-left no-underline shadow-[var(--shadow-tile)] transition-[transform,box-shadow] duration-200 ease-out-quart hover:-translate-y-0.5 hover:shadow-[var(--shadow-lift)] active:translate-y-0 active:scale-[0.97] active:duration-75 motion-reduce:hover:translate-y-0"
               >
-                {p.name}
+                <span className="grid size-10 place-items-center rounded-[12px] bg-[oklch(1_0_0/0.92)] shadow-[0_2px_6px_-2px_oklch(0.2_0.02_250/0.35)] transition-transform duration-300 ease-out-expo group-hover/link:-rotate-6 motion-reduce:transition-none">
+                  {marks[p.slug] ? (
+                    <img src={marks[p.slug]} alt="" width={24} height={24} className="size-6 object-contain" />
+                  ) : (
+                    <SquareFunction aria-hidden className="size-6 text-[var(--equanim-deep)]" strokeWidth={2} />
+                  )}
+                </span>
+                <span className="flex items-center justify-between gap-2 text-[1.1rem] font-semibold leading-tight tracking-[-0.015em]">
+                  {p.name}
+                  <SlideArrow />
+                </span>
               </Link>
             </li>
           ))}
