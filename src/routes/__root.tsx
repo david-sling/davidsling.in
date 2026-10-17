@@ -1,7 +1,13 @@
-import { HeadContent, Scripts, createRootRoute } from "@tanstack/react-router";
+import {
+  HeadContent,
+  Scripts,
+  createRootRoute,
+  isNotFound,
+} from "@tanstack/react-router";
 import { seo } from "@/lib/seo";
 import { lazy, Suspense } from "react";
 
+import { NotFound } from "@/components/not-found";
 import { themeScript } from "@/components/theme-toggle";
 import appCss from "../styles.css?url";
 
@@ -32,17 +38,23 @@ const description =
   "David Sling is a frontend lead and engineer with a designer’s eye, building real products with AI agents. Wave, Equanim, offlyn.love, AI Protect and writing.";
 
 export const Route = createRootRoute({
-  head: () => ({
+  head: ({ matches }) => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "theme-color", content: "#67D0E8" },
-      ...seo({
-        title: "David Sling — Engineer with a designer’s eye",
-        description,
-        path: "/",
-        image: "home",
-      }),
+      // A missing page says so in its title and stays out of search.
+      ...(matches.some((m) => m._notFound || isNotFound(m.error))
+        ? [
+            { title: "Page not found — David Sling" },
+            { name: "robots", content: "noindex" },
+          ]
+        : seo({
+            title: "David Sling — Engineer with a designer’s eye",
+            description,
+            path: "/",
+            image: "home",
+          })),
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -57,6 +69,7 @@ export const Route = createRootRoute({
     ],
   }),
   shellComponent: RootDocument,
+  notFoundComponent: NotFound,
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {

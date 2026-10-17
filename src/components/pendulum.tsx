@@ -10,7 +10,7 @@ export type PendulumPart =
  * fading trail. Runs only while on screen; reduced motion draws one still
  * frame of an already-traced path.
  */
-type State = [number, number, number, number]; // θ1, θ2, ω1, ω2
+export type State = [number, number, number, number]; // θ1, θ2, ω1, ω2
 
 /** Equanim's double-pendulum variables: arm lengths (m), bob masses (kg), gravity (m/s²). */
 export type PendulumParams = {
@@ -25,7 +25,7 @@ export type PendulumParams = {
 const DEFAULT: PendulumParams = { L1: 1, L2: 1, m1: 1, m2: 1, g: 9.81 };
 
 // The same equations as Equanim's example spec, term for term.
-function derive(
+export function derive(
   [t1, t2, w1, w2]: State,
   { L1, L2, m1, m2, g }: PendulumParams,
 ): State {
@@ -46,7 +46,7 @@ function derive(
   return [w1, w2, a1, a2];
 }
 
-function rk4(s: State, h: number, p: PendulumParams): State {
+export function rk4(s: State, h: number, p: PendulumParams): State {
   const add = (a: State, b: State, k: number) =>
     a.map((v, i) => v + b[i] * k) as State;
   const k1 = derive(s, p);
