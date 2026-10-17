@@ -41,7 +41,7 @@ function ProjectCard({ project, className, wide }: { project: Project; className
   const video = useRef<HTMLVideoElement>(null)
 
   return (
-    <article className={className}>
+    <article className={cn('relative', className)}>
       <Link
         to="/work/$slug"
         params={{ slug: project.slug }}
@@ -83,6 +83,21 @@ function ProjectCard({ project, className, wide }: { project: Project; className
           </span>
         </div>
       </Link>
+      {project.slug === 'equanim' && (
+        // A sibling of the card link, laid over its media, so it can be its own link.
+        <div className="pointer-events-none absolute inset-x-0 top-0 aspect-[4/3]">
+          <Link
+            to="/work/$slug"
+            params={{ slug: 'equanim' }}
+            hash="playground"
+            data-motion="travel"
+            className="group/btn pointer-events-auto absolute bottom-4 left-4 inline-flex min-h-11 select-none items-center gap-2 rounded-full bg-[oklch(1_0_0/0.85)] pl-4 pr-3.5 text-[0.85rem] font-semibold text-[var(--equanim-deep)] no-underline shadow-[0_6px_16px_-8px_oklch(0.3_0.08_220/0.5)] origin-bottom transition-[transform,background-color] duration-150 ease-out-quart hover:bg-white active:scale-x-[1.02] active:scale-y-[0.92] active:duration-75 sm:bottom-5 sm:left-5"
+          >
+            Try the playground
+            <SlideArrow />
+          </Link>
+        </div>
+      )}
     </article>
   )
 }
@@ -106,9 +121,6 @@ function Media({
     return (
       <div className="absolute inset-0">
         <Pendulum className="absolute inset-0 size-full" />
-        <span className="absolute bottom-5 left-5 rounded-full bg-[oklch(1_0_0/0.85)] px-3 py-1 text-[0.78rem] font-semibold text-[var(--equanim-deep)]">
-          Running live, RK4
-        </span>
       </div>
     )
   }
