@@ -15,6 +15,7 @@ const projectInk: Record<string, { field: string; ink: string }> = {
 
 async function cardFor(page: string) {
   const { listPosts } = await import("@/lib/posts.server");
+  const { marks } = await import("@/lib/og.server");
   if (page === "home")
     return {
       title: "David Sling",
@@ -51,6 +52,7 @@ async function cardFor(page: string) {
       summary: project.summary,
       path: `/work/${project.slug}`,
       ...projectInk[project.slug],
+      mark: marks[project.slug as keyof typeof marks],
     };
   }
   return null;

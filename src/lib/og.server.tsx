@@ -3,6 +3,16 @@ import { Resvg } from "@resvg/resvg-js";
 import font500 from "@/og-assets/general-sans-500.ttf?inline";
 import font600 from "@/og-assets/general-sans-600.ttf?inline";
 import portrait from "@/og-assets/portrait.png?inline";
+import aiProtectMark from "@/og-assets/ai-protect.svg?inline";
+import offlynMark from "@/og-assets/offlyn.svg?inline";
+import waveMark from "@/og-assets/wave.png?inline";
+
+/** Each project's own mark, shown on a white tile so it reads on its colour. */
+export const marks = {
+  wave: waveMark,
+  offlyn: offlynMark,
+  "ai-protect": aiProtectMark,
+} as const;
 
 /**
  * Open Graph cards, drawn on request with satori and rasterised with resvg.
@@ -18,6 +28,8 @@ export type Card = {
   field: string;
   ink: string;
   portrait?: boolean;
+  /** A project's logo, as a data URL. */
+  mark?: string;
 };
 
 const fromDataUrl = (url: string) =>
@@ -125,6 +137,30 @@ function Layout(card: Card) {
           </div>
         )}
         <Logo field={field} ink={ink} />
+        {card.mark && (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              position: "absolute",
+              top: 48,
+              right: 56,
+              width: 132,
+              height: 132,
+              borderRadius: 36,
+              background: "#ffffff",
+              boxShadow: "0 18px 36px -18px rgba(0,0,0,0.35)",
+            }}
+          >
+            <img
+              src={card.mark}
+              width={84}
+              height={84}
+              style={{ objectFit: "contain" }}
+            />
+          </div>
+        )}
         <div
           style={{
             display: "flex",
