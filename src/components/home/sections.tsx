@@ -286,6 +286,50 @@ function Products({
   );
 }
 
+/**
+ * Logos whose brand is more than one colour, drawn in the simple-icons 24×24
+ * box so they line up exactly with the outline they replace on hover.
+ */
+const fullColour: Record<string, (path: string) => React.ReactNode> = {
+  // Figma's five shapes, stretched to the outline's bounds (x 3.66–20.34).
+  Figma: () => (
+    <g transform="translate(3.658 0) scale(0.439 0.421)">
+      <path fill="#1abcfe" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" />
+      <path fill="#0acf83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z" />
+      <path fill="#ff7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z" />
+      <path fill="#f24e1e" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" />
+      <path fill="#a259ff" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" />
+    </g>
+  ),
+  // The blue elephant: its silhouette (the path's first contour) under white linework.
+  Postgres: (path) => (
+    <>
+      <path
+        d={path.slice(0, path.search(/z/i) + 1)}
+        fill="#336791"
+        stroke="#1b1b1b"
+        strokeWidth={1.1}
+        strokeLinejoin="round"
+      />
+      <path d={path} fill="#fff" />
+    </>
+  ),
+  // TanStack's sky, from the gradient in its own logo.
+  TanStack: (path) => (
+    <>
+      <defs>
+        <linearGradient id="tanstack-sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#6bdaff" />
+          <stop offset="0.319" stopColor="#f9ffb5" />
+          <stop offset="0.706" stopColor="#ffa770" />
+          <stop offset="1" stopColor="#ff7373" />
+        </linearGradient>
+      </defs>
+      <path d={path} fill="url(#tanstack-sky)" />
+    </>
+  ),
+};
+
 export function Stack() {
   return (
     <section
@@ -317,63 +361,35 @@ export function Stack() {
                 lg ? "col-span-2 row-span-2 aspect-square" : "aspect-square",
               )}
             >
-              <span className="relative grid">
-                {s.name === "Figma" && (
-                  // Figma's mark is five colours, not one: cross-fade to it on hover.
-                  <svg
-                    viewBox="0 0 38 57"
-                    aria-hidden
-                    className={cn(
-                      "absolute inset-0 m-auto h-[88%] opacity-0 transition-[opacity,transform] duration-300 ease-out-expo group-hover/tile:scale-110 group-hover/tile:opacity-100",
-                    )}
-                  >
-                    <path
-                      fill="#1abcfe"
-                      d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"
-                    />
-                    <path
-                      fill="#0acf83"
-                      d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"
-                    />
-                    <path
-                      fill="#ff7262"
-                      d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"
-                    />
-                    <path
-                      fill="#f24e1e"
-                      d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"
-                    />
-                    <path
-                      fill="#a259ff"
-                      d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"
-                    />
-                  </svg>
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden
+                className={cn(
+                  "overflow-visible fill-ink-2 transition-transform duration-300 ease-out-expo group-hover/tile:scale-110",
+                  lg ? "size-16 sm:size-20" : "size-8 sm:size-9",
                 )}
-                <svg
-                  viewBox="0 0 24 24"
-                  aria-hidden
+                style={
+                  {
+                    "--brand": dark ? "var(--ink)" : `#${icon.hex}`,
+                  } as React.CSSProperties
+                }
+              >
+                <path
+                  d={icon.path}
                   className={cn(
-                    "fill-ink-2 transition-[fill,transform,opacity] duration-300 ease-out-expo group-hover/tile:scale-110",
-                    s.name === "Figma" && "group-hover/tile:opacity-0",
-                    lg ? "size-16 sm:size-20" : "size-8 sm:size-9",
+                    "transition-[fill,opacity] duration-300 ease-out-expo",
+                    // Multi-colour marks swap the outline for their full logo.
+                    s.name in fullColour
+                      ? "group-hover/tile:opacity-0"
+                      : "group-hover/tile:fill-[var(--brand)]",
                   )}
-                  style={
-                    {
-                      "--brand": dark ? "var(--ink)" : `#${icon.hex}`,
-                    } as React.CSSProperties
-                  }
-                >
-                  <path
-                    d={icon.path}
-                    // Figma's outline only fades out; its colours come from the overlay.
-                    className={
-                      s.name === "Figma"
-                        ? undefined
-                        : "group-hover/tile:fill-[var(--brand)]"
-                    }
-                  />
-                </svg>
-              </span>
+                />
+                {s.name in fullColour && (
+                  <g className="opacity-0 transition-opacity duration-300 ease-out-expo group-hover/tile:opacity-100">
+                    {fullColour[s.name](icon.path)}
+                  </g>
+                )}
+              </svg>
               <span
                 className={cn(
                   "font-medium text-ink-2",
