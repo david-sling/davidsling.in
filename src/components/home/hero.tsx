@@ -32,6 +32,10 @@ const iconPath: Record<string, string> = {
 const projectCard =
   'isolate bg-sheet text-ink dark:bg-[oklch(0.21_0.014_245)] dark:text-[oklch(0.95_0.006_225)]'
 
+// The soft circle that follows the pointer on project cards and social rows.
+const SPOT = '280px circle at var(--mx, 50%) var(--my, 50%)'
+const spotMask = `radial-gradient(${SPOT}, #000, transparent 70%)`
+
 /** Tracks the pointer in CSS variables so a card's glow can follow it. */
 function trackPointer(e: React.PointerEvent<HTMLElement>) {
   const r = e.currentTarget.getBoundingClientRect()
@@ -46,7 +50,7 @@ function Glow({ color }: { color: string }) {
       aria-hidden
       className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition-opacity duration-200 ease-out-expo group-hover/t:opacity-100 group-hover/t:duration-500 dark:group-hover/t:opacity-55"
       style={{
-        background: `radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), color-mix(in oklab, ${color} 38%, transparent), transparent 70%)`,
+        background: `radial-gradient(${SPOT}, color-mix(in oklab, ${color} 38%, transparent), transparent 70%)`,
       }}
     />
   )
@@ -160,7 +164,6 @@ function HeatFill({ state }: { state: Load<GithubPulse> }) {
       {cells.map((level, i) => (
         <span key={i} className={githubGreen[level] ?? githubGreen[0]} />
       ))}
-      <span className="absolute inset-0 bg-[linear-gradient(to_top,oklch(1_0_0/0.85),oklch(1_0_0/0.2)_65%)] dark:bg-[linear-gradient(to_top,oklch(0_0_0/0.6),oklch(0_0_0/0.15)_65%)]" />
     </span>
   )
 }
@@ -174,24 +177,26 @@ function SocialsTile({ github }: { github: Load<GithubPulse> }) {
             href={s.href}
             target="_blank"
             rel="noreferrer"
+            onPointerMove={trackPointer}
             className={cn(
-              'group/t relative flex min-h-[96px] flex-1 flex-col justify-between gap-2 overflow-hidden px-4 py-3.5 no-underline transition-colors duration-150 hover:delay-75 hover:duration-300',
-              s.label === 'GitHub' ? 'hover:text-[#1f2328] focus-visible:text-[#1f2328] dark:hover:text-white dark:focus-visible:text-white' : 'hover:text-white focus-visible:text-white',
+              'group/t relative isolate flex min-h-[96px] flex-1 flex-col justify-between gap-2 overflow-hidden px-4 py-3.5 no-underline',
               focusRing,
               'focus-visible:outline-offset-[-4px]',
             )}
           >
+            {/* The brand colour (or GitHub's heatmap) shows only inside a soft circle under the pointer. */}
             <span
               aria-hidden
               className={cn(
-                'absolute inset-0 overflow-hidden transition-[clip-path,opacity] duration-200 ease-out-expo [clip-path:circle(0%_at_34px_32px)] group-hover/t:duration-[650ms] group-hover/t:[clip-path:circle(150%_at_34px_32px)] group-focus-visible/t:[clip-path:circle(150%_at_34px_32px)] motion-reduce:opacity-0 motion-reduce:[clip-path:none] motion-reduce:group-hover/t:opacity-100 motion-reduce:group-focus-visible/t:opacity-100',
+                'pointer-events-none absolute inset-0 -z-10 overflow-hidden opacity-0 transition-opacity duration-200 ease-out-expo group-hover/t:opacity-100 group-hover/t:duration-500 group-focus-visible/t:opacity-100',
                 brandFill[s.label],
               )}
+              style={{ maskImage: spotMask, WebkitMaskImage: spotMask }}
             >
               {s.label === 'GitHub' && <HeatFill state={github} />}
             </span>
             <span className="relative flex items-start justify-between">
-              <span className={cn('grid size-9 shrink-0 place-items-center rounded-xl bg-sheet-sunk text-ink shadow-[inset_0_0_0_1px_var(--line)] transition-[transform,background-color,color,box-shadow] duration-200 ease-out-expo group-hover/t:duration-500 group-hover/t:-rotate-6 group-hover/t:scale-110 motion-reduce:group-hover/t:transform-none group-hover/t:bg-white group-hover/t:text-[oklch(0.21_0.014_245)] group-hover/t:shadow-none', s.label === 'GitHub' && 'group-hover/t:bg-[#1f2328] group-hover/t:text-white dark:group-hover/t:bg-white dark:group-hover/t:text-[#1f2328]')}>
+              <span className={cn('grid size-9 shrink-0 place-items-center rounded-xl bg-sheet-sunk text-ink shadow-[inset_0_0_0_1px_var(--line)] transition-[transform,background-color,color,box-shadow] duration-200 ease-out-expo group-hover/t:duration-500 group-hover/t:-rotate-6 group-hover/t:scale-110 motion-reduce:group-hover/t:transform-none')}>
                 <SocialIcon label={s.label} className="size-[18px]" />
               </span>
               <TileArrow external />
@@ -348,7 +353,8 @@ export function Hero() {
         <li className="list-none sm:row-span-2"><SocialsTile github={github} /></li>
         <li className="list-none"><PlaygroundTile /></li>
         <li className="list-none">
-          <Link to="/blogs/$slug" params={{ slug: 'consistent-randomness' }} className={cn(bentoTile, 'bg-sheet text-ink hover:bg-[color-mix(in_oklch,var(--blue)_8%,var(--sheet))]', focusRing)}>
+          <Link to="/blogs/$slug" params={{ slug: 'consistent-randomness' }} onPointerMove={trackPointer} className={cn(bentoTile, 'isolate bg-sheet text-ink', focusRing)}>
+            <Glow color="var(--blue)" />
             <span className="flex items-start justify-between gap-4">
               <span className="text-[0.85rem] font-medium tabular-nums text-ink-3">Sep 2024</span>
               <TileArrow />
@@ -362,7 +368,8 @@ export function Hero() {
           </Link>
         </li>
         <li className="list-none">
-          <a href="/resume.pdf" target="_blank" rel="noreferrer" className={cn(bentoTile, 'bg-sheet text-ink hover:bg-[color-mix(in_oklch,var(--blue)_8%,var(--sheet))]', focusRing)}>
+          <a href="/resume.pdf" target="_blank" rel="noreferrer" onPointerMove={trackPointer} className={cn(bentoTile, 'isolate bg-sheet text-ink', focusRing)}>
+            <Glow color="var(--blue)" />
             <span className="flex items-start justify-between">
               <span className="grid size-12 place-items-center rounded-2xl bg-sheet-sunk shadow-[inset_0_0_0_1px_var(--line)] transition-transform duration-200 ease-out-expo group-hover/t:-rotate-6 group-hover/t:scale-110 group-hover/t:duration-500 motion-reduce:group-hover/t:transform-none">
                 <FileText aria-hidden className="size-[22px] text-blue-text" />
