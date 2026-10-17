@@ -1,0 +1,245 @@
+{
+  "title": "Choose the visual world — davidsling.in landing",
+  "question": "The roll dealt the Reservation Chart. Keep it, take an alternate, or re-roll. Each card also shows one of the three first-viewport leads you asked to see.",
+  "options": [
+    {
+      "id": "assigned",
+      "kind": "assigned",
+      "label": "Reservation Chart",
+      "kicker": "THE ROLL",
+      "lineage": "Indian Railways printed reservation charts and yellow station name boards",
+      "thesis": "The site is the chart pasted beside the coach door: find the work by running a finger down it.",
+      "palette": [
+        "#f2c200",
+        "#1d2440",
+        "#f4f6f1",
+        "#dfeadb",
+        "#1f3f8f"
+      ],
+      "materials": [
+        "green-bar continuous stationery",
+        "dot-matrix ink",
+        "enamel station board"
+      ],
+      "viewport": "Lead = the work: a yellow trilingual name board (English, Malayalam, Kannada) over a full-width printed chart whose three rows are Wave, Equanim and Offlyn.",
+      "risk": "Peers outside India may miss the reference; dot-matrix can drift techy; the Malayalam and Kannada must be verified by David.",
+      "raised": [
+        {
+          "from": "challenger-understory",
+          "raise": "Attention is the state system: every row and control has at-rest, approached, pressed and done states, and the finger-run highlight is the shared vocabulary."
+        },
+        {
+          "from": "challenger-noir",
+          "raise": "Printed discipline: every tone is paper, ink or board yellow; no decorative tints or gradients."
+        },
+        {
+          "from": "challenger-ascii",
+          "raise": "The chart is live: rows print from real repo data at build time instead of being pictured."
+        },
+        {
+          "from": "challenger-sixpack",
+          "raise": "Each column holds exactly one verifiable fact; nothing ornamental lives in the table."
+        }
+      ],
+      "html": ".impeccable/mocks/decision/assigned.html"
+    },
+    {
+      "id": "model-pick",
+      "kind": "pick",
+      "label": "Contact Sheet",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "photographers' contact sheets marked up with a red china marker",
+      "thesis": "Taste is selection: every project is a strip of frames, and the red grease pencil circles the one that shipped.",
+      "palette": [
+        "#f7f7f4",
+        "#141414",
+        "#d7261e",
+        "#8a8a85"
+      ],
+      "materials": [
+        "silver-gelatin print",
+        "film rebate edges",
+        "grease pencil"
+      ],
+      "viewport": "Lead = you + one line: a strip of portrait frames from David's photo, one circled in red, a hand-marked line beside it; project strips start below the fold.",
+      "risk": "The most familiar of the set: photo-editorial portfolios often land here, and it needs real frame imagery for every strip.",
+      "html": ".impeccable/mocks/decision/model-pick.html"
+    },
+    {
+      "id": "challenger-fletcher",
+      "kind": "challenger",
+      "catalogId": "brand-identity-canon-fletcher-wit-poster",
+      "label": "Cut-Paper Wit",
+      "verdict": "wins",
+      "lineage": "Alan Fletcher's cut-paper visual-pun posters",
+      "thesis": "Every project introduced by a visual pun cut from paper; the joke lands before the caption does.",
+      "palette": [
+        "#ffffff",
+        "#1f47c8",
+        "#3a9a3a",
+        "#e8372b",
+        "#1a1a1a"
+      ],
+      "materials": [
+        "cut and torn paper",
+        "crayon overshoot",
+        "hand-marker lettering"
+      ],
+      "viewport": "Lead = a craft moment: a cut-paper pun built around David's cut-out photo that you can nudge, with a hand-lettered headline and obedient small type at the foot.",
+      "case": "Wins both axes: the designer's-designer canon matches 'designer's eye' and David's irreverent voice, and each project gets an instant pun label (Wave as two speech bubbles, Equanim as a pendulum, Offlyn as a friends-of-friends Venn heart).",
+      "risk": "The puns must genuinely land or it turns twee; it needs authored cut-paper art and ideally David's own handwriting.",
+      "html": ".impeccable/mocks/decision/challenger-fletcher.html",
+      "hero": "https://impeccable.style/worlds/cards/brand-identity-canon-fletcher-wit-poster-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/brand-identity-canon-fletcher-wit-poster.webp"
+    },
+    {
+      "id": "challenger-ikebana",
+      "kind": "challenger",
+      "catalogId": "growth-metamorphosis-branching-ikebana-ma-arrangement",
+      "label": "Ma Arrangement",
+      "verdict": "competitive",
+      "lineage": "ikebana in a tokonoma alcove",
+      "thesis": "Three projects placed as primary, secondary and supporting lines, with the empty plaster doing as much work as the stems.",
+      "palette": [
+        "#e9e5dc",
+        "#6b5f52",
+        "#3b5bbf",
+        "#4a3b2a"
+      ],
+      "materials": [
+        "lime plaster",
+        "weathered pine",
+        "bronze"
+      ],
+      "viewport": "Lead = the work: Wave rises as the tall primary line, Equanim and Offlyn angle off it, each a live mini-artifact, with David's name set vertically off-centre.",
+      "case": "Holds product clarity (three projects map to the three lines of an arrangement) but is weaker on identification: the cultural home isn't David's, and quiet can read corporate.",
+      "risk": "Quiet restraint is the easiest version to make look like an agency site.",
+      "html": ".impeccable/mocks/decision/challenger-ikebana.html",
+      "hero": "https://impeccable.style/worlds/cards/growth-metamorphosis-branching-ikebana-ma-arrangement-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/growth-metamorphosis-branching-ikebana-ma-arrangement.webp"
+    },
+    {
+      "id": "challenger-understory",
+      "kind": "challenger",
+      "catalogId": "dream-surreal-impossible-worlds-luminescent-alien-understory",
+      "label": "Luminescent Understory",
+      "verdict": "declined",
+      "lineage": "alien night forest",
+      "thesis": "Attention lights the path two steps ahead.",
+      "palette": [
+        "#0b0f0c",
+        "#5ce1e6",
+        "#b49cff",
+        "#bff5c4"
+      ],
+      "materials": [
+        "loam",
+        "spore glow"
+      ],
+      "viewport": "Near-black ground, projects as distant pulses that bloom on approach.",
+      "case": "Loses both axes: it is the dark neon look David ruled out.",
+      "risk": "Reads as the AI-era dark glow default.",
+      "kept": "Attention as a state system, now on the assigned card.",
+      "hero": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-luminescent-alien-understory-hero.webp"
+    },
+    {
+      "id": "challenger-noir",
+      "kind": "challenger",
+      "catalogId": "posters-covers-sleeves-noir-one-sheet-duotone",
+      "label": "Noir One-Sheet",
+      "verdict": "declined",
+      "lineage": "postwar duotone film posters",
+      "thesis": "A small figure throwing a huge shadow.",
+      "palette": [
+        "#121212",
+        "#d99a2b",
+        "#efe4cc"
+      ],
+      "materials": [
+        "two-ink print",
+        "cream stock"
+      ],
+      "viewport": "David's cut-out small, his shadow four times his size across the page.",
+      "case": "Loses both axes: cream stock is a saturated AI tell and the film frame says nothing about the work.",
+      "risk": "Costume drama around a portfolio.",
+      "kept": "Two-ink discipline, now on the assigned card.",
+      "hero": "https://impeccable.style/worlds/cards/posters-covers-sleeves-noir-one-sheet-duotone-hero.webp"
+    },
+    {
+      "id": "challenger-ascii",
+      "kind": "challenger",
+      "catalogId": "medium-native-ascii-live-scene-render",
+      "label": "ASCII Live Render",
+      "verdict": "declined",
+      "lineage": "glyph-density renders",
+      "thesis": "The scene re-rendered live as type.",
+      "palette": [
+        "#0a0a0a",
+        "#7dff8a"
+      ],
+      "materials": [
+        "phosphor",
+        "monospace grid"
+      ],
+      "viewport": "A glyph portrait of David on black.",
+      "case": "Loses both axes: it is exactly the techy terminal look ruled out.",
+      "risk": "Monospace as costume.",
+      "kept": "Render the work live rather than picturing it, now on the assigned card.",
+      "hero": "https://impeccable.style/worlds/cards/medium-native-ascii-live-scene-render-hero.webp"
+    },
+    {
+      "id": "challenger-sixpack",
+      "kind": "challenger",
+      "catalogId": "signals-instruments-night-flight-six-pack",
+      "label": "Night Flight Six-Pack",
+      "verdict": "declined",
+      "lineage": "aircraft instrument panels",
+      "thesis": "Six calm dials, each owning one truth.",
+      "palette": [
+        "#0d0d0d",
+        "#f2f2f2",
+        "#5cff9d",
+        "#ffb000"
+      ],
+      "materials": [
+        "matte panel",
+        "luminous dials"
+      ],
+      "viewport": "Projects as gauges on a black panel.",
+      "case": "Loses both axes: dark, instrumented, and tool-costumed.",
+      "risk": "Dashboard cosplay.",
+      "kept": "One verifiable fact per element, now on the assigned card.",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-night-flight-six-pack-hero.webp"
+    }
+  ],
+  "reroll": {
+    "registers": [
+      "safer",
+      "bolder"
+    ]
+  },
+  "buildPath": {
+    "value": "code"
+  },
+  "canon": true,
+  "canonCard": {
+    "kind": "canon",
+    "label": "The category standard",
+    "thesis": "The light personal portfolio, executed impeccably.",
+    "palette": [
+      "#efefed",
+      "#161616",
+      "#ffffff",
+      "#8a8a86"
+    ],
+    "materials": [
+      "soft rounded sheets",
+      "pill buttons",
+      "project photography"
+    ],
+    "viewport": "Lead = you + one line: avatar with a name sticker, a centred two-tone headline, a pill button, and project cards with years below.",
+    "risk": "This is the bought-template look you said would feel wrong.",
+    "html": ".impeccable/mocks/decision/canon.html"
+  },
+  "steer": true
+}

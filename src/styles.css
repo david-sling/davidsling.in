@@ -1,0 +1,296 @@
+@import "tailwindcss";
+
+@custom-variant dark {
+  &:where([data-theme="dark"], [data-theme="dark"] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme="light"]), :root:not([data-theme="light"]) *) {
+      @slot;
+    }
+  }
+}
+
+@font-face {
+  font-family: "General Sans";
+  src: url("/fonts/general-sans-400.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "General Sans";
+  src: url("/fonts/general-sans-500.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "General Sans";
+  src: url("/fonts/general-sans-600.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "General Sans";
+  src: url("/fonts/general-sans-700.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+/*
+ * Tokens. Neutrals are tinted toward David's blue (hue ~220) so the
+ * ground, sheets and ink read as one family with the accent.
+ */
+:root {
+  --ground: oklch(0.962 0.004 225);
+  --sheet: oklch(0.993 0.002 225);
+  --sheet-sunk: oklch(0.945 0.005 225);
+  --line: oklch(0.89 0.006 225);
+  --ink: oklch(0.21 0.014 245);
+  --ink-2: oklch(0.45 0.012 245);
+  --ink-3: oklch(0.58 0.01 245);
+
+  /* David's blue, #67D0E8. A fill colour: ink sits on it, never white. */
+  --blue: oklch(0.81 0.105 214);
+  --blue-strong: oklch(0.74 0.12 216);
+  --blue-wash: oklch(0.94 0.035 214);
+  --blue-text: oklch(0.47 0.1 224);
+
+  /* Per-project colours, carried over from the work index on the old site. */
+  --wave: #f8c840;
+  --wave-text: oklch(0.43 0.085 80);
+  --wave-deep: oklch(0.22 0.04 85);
+  --offlyn: #ff6b9f;
+  --offlyn-text: oklch(0.5 0.17 2);
+  --offlyn-deep: oklch(0.24 0.06 0);
+  --equanim: #06b6d4;
+  --equanim-text: oklch(0.48 0.09 215);
+  --equanim-deep: oklch(0.2 0.035 225);
+
+  --shadow-tile:
+    0 1px 1px oklch(0.21 0.014 245 / 0.04), 0 6px 14px -4px oklch(0.21 0.014 245 / 0.1),
+    inset 0 1px 0 oklch(1 0 0 / 0.9);
+  --shadow-lift:
+    0 2px 2px oklch(0.21 0.014 245 / 0.05), 0 18px 32px -10px oklch(0.21 0.014 245 / 0.18),
+    inset 0 1px 0 oklch(1 0 0 / 0.9);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-quart: cubic-bezier(0.25, 1, 0.5, 1);
+
+  color-scheme: light;
+}
+
+/* Dark is its own palette, not an inversion: deeper sheets, softer ink. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: oklch(0.165 0.01 245);
+    --sheet: oklch(0.205 0.012 245);
+    --sheet-sunk: oklch(0.185 0.011 245);
+    --line: oklch(0.3 0.012 245);
+    --ink: oklch(0.95 0.006 225);
+    --ink-2: oklch(0.76 0.01 230);
+    --ink-3: oklch(0.64 0.01 235);
+    --blue-wash: oklch(0.27 0.04 220);
+    --blue-text: oklch(0.83 0.1 214);
+    --wave-text: oklch(0.85 0.12 88);
+    --offlyn-text: oklch(0.78 0.13 2);
+    --equanim-text: oklch(0.8 0.11 210);
+    --shadow-tile:
+      0 1px 1px oklch(0 0 0 / 0.3), 0 8px 18px -6px oklch(0 0 0 / 0.5),
+      inset 0 1px 0 oklch(1 0 0 / 0.06);
+    --shadow-lift:
+      0 2px 2px oklch(0 0 0 / 0.3), 0 20px 36px -12px oklch(0 0 0 / 0.65),
+      inset 0 1px 0 oklch(1 0 0 / 0.08);
+    color-scheme: dark;
+  }
+}
+
+/* An explicit choice from the theme switch beats the system setting. */
+:root[data-theme="dark"] {
+  --ground: oklch(0.165 0.01 245);
+  --sheet: oklch(0.205 0.012 245);
+  --sheet-sunk: oklch(0.185 0.011 245);
+  --line: oklch(0.3 0.012 245);
+  --ink: oklch(0.95 0.006 225);
+  --ink-2: oklch(0.76 0.01 230);
+  --ink-3: oklch(0.64 0.01 235);
+  --blue-wash: oklch(0.27 0.04 220);
+  --blue-text: oklch(0.83 0.1 214);
+  --wave-text: oklch(0.85 0.12 88);
+  --offlyn-text: oklch(0.78 0.13 2);
+  --equanim-text: oklch(0.8 0.11 210);
+  --shadow-tile:
+    0 1px 1px oklch(0 0 0 / 0.3), 0 8px 18px -6px oklch(0 0 0 / 0.5),
+    inset 0 1px 0 oklch(1 0 0 / 0.06);
+  --shadow-lift:
+    0 2px 2px oklch(0 0 0 / 0.3), 0 20px 36px -12px oklch(0 0 0 / 0.65),
+    inset 0 1px 0 oklch(1 0 0 / 0.08);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --font-sans: "General Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-ground: var(--ground);
+  --color-sheet: var(--sheet);
+  --color-sheet-sunk: var(--sheet-sunk);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-blue: var(--blue);
+  --color-blue-strong: var(--blue-strong);
+  --color-blue-wash: var(--blue-wash);
+  --color-blue-text: var(--blue-text);
+  --ease-out-expo: var(--ease-out);
+  --ease-out-quart: var(--ease-quart);
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100%;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "ss01";
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  p {
+    text-wrap: pretty;
+    margin: 0;
+  }
+
+  /* Browser surfaces carry the design too. */
+  ::selection {
+    background: var(--blue);
+    color: oklch(0.21 0.014 245);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--blue-strong);
+    outline-offset: 3px;
+    border-radius: 999px;
+  }
+
+  a {
+    color: inherit;
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: 1px;
+  }
+
+  html {
+    scrollbar-color: var(--line) transparent;
+  }
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Spell UI logo/marquee keyframes live here, not in component-scoped <style>. */
+@keyframes sticker-wobble {
+  0%,
+  100% {
+    transform: rotate(var(--tilt, -6deg));
+  }
+  30% {
+    transform: rotate(calc(var(--tilt, -6deg) + 7deg)) scale(1.06);
+  }
+  60% {
+    transform: rotate(calc(var(--tilt, -6deg) - 3deg)) scale(1.03);
+  }
+}
+
+@keyframes words-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.35em);
+    filter: blur(8px);
+  }
+}
+
+.words-stagger {
+  animation: words-rise 0.75s var(--ease-out) both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes eq {
+  0%,
+  100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -10;
+  }
+}
+
+/*
+ * Reduced motion means fewer and gentler, not none: keep colour and
+ * opacity feedback, drop travel, tilt and looping motion.
+ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-iteration-count: 1 !important;
+  }
+  .words-stagger {
+    animation-name: fade-in;
+    animation-duration: 0.4s;
+  }
+  [data-motion="travel"] {
+    transform: none !important;
+    transition-property: color, background-color, border-color, opacity, box-shadow !important;
+  }
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}

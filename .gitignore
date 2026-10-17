@@ -1,0 +1,28 @@
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
+.env
+.nitro
+.tanstack
+.wrangler
+.output
+.vinxi
+__unconfig*
+todos.json
+
+# impeccable local state
+.impeccable/review/
+.impeccable/build/
+.impeccable/config.local.json
+.impeccable/live/
+
+# secrets and local tool state
+.env.*
+!.env.example
+.claude/scheduled_tasks.lock
+.claude/settings.local.json
+
+# resume carries a phone number; kept out until a public version replaces it
+public/resume.pdf

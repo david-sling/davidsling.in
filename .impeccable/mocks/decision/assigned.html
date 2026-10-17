@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Reservation Chart — sketch</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800;900&family=Doto:wght@600;800&family=Noto+Sans+Malayalam:wght@700&family=Noto+Sans+Kannada:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f4f6f1;--bar:#dfeadb;--ink:#1d2440;--board:#f2c200;--coach:#1f3f8f}
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;background:var(--paper);color:var(--ink);font-family:Archivo,sans-serif}
+.board{position:absolute;left:56px;right:56px;top:40px;height:300px;background:var(--board);border:10px solid var(--ink);display:grid;grid-template-rows:1fr auto auto;padding:18px 40px 22px;text-align:center}
+.board h1{font-weight:900;font-size:132px;letter-spacing:-.02em;line-height:1}
+.board .ml{font-family:'Noto Sans Malayalam';font-size:42px}
+.board .kn{font-family:'Noto Sans Kannada';font-size:42px}
+.posts{position:absolute;top:340px;width:14px;height:40px;background:var(--ink)}
+.chart{position:absolute;left:56px;right:56px;top:400px;bottom:40px;background:repeating-linear-gradient(var(--paper) 0 52px,var(--bar) 52px 104px);border-left:14px dotted #c9cfc4;border-right:14px dotted #c9cfc4;padding:24px 36px;font-family:Doto,monospace}
+.chart .head{display:flex;justify-content:space-between;font-size:26px;font-weight:800;border-bottom:3px solid var(--ink);padding-bottom:10px}
+.row{display:grid;grid-template-columns:90px 380px 220px 260px 1fr;align-items:center;height:104px;font-size:44px;font-weight:800}
+.row.hl{background:color-mix(in oklch,var(--board) 70%,transparent)}
+.row small{font-size:14px}
+.stamp{position:absolute;right:130px;top:782px;transform:rotate(-8deg);border:5px solid var(--coach);color:var(--coach);font-size:34px;padding:6px 18px;font-weight:900}
+nav{position:absolute;top:10px;right:64px;font-size:13px}
+</style></head><body>
+<div class="board"><h1>DAVID SLING</h1><div class="ml">ഡേവിഡ് സ്ലിങ്</div><div class="kn">ಡೇವಿಡ್ ಸ್ಲಿಂಗ್</div></div>
+<div class="posts" style="left:220px"></div><div class="posts" style="right:220px"></div>
+<div class="chart">
+ <div class="head"><span>RESERVATION CHART · DAVIDSLING EXP</span><span>BENGALURU → SHIPPED</span></div>
+ <div class="row hl"><span>A1</span><span>WAVE</span><span>220 CMT</span><span>LIVE</span><small>Group chat for AI agents, while you supervise</small></div>
+ <div class="row"><span>A2</span><span>OFFLYN</span><span>WEB+APP</span><span>LIVE</span><small>Friends of friends, like normal people</small></div>
+ <div class="row"><span>B1</span><span>EQUANIM</span><span>4 DAYS</span><span>OPEN SPEC</span><small>Animation where every property is maths</small></div>
+</div>
+<div class="stamp">CHART PREPARED</div>
+</body></html>
