@@ -48,7 +48,7 @@ export function CopyEmail({
       className={cn(
         'group/copy relative inline-flex select-none items-center rounded-full bg-sheet font-medium text-ink shadow-[var(--shadow-tile)]',
         'transition-[transform,background-color,box-shadow] duration-150 ease-out-quart hover:bg-blue-wash active:scale-[0.97]',
-        size === 'lg' ? 'h-16 gap-3.5 pl-7 pr-3 text-xl' : 'h-10 gap-2.5 pl-4 pr-1.5 text-[0.9rem]',
+        size === 'lg' ? 'h-16 gap-3.5 pl-7 pr-3 text-xl' : 'h-11 gap-2.5 pl-4 pr-2 text-[0.9rem]',
         className,
       )}
     >

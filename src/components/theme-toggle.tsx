@@ -52,7 +52,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
       aria-pressed={theme === null ? undefined : dark}
       className={cn(
-        "group/theme relative grid size-10 shrink-0 place-items-center rounded-full bg-sheet text-ink-2 shadow-[var(--shadow-tile)]",
+        "group/theme relative grid size-11 shrink-0 place-items-center rounded-full bg-sheet text-ink-2 shadow-[var(--shadow-tile)]",
         "transition-[transform,background-color,color] duration-150 ease-out-quart hover:bg-blue-wash hover:text-ink active:scale-[0.92]",
         className,
       )}

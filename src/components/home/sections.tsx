@@ -20,7 +20,7 @@ export function HowIBuild() {
       aria-labelledby="build-title"
       className="mx-auto max-w-[1240px] px-4 pt-28 sm:px-6 sm:pt-36"
     >
-      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-start">
+      <div className="grid grid-cols-[minmax(0,1fr)] gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-start">
         <div className="rounded-[40px] bg-blue-wash px-5 py-14 sm:px-14 sm:py-20">
           <h2
             id="build-title"
@@ -97,6 +97,40 @@ export function Experience() {
               {r.period}
             </p>
             <p className="col-span-2 max-w-[60ch] text-ink-2">{r.note}</p>
+            {r.products && (
+              <ul
+                aria-label={`Products I built at ${r.company}`}
+                className="col-span-2 mt-4 grid gap-2 p-0 sm:grid-cols-2"
+              >
+                {r.products.map((p) => (
+                  <li key={p.name} className="list-none">
+                    <a
+                      href={p.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="group/product flex h-full flex-col rounded-[20px] bg-sheet p-4 no-underline shadow-[var(--shadow-tile)] transition-[box-shadow,transform] duration-200 ease-out-quart hover:-translate-y-0.5 hover:shadow-[var(--shadow-lift)] active:translate-y-0 active:scale-[0.99]"
+                    >
+                      <span className="flex items-center justify-between gap-3">
+                        <span className="font-semibold tracking-[-0.01em]">
+                          {p.name}
+                        </span>
+                        <ArrowUpRight
+                          aria-hidden
+                          className="size-4 shrink-0 text-ink-3 transition-transform duration-200 ease-out-expo group-hover/product:-translate-y-0.5 group-hover/product:translate-x-0.5 group-hover/product:text-ink"
+                        />
+                      </span>
+                      <span className="mt-0.5 text-[0.85rem] font-medium text-blue-text">
+                        {p.role}
+                      </span>
+                      <span className="mt-2 text-[0.92rem] text-ink-2">
+                        {p.summary}
+                      </span>
+                      <span className="sr-only">(opens in a new tab)</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
         ))}
       </ol>

@@ -17,7 +17,7 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 bg-ground">
-      <div className="mx-auto flex h-18 max-w-[1240px] items-center justify-between gap-4 px-4 sm:px-6">
+      <div className="mx-auto flex h-18 max-w-[1240px] items-center justify-between gap-1 px-4 sm:gap-4 sm:px-6">
         <Link
           to="/"
           className="group/mark flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-full py-1 pr-2 text-[1.05rem] font-semibold tracking-[-0.01em] no-underline"
@@ -32,7 +32,7 @@ export function SiteHeader() {
         </Link>
 
         <nav aria-label="Primary" onPointerLeave={() => setHovered(null)}>
-          <ul className="flex items-center gap-0.5 p-0">
+          <ul className="flex items-center p-0 sm:gap-0.5">
             {nav.map((item) => (
               <li key={item.href} className="list-none">
                 <a
@@ -40,7 +40,7 @@ export function SiteHeader() {
                   onPointerEnter={() => setHovered(item.href)}
                   onFocus={() => setHovered(item.href)}
                   onBlur={() => setHovered(null)}
-                  className="relative block rounded-full px-3 py-2 text-[0.92rem] font-medium text-ink-2 no-underline transition-colors duration-150 hover:text-ink sm:px-4"
+                  className="relative flex min-h-11 items-center rounded-full px-2 text-[0.88rem] min-[400px]:px-3 sm:text-[0.92rem] font-medium text-ink-2 no-underline transition-colors duration-150 hover:text-ink sm:px-4"
                 >
                   {hovered === item.href && (
                     <motion.span
