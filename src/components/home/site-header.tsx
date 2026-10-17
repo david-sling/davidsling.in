@@ -28,7 +28,19 @@ export function SiteHeader() {
           >
             <Logo className="ml-0.5 h-3.5 transition-transform duration-300 ease-out-expo group-hover/mark:translate-x-[3px]" />
           </span>
-          <span className="max-[420px]:sr-only">{site.name}</span>
+          {/* On hover or focus the name rolls over to its Tamil spelling; the English stays the accessible name. */}
+          <span className="grid overflow-hidden max-[420px]:sr-only">
+            <span className="col-start-1 row-start-1 transition-[transform,opacity] duration-200 ease-out-expo group-hover/mark:-translate-y-full group-hover/mark:opacity-0 group-focus-visible/mark:-translate-y-full group-focus-visible/mark:opacity-0 motion-reduce:translate-y-0!">
+              {site.name}
+            </span>
+            <span
+              aria-hidden
+              lang="ta"
+              className="col-start-1 row-start-1 translate-y-full opacity-0 transition-[transform,opacity] duration-300 ease-out-expo group-hover/mark:translate-y-0 group-hover/mark:opacity-100 group-focus-visible/mark:translate-y-0 group-focus-visible/mark:opacity-100 motion-reduce:translate-y-0"
+            >
+              டேவிட் ஸ்லிங்
+            </span>
+          </span>
         </Link>
 
         <nav aria-label="Primary" onPointerLeave={() => setHovered(null)}>

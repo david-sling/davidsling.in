@@ -308,7 +308,7 @@ function HangingZero({ path }: { path: string }) {
       </h1>
 
       <p className="relative mx-auto mt-8 max-w-[40ch] text-[clamp(1.25rem,2.2vw,1.6rem)] font-semibold leading-snug tracking-[-0.015em]">
-        Nothing lives at{" "}
+        <span lang="ta">அய்யோ.</span> Nothing lives at{" "}
         <code className="inline-block max-w-full break-all rounded-[0.4em] bg-sheet-sunk px-[0.4em] py-[0.05em] align-baseline font-mono text-[0.78em] font-medium tracking-normal text-ink shadow-[0_0_0_1px_var(--line)]">
           {path}
         </code>

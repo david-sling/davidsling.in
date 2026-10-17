@@ -1,4 +1,6 @@
 @import "tailwindcss";
+/* Tamil glyphs only: General Sans has none, so the browser falls back per glyph and fetches just the Tamil subset. */
+@import "@fontsource-variable/anek-tamil";
 
 @custom-variant dark {
   &:where([data-theme="dark"], [data-theme="dark"] *) {
@@ -136,7 +138,7 @@
 }
 
 @theme inline {
-  --font-sans: "General Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "General Sans", "Anek Tamil Variable", ui-sans-serif, system-ui, sans-serif;
   --color-ground: var(--ground);
   --color-sheet: var(--sheet);
   --color-sheet-sunk: var(--sheet-sunk);

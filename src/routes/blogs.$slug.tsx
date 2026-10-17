@@ -58,6 +58,10 @@ function PostPage() {
             className="post-prose mt-12 border-t border-line pt-10"
             dangerouslySetInnerHTML={{ __html: post.html }}
           />
+          {/* The sign-off: "that's all". Its place at the end says what it means. */}
+          <p lang="ta" className="mt-12 text-[1.1rem] font-semibold text-ink-3">
+            அவ்வளவுதான்.
+          </p>
         </article>
         <div className="mt-16 border-t border-line pt-8">
           <BackLink />

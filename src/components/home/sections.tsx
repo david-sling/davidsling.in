@@ -513,7 +513,8 @@ export function SiteFooter() {
       </div>
       <div className="flex flex-col items-center justify-between gap-2 px-2 pt-6 text-center text-[0.88rem] text-ink-3 sm:flex-row sm:text-left">
         <p>
-          © 2026 {site.name}, {site.location}
+          <span lang="ta">நன்றி</span> for stopping by · © 2026 {site.name},{" "}
+          {site.location}
         </p>
         <p>Built with TanStack Start, General Sans and a lot of Claude.</p>
       </div>
