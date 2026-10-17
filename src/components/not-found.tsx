@@ -330,10 +330,10 @@ function HangingZero({ path }: { path: string }) {
 
       <nav
         aria-label="Projects"
-        className="relative mx-auto mt-10 max-w-[880px] border-t border-line pt-8"
+        className="relative mx-auto mt-10 max-w-[800px] border-t border-line pt-8"
       >
         <p className="text-[0.95rem] text-ink-3">Or start with a project</p>
-        <ul className="mt-4 grid grid-cols-2 gap-2.5 p-0 sm:grid-cols-4">
+        <ul className="mt-4 grid gap-2.5 p-0 sm:auto-rows-fr sm:grid-cols-2">
           {projects.map((p) => (
             <li key={p.slug} className="list-none">
               <Link
@@ -341,19 +341,24 @@ function HangingZero({ path }: { path: string }) {
                 params={{ slug: p.slug }}
                 data-motion="travel"
                 style={{ ...onField(p.slug), background: `var(--${p.slug})` }}
-                className="group/link flex h-full min-h-32 flex-col justify-between gap-6 rounded-[22px] p-4 text-left no-underline shadow-[var(--shadow-tile)] transition-[transform,box-shadow] duration-200 ease-out-quart hover:-translate-y-0.5 hover:shadow-[var(--shadow-lift)] active:translate-y-0 active:scale-[0.97] active:duration-75 motion-reduce:hover:translate-y-0"
+                className="group/link flex h-full items-center gap-4 rounded-[20px] p-3 pr-5 text-left no-underline transition-transform duration-200 ease-out-quart hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] active:duration-75 motion-reduce:hover:translate-y-0"
               >
-                <span className="grid size-10 place-items-center rounded-[12px] bg-[oklch(1_0_0/0.92)] shadow-[0_2px_6px_-2px_oklch(0.2_0.02_250/0.35)] transition-transform duration-300 ease-out-expo group-hover/link:-rotate-6 motion-reduce:transition-none">
+                <span className="grid size-12 shrink-0 place-items-center rounded-[14px] bg-[oklch(1_0_0/0.92)] transition-transform duration-300 ease-out-expo group-hover/link:-rotate-6 motion-reduce:transition-none">
                   {marks[p.slug] ? (
-                    <img src={marks[p.slug]} alt="" width={24} height={24} className="size-6 object-contain" />
+                    <img src={marks[p.slug]} alt="" width={28} height={28} className="size-7 object-contain" />
                   ) : (
-                    <SquareFunction aria-hidden className="size-6 text-[var(--equanim-deep)]" strokeWidth={2} />
+                    <SquareFunction aria-hidden className="size-7 text-[var(--equanim-deep)]" strokeWidth={2} />
                   )}
                 </span>
-                <span className="flex items-center justify-between gap-2 text-[1.1rem] font-semibold leading-tight tracking-[-0.015em]">
-                  {p.name}
-                  <SlideArrow />
+                <span className="min-w-0 flex-1">
+                  <span className="block text-[1.1rem] font-semibold leading-tight tracking-[-0.015em]">
+                    {p.name}
+                  </span>
+                  <span className="mt-0.5 block text-[0.88rem] text-[var(--muted)]">
+                    {p.fact}
+                  </span>
                 </span>
+                <SlideArrow />
               </Link>
             </li>
           ))}
