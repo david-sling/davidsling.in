@@ -22,14 +22,14 @@ export function HowIBuild() {
       className="mx-auto max-w-[1240px] px-4 pt-28 sm:px-6 sm:pt-36"
     >
       <div className="grid grid-cols-[minmax(0,1fr)] gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-start">
-        <div className="rounded-[40px] bg-blue-wash px-5 py-14 sm:px-14 sm:py-20">
+        <div className="rounded-[40px] bg-blue-wash px-5 py-10 sm:px-10 sm:py-12">
           <h2
             id="build-title"
             className="text-[clamp(2.2rem,4.4vw,3.6rem)] font-semibold tracking-[-0.03em]"
           >
             How I build
           </h2>
-          <p className="mt-8 max-w-[32ch] text-[clamp(1.3rem,2.2vw,1.85rem)] font-medium leading-[1.25] tracking-[-0.02em] text-ink-2">
+          <p className="mt-6 max-w-[32ch] text-[clamp(1.3rem,2.2vw,1.85rem)] font-medium leading-[1.25] tracking-[-0.02em] text-ink-2">
             Most of my recent work was built with AI agents. I write the specs,
             the context files and the design rules, review every diff, and let
             agents write a lot of the code. On Wave,{" "}
@@ -37,7 +37,7 @@ export function HowIBuild() {
             co-author line.
           </p>
           <ul
-            className="mt-10 flex flex-wrap gap-2.5 p-0"
+            className="mt-8 flex flex-wrap gap-2.5 p-0"
             aria-label="What a project of mine starts with"
           >
             {artifacts.map((a, i) => (
