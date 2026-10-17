@@ -1,6 +1,11 @@
 import { useState } from "react";
+import { RotateCcw } from "lucide-react";
 import type { Project } from "@/lib/content";
-import { Pendulum, type PendulumPart } from "@/components/pendulum";
+import {
+  Pendulum,
+  type PendulumParams,
+  type PendulumPart,
+} from "@/components/pendulum";
 import {
   CaseHero,
   CaseSection,
@@ -63,6 +68,114 @@ const spec: Block[] = [
   },
 ];
 
+// The example spec's own variables block: labels, defaults and ranges as published.
+const variables: {
+  key: keyof PendulumParams;
+  label: string;
+  unit: string;
+  default: number;
+  min: number;
+  max: number;
+}[] = [
+  {
+    key: "L1",
+    label: "Arm 1 length",
+    unit: "m",
+    default: 2.5,
+    min: 0.5,
+    max: 5,
+  },
+  {
+    key: "L2",
+    label: "Arm 2 length",
+    unit: "m",
+    default: 1.8,
+    min: 0.3,
+    max: 4,
+  },
+  { key: "m1", label: "Bob 1 mass", unit: "kg", default: 2, min: 0.5, max: 5 },
+  { key: "m2", label: "Bob 2 mass", unit: "kg", default: 1, min: 0.5, max: 5 },
+  { key: "g", label: "Gravity", unit: "m/s²", default: 9.8, min: 1, max: 30 },
+];
+const defaults = Object.fromEntries(
+  variables.map((v) => [v.key, v.default]),
+) as PendulumParams;
+const fit = 5 + 4; // longest L1 + L2 the sliders allow
+const fmt = (n: number) => n.toFixed(1);
+
+// What each variable changes in the drawing, lit while its slider is held.
+const affects: Record<
+  keyof PendulumParams,
+  { part: PendulumPart; label: string }
+> = {
+  L1: { part: "arm1", label: "Arm 1 length" },
+  L2: { part: "arm2", label: "Arm 2 length" },
+  m1: { part: "bob1", label: "Bob 1 mass" },
+  m2: { part: "bob2", label: "Bob 2 mass" },
+  g: { part: "gravity", label: "Gravity" },
+};
+
+function Sliders({
+  values,
+  onChange,
+  onActive,
+}: {
+  values: PendulumParams;
+  onChange: (v: PendulumParams) => void;
+  onActive: (k: keyof PendulumParams | null) => void;
+}) {
+  const changed = variables.some((v) => values[v.key] !== v.default);
+  return (
+    <div className="mt-4 rounded-[24px] bg-[oklch(1_0_0/0.18)] p-4 sm:p-5">
+      <div className="flex items-center justify-between gap-4">
+        <p className="font-semibold">Variables</p>
+        <button
+          type="button"
+          onClick={() => onChange(defaults)}
+          disabled={!changed}
+          className="group/reset inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-[0.88rem] font-semibold transition-[background-color,opacity] duration-150 hover:bg-[oklch(1_0_0/0.3)] active:scale-[0.97] disabled:opacity-40"
+        >
+          <RotateCcw
+            aria-hidden
+            className="size-4 transition-transform duration-300 ease-out-expo group-hover/reset:-rotate-90"
+          />
+          Reset
+        </button>
+      </div>
+      <div className="mt-2 grid gap-x-6 gap-y-3 sm:grid-cols-2 lg:grid-cols-5">
+        {variables.map((v) => (
+          <label key={v.key} className="block">
+            <span className="flex items-baseline justify-between gap-2 text-[0.85rem] font-medium">
+              <span>
+                {v.label}{" "}
+                <span className="font-mono text-[var(--muted)]">{v.key}</span>
+              </span>
+              <span className="tabular font-semibold">
+                {fmt(values[v.key])} {v.unit}
+              </span>
+            </span>
+            <input
+              type="range"
+              min={v.min}
+              max={v.max}
+              step={0.1}
+              value={values[v.key]}
+              onChange={(e) =>
+                onChange({ ...values, [v.key]: Number(e.target.value) })
+              }
+              onPointerDown={() => onActive(v.key)}
+              onPointerUp={() => onActive(null)}
+              onFocus={() => onActive(v.key)}
+              onBlur={() => onActive(null)}
+              className="eq-range mt-1 w-full"
+            />
+          </label>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 /** Keys, strings and punctuation in three tones, nothing more. */
 function Line({ text }: { text: string }) {
   const parts = text.split(/("(?:[^"\\]|\\.)*")/g);
@@ -95,6 +208,10 @@ function Line({ text }: { text: string }) {
 
 function SpecBesideRender() {
   const [lit, setLit] = useState<PendulumPart | null>(null);
+  const [values, setValues] = useState(defaults);
+  const [activeVar, setActiveVar] = useState<keyof PendulumParams | null>(null);
+  // A held slider outranks a hovered block.
+  const shown = activeVar ? affects[activeVar].part : lit;
 
   return (
     <figure
@@ -112,6 +229,32 @@ function SpecBesideRender() {
           onPointerLeave={() => setLit(null)}
         >
           <pre className="m-0 overflow-x-auto font-mono text-[0.78rem] leading-[1.7] sm:text-[0.84rem]">
+            <span
+              className={cn(
+                "block px-5 py-1 transition-opacity duration-150",
+                lit && "opacity-55",
+              )}
+            >
+              <span className="block whitespace-pre">
+                <Line text='"variables": {' />
+              </span>
+              {variables.map((v) => (
+                <span
+                  key={v.key}
+                  className={cn(
+                    "-mx-5 block whitespace-pre px-5 transition-colors duration-150",
+                    activeVar === v.key && "bg-[oklch(1_0_0/0.1)]",
+                  )}
+                >
+                  <Line
+                    text={`  "${v.key}": { "default": ${fmt(v.default)}, "min": ${fmt(v.min)}, "max": ${fmt(v.max)} },`}
+                  />
+                </span>
+              ))}
+              <span className="block whitespace-pre">
+                <Line text="}," />
+              </span>
+            </span>
             {spec.map((b, i) =>
               b.part ? (
                 <button
@@ -129,7 +272,7 @@ function SpecBesideRender() {
                   }
                   className={cn(
                     "block w-full min-w-max cursor-default px-5 py-1 text-left transition-colors duration-150",
-                    lit === b.part
+                    shown === b.part
                       ? "bg-[oklch(1_0_0/0.1)]"
                       : "hover:bg-[oklch(1_0_0/0.05)]",
                     lit && lit !== b.part && "opacity-55",
@@ -160,21 +303,29 @@ function SpecBesideRender() {
           </pre>
         </div>
         <div className="relative min-h-[300px] overflow-hidden rounded-[24px] bg-[oklch(1_0_0/0.18)]">
-          <Pendulum highlight={lit} className="absolute inset-0 size-full" />
+          <Pendulum
+            highlight={shown}
+            params={values}
+            fit={fit}
+            className="absolute inset-0 size-full"
+          />
           <p
             aria-live="polite"
             className="absolute bottom-4 left-4 rounded-full bg-[oklch(1_0_0/0.85)] px-3 py-1 text-[0.78rem] font-semibold"
           >
-            {lit
-              ? `Drawing ${spec.find((b) => b.part === lit)?.label}`
-              : "Running live, RK4"}
+            {activeVar
+              ? `${affects[activeVar].label}: ${fmt(values[activeVar])} ${variables.find((v) => v.key === activeVar)?.unit}`
+              : lit
+                ? `Drawing ${spec.find((b) => b.part === lit)?.label}`
+                : "Running live, RK4"}
           </p>
         </div>
       </div>
+      <Sliders values={values} onChange={setValues} onActive={setActiveVar} />
       <figcaption className="mt-5 max-w-[70ch] px-2 text-[0.92rem] font-medium text-[var(--muted)]">
-        Hover or tap a block to see what it draws. The spec is trimmed from
-        Equanim's double-pendulum example; the render is a small canvas port of
-        the same equations.
+        Hover or tap a block to see what it draws, and drag a variable to change
+        the system live. The spec is trimmed from Equanim's double-pendulum
+        example; the render is a small canvas port of the same equations.
       </figcaption>
     </figure>
   );

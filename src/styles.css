@@ -341,3 +341,60 @@
     font-variant-numeric: tabular-nums;
   }
 }
+
+/* Equanim's variable sliders: a thin deep track, a round thumb that grows while held. */
+@layer components {
+  .eq-range {
+    appearance: none;
+    height: 44px;
+    background: transparent;
+    cursor: pointer;
+  }
+  .eq-range::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 999px;
+    background: color-mix(in oklch, var(--equanim-deep) 35%, transparent);
+  }
+  .eq-range::-moz-range-track {
+    height: 4px;
+    border-radius: 999px;
+    background: color-mix(in oklch, var(--equanim-deep) 35%, transparent);
+  }
+  .eq-range::-webkit-slider-thumb {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    margin-top: -7px;
+    border-radius: 999px;
+    background: var(--equanim-deep);
+    border: 3px solid oklch(0.99 0.01 210);
+    transition: transform 150ms var(--ease-out);
+  }
+  .eq-range::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    background: var(--equanim-deep);
+    border: 3px solid oklch(0.99 0.01 210);
+    transition: transform 150ms var(--ease-out);
+  }
+  .eq-range:hover::-webkit-slider-thumb,
+  .eq-range:active::-webkit-slider-thumb {
+    transform: scale(1.25);
+  }
+  .eq-range:hover::-moz-range-thumb,
+  .eq-range:active::-moz-range-thumb {
+    transform: scale(1.25);
+  }
+  .eq-range:focus-visible {
+    outline: none;
+  }
+  .eq-range:focus-visible::-webkit-slider-thumb {
+    outline: 2px solid var(--equanim-deep);
+    outline-offset: 3px;
+  }
+  .eq-range:focus-visible::-moz-range-thumb {
+    outline: 2px solid var(--equanim-deep);
+    outline-offset: 3px;
+  }
+}
