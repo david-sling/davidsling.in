@@ -4,6 +4,7 @@ import {
   createRootRoute,
   isNotFound,
 } from "@tanstack/react-router";
+import { Analytics } from "@vercel/analytics/react";
 import { seo } from "@/lib/seo";
 import { lazy, Suspense } from "react";
 
@@ -90,6 +91,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <Suspense>
           <Devtools />
         </Suspense>
+        <Analytics />
         <Scripts />
       </body>
     </html>
