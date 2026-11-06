@@ -5,6 +5,7 @@ import font600 from "@/og-assets/general-sans-600.ttf?inline";
 import portrait from "@/og-assets/portrait.png?inline";
 import aiProtectMark from "@/og-assets/ai-protect.svg?inline";
 import offlynMark from "@/og-assets/offlyn.svg?inline";
+import valetMark from "@/og-assets/valet.svg?inline";
 import waveMark from "@/og-assets/wave.png?inline";
 
 /** Each project's own mark, shown on a white tile so it reads on its colour. */
@@ -12,6 +13,7 @@ export const marks = {
   wave: waveMark,
   offlyn: offlynMark,
   "ai-protect": aiProtectMark,
+  valet: valetMark,
 } as const;
 
 /**

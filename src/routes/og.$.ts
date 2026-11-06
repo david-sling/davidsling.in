@@ -11,6 +11,7 @@ const projectInk: Record<string, { field: string; ink: string }> = {
   equanim: { field: "#06b6d4", ink: "#0b1f27" },
   offlyn: { field: "#ff6b9f", ink: "#3a1520" },
   "ai-protect": { field: "#2563eb", ink: "#f8fafc" },
+  valet: { field: "#efd09b", ink: "#3d2c14" },
 };
 
 async function cardFor(page: string) {

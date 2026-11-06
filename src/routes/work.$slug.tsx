@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/home/site-header";
 import { AiProtectCase } from "@/components/work/ai-protect";
 import { EquanimCase } from "@/components/work/equanim";
 import { OfflynCase } from "@/components/work/offlyn";
+import { ValetCase } from "@/components/work/valet";
 import { WaveCase } from "@/components/work/wave";
 import { projects } from "@/lib/content";
 import { seo } from "@/lib/seo";
@@ -32,6 +33,7 @@ const cases = {
   equanim: EquanimCase,
   offlyn: OfflynCase,
   "ai-protect": AiProtectCase,
+  valet: ValetCase,
 };
 
 function ProjectPage() {
