@@ -25,7 +25,12 @@ export const site = {
   ],
 } as const;
 
-export type ProjectSlug = "wave" | "equanim" | "offlyn" | "ai-protect";
+export type ProjectSlug =
+  | "wave"
+  | "equanim"
+  | "offlyn"
+  | "ai-protect"
+  | "valet";
 
 export type Project = {
   slug: ProjectSlug;
@@ -95,6 +100,20 @@ export const projects: Project[] = [
         label: "Product site",
         href: "https://www.astralinkconnect.dev/products/ai-protect",
       },
+    ],
+  },
+  {
+    slug: "valet",
+    name: "Valet",
+    logo: "/media/valet/mark.svg",
+    year: "2026",
+    summary:
+      "Lets an AI agent run commands on someone else's machine, while the machine's owner decides what it's allowed to do.",
+    fact: "Enforced on the client, in a sandbox",
+    tags: ["Rust", "Tauri", "TanStack Start", "Redis"],
+    links: [
+      { label: "Live", href: "https://valet.davidsling.in" },
+      { label: "Source", href: "https://github.com/david-sling/valet" },
     ],
   },
 ];

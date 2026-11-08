@@ -4,6 +4,7 @@ import { SlideArrow } from '@/components/button'
 import { Pendulum } from '@/components/pendulum'
 import { OfflynDino } from '@/components/offlyn-dino'
 import { CoachedPreview } from '@/components/work/ai-protect'
+import { TicketPreview } from '@/components/work/valet'
 import { TiltCard } from '@/components/tilt-card'
 import { projects, type Project, type ProjectSlug } from '@/lib/content'
 import { cn } from '@/lib/utils'
@@ -13,6 +14,7 @@ const theme: Record<ProjectSlug, { field: string; text: string }> = {
   equanim: { field: 'bg-[var(--equanim)]', text: 'group-hover/link:text-[var(--equanim-text)]' },
   offlyn: { field: 'bg-[var(--offlyn)]', text: 'group-hover/link:text-[var(--offlyn-text)]' },
   'ai-protect': { field: 'bg-[var(--ai-protect)]', text: 'group-hover/link:text-[var(--ai-protect-text)]' },
+  valet: { field: 'bg-[var(--valet)]', text: 'group-hover/link:text-[var(--valet-text)]' },
 }
 
 export function Work() {
@@ -25,7 +27,7 @@ export function Work() {
           <sup className="tabular ml-1.5 align-super text-[0.4em] font-medium tracking-normal text-ink-3">({String(projects.length).padStart(2, '0')})</sup>
         </h2>
         <p className="max-w-[40ch] text-ink-2">
-          Four products from the last year, each shipped end to end with agents in the loop.
+          Five products from the last year, each built end to end with agents in the loop.
         </p>
       </div>
 
@@ -151,6 +153,13 @@ function Media({
             <CoachedPreview />
           </div>
         </div>
+      </div>
+    )
+  }
+  if (slug === 'valet') {
+    return (
+      <div className="absolute inset-0 grid place-items-center px-8 pb-6 pt-12 sm:p-12">
+        <TicketPreview />
       </div>
     )
   }

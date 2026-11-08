@@ -86,12 +86,15 @@ export function CaseHero({
                   "origin-bottom transition-[transform,background-color] duration-150 ease-out-quart active:scale-x-[1.02] active:scale-y-[0.92] active:duration-75",
                   i === 0
                     ? "bg-[var(--deep)] text-[var(--field)] hover:bg-[color-mix(in_oklch,var(--deep)_86%,var(--field))]"
-                    : "bg-[oklch(1_0_0/0.55)] hover:bg-[oklch(1_0_0/0.8)]",
+                    : "bg-[var(--veil)] hover:bg-[var(--veil-hover)]",
                 )}
                 style={
                   {
                     "--deep": `var(--${project.slug}-deep)`,
                     "--field": `var(--${project.slug})`,
+                    // A dark field carries light text, so its secondary button needs a thinner veil.
+                    "--veil": `var(--${project.slug}-veil, oklch(1 0 0 / 0.55))`,
+                    "--veil-hover": `var(--${project.slug}-veil-hover, oklch(1 0 0 / 0.8))`,
                   } as React.CSSProperties
                 }
               >

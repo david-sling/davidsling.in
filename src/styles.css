@@ -74,6 +74,20 @@
   --ai-protect-ink: oklch(0.28 0.1 266);
   --ai-protect-text: oklch(0.5 0.2 264);
   --ai-protect-deep: oklch(0.985 0.008 260);
+  /* Valet's red, the shade its own site uses under white text (4.9:1). Its prompt
+     card stays white in both themes, so the ink tokens inside it don't flip. */
+  --valet: #efd09b;
+  --valet-red: #d03826;
+  --valet-strong: #b8301f;
+  --valet-alert: #b8301f;
+  --valet-text: #7a5c2c;
+  --valet-deep: oklch(0.3 0.05 65);
+  --valet-ink: oklch(0.22 0.02 30);
+  --valet-ink-2: oklch(0.45 0.03 30);
+  --valet-wash: oklch(0.965 0.018 35);
+  --valet-line: oklch(0.88 0.03 32);
+  --valet-veil: oklch(1 0 0 / 0.45);
+  --valet-veil-hover: oklch(1 0 0 / 0.75);
 
   --shadow-tile:
     0 1px 1px oklch(0.21 0.014 245 / 0.04), 0 6px 14px -4px oklch(0.21 0.014 245 / 0.1),
@@ -104,6 +118,8 @@
     --offlyn-text: oklch(0.78 0.13 2);
     --equanim-text: oklch(0.8 0.11 210);
     --ai-protect-text: oklch(0.74 0.13 264);
+    --valet-text: #efd09b;
+    --valet-alert: oklch(0.74 0.15 30);
     --shadow-tile:
       0 1px 1px oklch(0 0 0 / 0.3), 0 8px 18px -6px oklch(0 0 0 / 0.5),
       inset 0 1px 0 oklch(1 0 0 / 0.06);
@@ -129,6 +145,8 @@
   --offlyn-text: oklch(0.78 0.13 2);
   --equanim-text: oklch(0.8 0.11 210);
   --ai-protect-text: oklch(0.74 0.13 264);
+  --valet-text: #efd09b;
+  --valet-alert: oklch(0.74 0.15 30);
   --shadow-tile:
     0 1px 1px oklch(0 0 0 / 0.3), 0 8px 18px -6px oklch(0 0 0 / 0.5),
     inset 0 1px 0 oklch(1 0 0 / 0.06);
