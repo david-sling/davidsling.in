@@ -1235,7 +1235,7 @@ export function ValetCase({ project }: { project: Project }) {
         project={project}
         facts={[
           { label: "Role", value: "Designed and built it" },
-          { label: "Status", value: "In progress, since Nov 2026" },
+          { label: "Status", value: "Live on macOS, since Nov 2026" },
           { label: "Stack", value: "Rust, Tauri, TanStack Start" },
           { label: "Runs on", value: "macOS first" },
         ]}
@@ -1380,9 +1380,9 @@ export function ValetCase({ project }: { project: Project }) {
 
       <CaseSection id="next" title="What's next">
         <p>
-          Valet is days old. The relay and the skill file are live, and the Mac
-          app is built with a pipeline that signs and notarises it, but no
-          release is out yet. Here's what's still open.
+          Valet is days old, and it's live. The Mac app ships signed and
+          notarised, and updates itself from each new release. Here's what's
+          still open.
         </p>
         <Decisions
           items={next.map((n) => ({ title: n.title, body: <p>{n.body}</p> }))}
