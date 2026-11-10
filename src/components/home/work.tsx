@@ -39,7 +39,7 @@ export function Work() {
           <sup className="tabular ml-1.5 align-super text-[0.4em] font-medium tracking-normal text-ink-3">({String(projects.length).padStart(2, '0')})</sup>
         </h2>
         <p className="max-w-[40ch] text-ink-2">
-          Six products from the last year, each built end to end with agents in the loop.
+          Six projects from the last year, each built end to end with agents in the loop.
         </p>
       </div>
 

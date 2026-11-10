@@ -93,6 +93,12 @@
   --cmd-facts: #4ec981;
   --cmd-facts-text: oklch(0.46 0.1 158);
   --cmd-facts-deep: oklch(0.22 0.05 160);
+  /* The explain panel's effect words, coloured by what they do to the machine:
+     read looks, write leaves marks, delete takes away, power hands over control. */
+  --cf-effect-read: oklch(0.47 0.09 230);
+  --cf-effect-write: oklch(0.5 0.1 80);
+  --cf-effect-delete: oklch(0.52 0.18 28);
+  --cf-effect-power: oklch(0.47 0.15 300);
 
   --shadow-tile:
     0 1px 1px oklch(0.21 0.014 245 / 0.04), 0 6px 14px -4px oklch(0.21 0.014 245 / 0.1),
@@ -126,6 +132,10 @@
     --valet-text: #efd09b;
     --valet-alert: oklch(0.74 0.15 30);
     --cmd-facts-text: oklch(0.8 0.13 158);
+    --cf-effect-read: oklch(0.78 0.09 225);
+    --cf-effect-write: oklch(0.82 0.11 85);
+    --cf-effect-delete: oklch(0.75 0.15 28);
+    --cf-effect-power: oklch(0.76 0.13 300);
     --shadow-tile:
       0 1px 1px oklch(0 0 0 / 0.3), 0 8px 18px -6px oklch(0 0 0 / 0.5),
       inset 0 1px 0 oklch(1 0 0 / 0.06);
@@ -154,6 +164,10 @@
   --valet-text: #efd09b;
   --valet-alert: oklch(0.74 0.15 30);
   --cmd-facts-text: oklch(0.8 0.13 158);
+  --cf-effect-read: oklch(0.78 0.09 225);
+  --cf-effect-write: oklch(0.82 0.11 85);
+  --cf-effect-delete: oklch(0.75 0.15 28);
+  --cf-effect-power: oklch(0.76 0.13 300);
   --shadow-tile:
     0 1px 1px oklch(0 0 0 / 0.3), 0 8px 18px -6px oklch(0 0 0 / 0.5),
     inset 0 1px 0 oklch(1 0 0 / 0.06);

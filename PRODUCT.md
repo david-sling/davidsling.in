@@ -85,6 +85,7 @@ It succeeds when a peer leaves thinking "this person builds with agents and stil
   - Familiar structure and patterns.
   - Quality comes from craft, motion and microinteractions, not from an unusual concept.
   - The images in `inspiration/` are the reference set.
+- **Personal projects are never called "products" (2026-11-10):** Wave, Equanim, offlyn.love, Valet, cmd-facts and anything else David builds on his own time are projects or side projects in site copy, never products. Work built at an employer (AI Protect, HOAshare) may be called a product.
 - **Voice** (from David's own writing): candid, practical, plain-spoken, and a little irreverent. He shares real lessons, including his own mistakes, rather than marketing claims.
   - Examples: "Meet your practical developer". The Offlyn tagline is "like normal f***ing people".
 

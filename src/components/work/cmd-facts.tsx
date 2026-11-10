@@ -36,17 +36,25 @@ type Seg = { text: string; part?: number };
  */
 function segmentLine(line: string, parts: Part[]): Seg[] {
   const marks: { start: number; end: number; part: number }[] = [];
-  let cursor = 0;
+  // A whole word beats a substring: the -o argument's install.sh, not the
+  // URL's. A value that only ever appears inside another word still matches.
+  const edge = (c: string | undefined) => c === undefined || /[\s"']/.test(c);
+  const find = (v: string) => {
+    let fallback = -1;
+    for (let at = line.indexOf(v); at !== -1; at = line.indexOf(v, at + 1)) {
+      if (marks.some((m) => at < m.end && at + v.length > m.start)) continue;
+      if (edge(line[at - 1]) && edge(line[at + v.length])) return at;
+      if (fallback === -1) fallback = at;
+    }
+    return fallback;
+  };
   parts.forEach((p, i) => {
     if (p.kind !== "values") return;
     for (const v of p.values) {
       if (!v) continue;
-      let at = line.indexOf(v, cursor);
-      if (at === -1) at = line.indexOf(v);
+      const at = find(v);
       if (at === -1) continue;
-      if (marks.some((m) => at < m.end && at + v.length > m.start)) continue;
       marks.push({ start: at, end: at + v.length, part: i });
-      cursor = Math.max(cursor, at + v.length);
     }
   });
   marks.sort((a, b) => a.start - b.start);
@@ -60,6 +68,20 @@ function segmentLine(line: string, parts: Part[]): Seg[] {
   if (pos < line.length) segs.push({ text: line.slice(pos) });
   return segs;
 }
+
+/** Effect words, coloured by what they do: look, leave marks, take away, hand over control. */
+const EFFECT_COLOR: Record<string, string> = {
+  read: "var(--cf-effect-read)",
+  write: "var(--cf-effect-write)",
+  create: "var(--cf-effect-write)",
+  configure: "var(--cf-effect-write)",
+  install: "var(--cf-effect-write)",
+  delete: "var(--cf-effect-delete)",
+  terminate: "var(--cf-effect-delete)",
+  transmit: "var(--cf-effect-power)",
+  execute: "var(--cf-effect-power)",
+  elevate: "var(--cf-effect-power)",
+};
 
 const factLabel: Record<string, string> = {
   yes: "yes",
@@ -76,10 +98,32 @@ const factLabel: Record<string, string> = {
   derived: "derived",
 };
 
+/** Names an argument's role in a small tip above it, and to screen readers. */
+function RoleTip({ role }: { role: string }) {
+  return (
+    <>
+      <span className="sr-only"> ({role})</span>
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -top-7 left-1/2 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-lg bg-ink px-2 py-1 font-sans text-[0.72rem] font-semibold leading-none text-sheet opacity-0 shadow-[var(--shadow-lift)] transition-[opacity,transform] duration-150 ease-out-quart group-hover/var:translate-y-0 group-hover/var:opacity-100 group-focus-visible/var:translate-y-0 group-focus-visible/var:opacity-100"
+      >
+        {role}
+      </span>
+    </>
+  );
+}
+
+/** What to call an argument in its tip: the role, or the reduction a slot shows. */
+function roleOf(part: Part | undefined): string | null {
+  if (!part || part.kind !== "values") return null;
+  return "show" in part && part.show === "host" ? "host" : (part.role ?? null);
+}
+
 function Explain({
   line,
   compact,
   preview,
+  showRoles,
   className,
 }: {
   line: string;
@@ -87,6 +131,8 @@ function Explain({
   compact?: boolean;
   /** The home card only: no footnotes, so the panel fits a 4:3 card. */
   preview?: boolean;
+  /** The playground: arguments render in the project green and name their role in a tip. */
+  showRoles?: boolean;
   className?: string;
 }) {
   const ex = useMemo(() => {
@@ -98,17 +144,28 @@ function Explain({
   }, [line]);
   const [hot, setHot] = useState<number | null>(null);
 
-  if (!ex) return null;
+  if (!ex)
+    return (
+      <div
+        role="group"
+        aria-label={`What cmd-facts says about ${line}`}
+        className={cn(
+          "rounded-[24px] bg-sheet text-left shadow-[var(--shadow-tile)]",
+          compact ? "p-4 sm:p-5" : "p-5 sm:p-7",
+          className,
+        )}
+      >
+        <p className="m-0 font-medium leading-snug text-ink">
+          This line could not be read as a command.
+        </p>
+      </div>
+    );
   const parts: Part[] = ex.parts ?? [{ kind: "text", text: ex.sentence }];
   const segs = segmentLine(line, parts);
   const facts = ex.facts;
   const effects = effectsOf(facts);
 
   const rows: { label: string; value: string }[] = [
-    {
-      label: facts.opaque ? "Effect, at least" : "Effect",
-      value: effects.join(" · "),
-    },
     { label: "Reversible", value: factLabel[facts.reversible] },
     { label: "Network", value: factLabel[facts.network] },
     ...(compact
@@ -157,9 +214,14 @@ function Explain({
               className={cn(
                 slot(hot === s.part),
                 "underline decoration-[color-mix(in_srgb,var(--cmd-facts)_70%,var(--ink))] decoration-2 underline-offset-[0.22em]",
+                showRoles &&
+                  "group/var relative text-[var(--cmd-facts-text)]",
               )}
             >
               {s.text}
+              {showRoles && roleOf(parts[s.part]) && (
+                <RoleTip role={roleOf(parts[s.part])!} />
+              )}
             </span>
           ),
         )}
@@ -181,9 +243,15 @@ function Explain({
               key={i}
               onPointerEnter={() => setHot(i)}
               onPointerLeave={() => setHot(null)}
-              className={cn(mono, "font-semibold", slot(hot === i))}
+              className={cn(
+                mono,
+                "font-semibold",
+                slot(hot === i),
+                showRoles && "group/var relative text-[var(--cmd-facts-text)]",
+              )}
             >
               {joinValues(p.values)}
+              {showRoles && roleOf(p) && <RoleTip role={roleOf(p)!} />}
             </span>
           ),
         )}
@@ -195,17 +263,35 @@ function Explain({
           compact ? "mt-4 pt-3.5" : "mt-5 pt-4",
         )}
       >
+        <div>
+          <dt className="text-[0.76rem] font-medium text-ink-3">
+            {facts.opaque ? "Effect, at least" : "Effect"}
+          </dt>
+          <dd className="m-0 text-[0.92rem] font-semibold">
+            {effects.length
+              ? effects.map((e, i) => (
+                  <span key={e}>
+                    {i > 0 && (
+                      <span aria-hidden className="text-ink-3">
+                        {" · "}
+                      </span>
+                    )}
+                    <span
+                      style={{
+                        color: EFFECT_COLOR[e] ?? "var(--cmd-facts-text)",
+                      }}
+                    >
+                      {e}
+                    </span>
+                  </span>
+                ))
+              : "—"}
+          </dd>
+        </div>
         {rows.map((r) => (
           <div key={r.label}>
             <dt className="text-[0.76rem] font-medium text-ink-3">{r.label}</dt>
-            <dd
-              className={cn(
-                "m-0 text-[0.92rem] font-semibold",
-                r.label.startsWith("Effect")
-                  ? "text-[var(--cmd-facts-text)]"
-                  : "text-ink",
-              )}
-            >
+            <dd className="m-0 text-[0.92rem] font-semibold text-ink">
               {r.value}
             </dd>
           </div>
@@ -260,22 +346,21 @@ function HeroDemo() {
       <Explain line={EXAMPLES[index]} compact />
       <div
         className="mt-3 flex flex-wrap gap-1.5"
-        role="tablist"
+        role="group"
         aria-label="Example commands"
       >
         {EXAMPLES.map((line, i) => (
           <button
             key={line}
             type="button"
-            role="tab"
-            aria-selected={i === index}
+            aria-pressed={i === index}
             onClick={() => {
               picked.current = true;
               setIndex(i);
             }}
             className={cn(
               mono,
-              "min-h-9 cursor-pointer rounded-full border-0 px-3 text-[0.72rem] font-medium transition-colors duration-150",
+              "min-h-9 cursor-pointer rounded-full border-0 px-3 text-[0.72rem] font-medium transition-[background-color,transform] duration-150 ease-out-quart active:scale-[0.95]",
               i === index
                 ? "bg-[var(--cmd-facts-deep)] text-[var(--cmd-facts)]"
                 : "bg-[oklch(1_0_0/0.4)] text-[var(--cmd-facts-deep)] hover:bg-[oklch(1_0_0/0.7)]",
@@ -303,6 +388,18 @@ export function ExplainPreview() {
 function Playground() {
   const [value, setValue] = useState(EXAMPLES[0]);
   const line = value.trim();
+  // What screen readers hear: just the sentence, and only once typing settles.
+  const [announced, setAnnounced] = useState("");
+  useEffect(() => {
+    const id = setTimeout(() => {
+      try {
+        setAnnounced(line ? explain(line).sentence : "");
+      } catch {
+        setAnnounced("");
+      }
+    }, 600);
+    return () => clearTimeout(id);
+  }, [line]);
   return (
     <div className="rounded-[32px] bg-[var(--cmd-facts)] p-4 sm:p-8">
       <label
@@ -335,26 +432,29 @@ function Playground() {
             onClick={() => setValue(ex)}
             className={cn(
               mono,
-              "min-h-9 cursor-pointer rounded-full border-0 bg-[oklch(1_0_0/0.4)] px-3 text-[0.74rem] font-medium text-[var(--cmd-facts-deep)] transition-colors duration-150 hover:bg-[oklch(1_0_0/0.75)]",
+              "min-h-9 cursor-pointer rounded-full border-0 bg-[oklch(1_0_0/0.4)] px-3 text-[0.74rem] font-medium text-[var(--cmd-facts-deep)] transition-[background-color,transform] duration-150 ease-out-quart hover:bg-[oklch(1_0_0/0.75)] active:scale-[0.95]",
             )}
           >
             {ex}
           </button>
         ))}
       </div>
-      <div aria-live="polite" className="mt-4">
+      <div className="mt-4">
         {line ? (
-          <Explain line={line} />
+          <Explain line={line} showRoles />
         ) : (
           <p className="m-0 px-1 py-6 text-center font-medium text-[var(--cmd-facts-deep)]">
             The panel answers as soon as there's a line to read.
           </p>
         )}
       </div>
-      <p className="m-0 px-1 pt-4 text-[0.9rem] leading-relaxed text-[var(--cmd-facts-deep)]">
+      <span aria-live="polite" className="sr-only">
+        {announced}
+      </span>
+      <p className="m-0 max-w-[70ch] px-1 pt-4 text-[0.9rem] leading-relaxed text-[var(--cmd-facts-deep)]">
         This is the published package, running in your browser. The table is
         early: a command it has no row for comes back as the widest floor, with
-        a sentence that admits it. That honesty is the product.
+        a sentence that admits it. That honesty is the point.
       </p>
     </div>
   );
@@ -431,7 +531,7 @@ export function CmdFactsCase({ project }: { project: Project }) {
           <code>explain()</code> returns fields — <code>effect</code>,{" "}
           <code>reversible</code>, <code>network</code>, <code>privilege</code>
           , <code>confidence</code>. The plain-English sentence is one
-          rendering of those fields, not the product. A consumer that colours a
+          rendering of those fields, not the deliverable. A consumer that colours a
           button or gates a policy reads the fields; only a consumer that has
           to talk to a person reads the sentence.
         </p>
