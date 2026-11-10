@@ -21,7 +21,7 @@ async function cardFor(page: string) {
     return {
       title: "David Sling",
       summary:
-        "Engineer with a designer’s eye, building real products with AI agents.",
+        "Engineer with a designer’s eye, building real software with AI agents.",
       path: "/",
       portrait: true,
       ...blue,

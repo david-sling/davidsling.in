@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { Link } from '@tanstack/react-router'
 import { ArrowRight, ArrowUpRight, CheckIcon, CopyIcon, FileText } from 'lucide-react'
 import { siGithub, siInstagram } from 'simple-icons'
 import { Button } from '@/components/button'
 import { FlowButton } from '@/components/flow-button'
-import { Pendulum } from '@/components/pendulum'
 import { WordsStagger } from '@/components/words-stagger'
 import { useJson, type Load } from '@/components/home/pulse'
 import { site } from '@/lib/content'
@@ -12,13 +12,13 @@ import { cn } from '@/lib/utils'
 import type { GithubPulse } from '@/routes/api/github'
 
 /*
- * The landing hero: the intro card on the left and, from sm up, a 3×3 grid
- * of projects, the Equanim playground, a post, the resume, socials and email.
- * Phones get the intro card alone, with social icons under the buttons.
+ * The landing hero: the intro card on the left and a bento beside it — one
+ * tall "currently working on" carousel, email, socials and the latest post.
+ * Phones stack the same tiles under the intro card.
  */
 
 const HEADLINE = 'Engineer with a designer’s eye.'
-const SUB = 'I build real products with AI agents, and sweat the details they miss.'
+const SUB = 'I build real software with AI agents, and sweat the details they miss.'
 
 const LINKEDIN =
   'M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.847 3.37-1.847 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'
@@ -212,24 +212,192 @@ function SocialsTile({ github }: { github: Load<GithubPulse> }) {
 }
 
 
-function PlaygroundTile() {
+/** What's on the bench right now. One tall card, cycling through the projects in motion. */
+const building = [
+  {
+    slug: 'wave' as const,
+    name: 'Wave',
+    mark: '/media/wave/mark.webp',
+    text: 'var(--wave-text)',
+    glow: 'var(--wave)',
+    line: 'Group chat for AI coding agents, while you supervise.',
+    now: 'End-to-end encryption',
+    shadow: 'oklch(0.85 0.12 88',
+  },
+  {
+    slug: 'valet' as const,
+    name: 'Valet',
+    mark: '/media/valet/mark.svg',
+    text: 'var(--valet-text)',
+    glow: 'var(--valet)',
+    line: "Lets an agent work on someone else's machine, while its owner decides what's allowed.",
+    now: 'A valet key for AI agents',
+    shadow: 'oklch(0.6 0.12 40',
+  },
+]
+
+const SLIDE_MS = 6000
+
+/** Slides enter from the side the motion is heading toward and leave the other way. */
+const slideMotion = {
+  enter: (d: number) => ({ x: d > 0 ? '108%' : '-108%', opacity: 0 }),
+  center: { x: '0%', opacity: 1 },
+  exit: (d: number) => ({ x: d > 0 ? '-108%' : '108%', opacity: 0 }),
+}
+
+function WorkingOnTile() {
+  // The slide on show and the direction it arrived from (+1 forward, -1 back).
+  const [[index, direction], setSlide] = useState<[number, number]>([0, 1])
+  // How far through the current slide's stay, 0–1. Fills the active indicator.
+  const [progress, setProgress] = useState(0)
+  const picked = useRef(false)
+  const dragged = useRef(false)
+  const frame = useRef<HTMLDivElement>(null)
+  const reduced = useReducedMotion()
+  const active = building[index]
+
+  function go(dir: number, manual = false) {
+    if (manual) picked.current = true
+    setSlide(([i]) => [(i + dir + building.length) % building.length, dir])
+  }
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || picked.current) {
+      setProgress(1)
+      return
+    }
+    setProgress(0)
+    let elapsed = 0
+    let last = performance.now()
+    const id = setInterval(() => {
+      const now = performance.now()
+      const el = frame.current
+      // The clock holds while the card is being read or used.
+      const paused = el && (el.matches(':hover') || el.contains(document.activeElement))
+      if (!paused) elapsed += now - last
+      last = now
+      setProgress(Math.min(1, elapsed / SLIDE_MS))
+      if (elapsed >= SLIDE_MS) setSlide(([i]) => [(i + 1) % building.length, 1])
+    }, 80)
+    return () => clearInterval(id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index])
+
   return (
-    <Link
-      to="/work/$slug"
-      params={{ slug: 'equanim' }}
-      hash="playground"
-      onPointerMove={trackPointer}
-      className={cn(bentoTile, projectCard, focusRing)}
-    >
-      <Glow color="var(--equanim)" />
-      {/* The pendulum draws in dark ink: faded on light, inverted to a light trace on dark. */}
-      <Pendulum bob={5} className="absolute inset-0 size-full translate-x-[14%] -translate-y-[14%] opacity-30 dark:invert transition-opacity duration-200 group-hover/t:opacity-50 group-hover/t:duration-500" />
-      <span className="relative flex justify-end"><TileArrow /></span>
-      <span className="relative block">
-        <span className="block text-[0.8rem] font-semibold text-ink-3">Playground</span>
-        <span className="block text-[1.3rem] font-semibold tracking-[-0.02em] text-[var(--equanim-text)]">Equanim</span>
+    <div ref={frame} className="relative h-full" aria-roledescription="carousel" aria-label="Currently working on">
+      <Link
+        to="/work/$slug"
+        params={{ slug: active.slug }}
+        onPointerMove={trackPointer}
+        onClickCapture={(e) => {
+          // A release at the end of a swipe is not a click on the card.
+          if (dragged.current) {
+            dragged.current = false
+            e.preventDefault()
+            e.stopPropagation()
+          }
+        }}
+        className={cn(bentoTile, projectCard, focusRing)}
+      >
+        <Glow color={active.glow} />
+        <span className="flex items-start justify-between">
+          <span className="text-[0.8rem] font-semibold text-ink-3">Currently working on</span>
+          <TileArrow />
+        </span>
+        <span className="relative block flex-1">
+          <AnimatePresence initial={false} custom={direction}>
+            <motion.span
+              key={active.slug}
+              custom={direction}
+              variants={slideMotion}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={
+                reduced
+                  ? { duration: 0 }
+                  : { x: { duration: 0.45, ease: [0.16, 1, 0.3, 1] }, opacity: { duration: 0.3 } }
+              }
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.5}
+              onDragStart={() => {
+                dragged.current = true
+              }}
+              onDragEnd={(_, info) => {
+                if (info.offset.x < -48 || info.velocity.x < -400) go(1, true)
+                else if (info.offset.x > 48 || info.velocity.x > 400) go(-1, true)
+              }}
+              className="absolute inset-0 flex touch-pan-y flex-col"
+            >
+              <span className="flex flex-1 items-center justify-center py-2">
+                <img
+                  src={active.mark}
+                  alt=""
+                  width={160}
+                  height={160}
+                  draggable={false}
+                  className="size-20 origin-[70%_85%] transition-[rotate,scale,translate,filter] duration-200 ease-out-expo group-hover/t:-translate-y-1.5 group-hover/t:-rotate-[14deg] group-hover/t:scale-105 group-hover/t:duration-500 motion-reduce:group-hover/t:transform-none"
+                  style={{ filter: `drop-shadow(0 14px 22px ${active.shadow} / 0.25))` }}
+                />
+              </span>
+              <span className="block">
+                <span className="block text-[1.6rem] font-semibold tracking-[-0.025em]" style={{ color: active.text }}>
+                  {active.name}
+                </span>
+                <span className="mt-1 block text-[0.95rem] leading-snug text-ink-2">{active.line}</span>
+                <span className="mt-5 block border-t border-line pt-3.5 text-[0.85rem] leading-snug max-sm:hidden">
+                  <span className="block font-semibold text-ink-3">Now building</span>
+                  <span className="block font-semibold">{active.now}</span>
+                </span>
+              </span>
+            </motion.span>
+          </AnimatePresence>
+          {/* Keeps the card's height: the tallest slide, rendered invisibly in flow. */}
+          <span aria-hidden className="invisible flex flex-col">
+            <span className="flex flex-1 items-center justify-center py-2"><span className="block size-20" /></span>
+            <span className="block">
+              <span className="block text-[1.6rem] font-semibold tracking-[-0.025em]">Valet</span>
+              <span className="mt-1 block text-[0.95rem] leading-snug">{building[1].line}</span>
+              <span className="mt-5 block border-t border-transparent pt-3.5 text-[0.85rem] leading-snug max-sm:hidden">
+                <span className="block font-semibold">Now building</span>
+                <span className="block font-semibold">{building[1].now}</span>
+              </span>
+            </span>
+          </span>
+        </span>
+      </Link>
+      <span className="absolute right-5 top-14 flex gap-1.5">
+        {building.map((p, i) => (
+          <button
+            key={p.slug}
+            type="button"
+            aria-label={`Show ${p.name}`}
+            aria-pressed={i === index}
+            onClick={() => {
+              if (i !== index) go(i > index ? 1 : -1, true)
+            }}
+            className={cn(
+              'h-6 cursor-pointer rounded-full border-0 bg-transparent p-0 transition-[width,transform] duration-300 ease-out-expo hover:scale-110 active:scale-90',
+              i === index ? 'w-7' : 'w-4',
+              focusRing,
+            )}
+          >
+            <span
+              className={cn(
+                'mx-auto block h-2 overflow-hidden rounded-full transition-[width,background-color] duration-300 ease-out-expo',
+                i === index ? 'w-6 bg-ink/15' : 'w-2 bg-ink-3',
+              )}
+            >
+              <span
+                className="block h-full rounded-full bg-ink transition-[width] duration-300 ease-out"
+                style={{ width: i === index ? `${Math.round(progress * 100)}%` : '0%' }}
+              />
+            </span>
+          </button>
+        ))}
       </span>
-    </Link>
+    </div>
   )
 }
 
@@ -295,64 +463,11 @@ export function Hero() {
         <Headline className="mt-8 max-w-[13ch] text-[clamp(2.4rem,min(4.4vw,8vh),4.25rem)] lg:mt-5 lg:text-[clamp(2.4rem,min(3.8vw,7vh),3.75rem)]" />
         <Sub className="mt-4 max-w-[32ch] lg:mt-3" />
         <Actions className="mt-8 justify-center sm:justify-start lg:mt-6" />
-        <ul className="m-0 mt-7 flex justify-center gap-2 p-0 sm:hidden">
-          {site.socials.map((s) => (
-            <li key={s.href} className="list-none">
-              <a
-                href={s.href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={`${s.label} (opens in a new tab)`}
-                className={cn(
-                  'group/t relative grid size-12 place-items-center overflow-hidden rounded-full bg-sheet-sunk text-ink-2 shadow-[inset_0_0_0_1px_var(--line)] transition-[color,transform] duration-150 active:scale-90 active:text-white',
-                  focusRing,
-                )}
-              >
-                <span
-                  aria-hidden
-                  className={cn('absolute inset-0 opacity-0 transition-opacity duration-150 group-active/t:opacity-100', brandFill[s.label])}
-                />
-                <SocialIcon label={s.label} className="relative size-5" />
-              </a>
-            </li>
-          ))}
-        </ul>
       </div>
-      <ul className="m-0 hidden grid-cols-3 gap-3 p-0 sm:grid">
-        <li className="list-none sm:row-span-2">
-          <Link to="/work/$slug" params={{ slug: 'wave' }} onPointerMove={trackPointer} className={cn(bentoTile, projectCard, focusRing)}>
-            <Glow color="var(--wave)" />
-            <span className="flex justify-end"><TileArrow /></span>
-            <span className="flex flex-1 items-center justify-center py-2">
-              <img src="/media/wave/mark.webp" alt="" width={160} height={160} className="size-20 origin-[70%_85%] drop-shadow-[0_14px_22px_oklch(0.85_0.12_88/0.22)] transition-[rotate,scale,translate,filter] duration-200 ease-out-expo group-hover/t:-translate-y-1.5 group-hover/t:-rotate-[14deg] group-hover/t:scale-105 group-hover/t:drop-shadow-[0_20px_26px_oklch(0.85_0.12_88/0.35)] group-hover/t:duration-500 motion-reduce:group-hover/t:transform-none" />
-            </span>
-            <span className="block">
-              <span className="block text-[0.8rem] font-semibold text-ink-3">Project</span>
-              <span className="block text-[1.6rem] font-semibold tracking-[-0.025em] text-[var(--wave-text)]">Wave</span>
-              <span className="mt-1 block text-[0.95rem] leading-snug text-ink-2">Group chat for AI coding agents, while you supervise.</span>
-              <span className="mt-5 block border-t border-line pt-3.5 text-[0.85rem] leading-snug">
-                <span className="block font-semibold text-ink-3">Now building</span>
-                <span className="block font-semibold">End-to-end encryption</span>
-              </span>
-            </span>
-          </Link>
-        </li>
-        <li className="list-none">
-          <Link to="/work/$slug" params={{ slug: 'offlyn' }} onPointerMove={trackPointer} className={cn(bentoTile, projectCard, focusRing)}>
-            <Glow color="var(--offlyn)" />
-            <span className="flex justify-end"><TileArrow /></span>
-            <span className="flex flex-1 items-center justify-center">
-              <img src="/media/offlyn/logo.svg" alt="" width={55} height={44} className="w-12 drop-shadow-[0_12px_20px_oklch(0.7_0.18_0/0.3)] transition-[rotate,scale,translate,filter] duration-200 ease-out-expo group-hover/t:-translate-y-1.5 group-hover/t:-rotate-6 group-hover/t:scale-110 group-hover/t:drop-shadow-[0_18px_26px_oklch(0.7_0.18_0/0.45)] group-hover/t:duration-500 motion-reduce:group-hover/t:transform-none" />
-            </span>
-            <span className="block">
-              <span className="block text-[0.8rem] font-semibold text-ink-3">Project</span>
-              <span className="block text-[1.3rem] font-semibold tracking-[-0.02em] text-[var(--offlyn-text)]">offlyn.love</span>
-              <span className="block text-[0.88rem] leading-snug text-ink-2">Dating through friends of friends</span>
-            </span>
-          </Link>
-        </li>
-        <li className="list-none sm:row-span-2"><SocialsTile github={github} /></li>
-        <li className="list-none"><PlaygroundTile /></li>
+      <ul className="m-0 grid grid-cols-2 gap-3 p-0 sm:grid-cols-3">
+        <li className="list-none max-sm:col-span-full sm:row-span-3"><WorkingOnTile /></li>
+        <li className="list-none"><SayHiTile /></li>
+        <li className="list-none max-sm:hidden sm:row-span-3"><SocialsTile github={github} /></li>
         <li className="list-none">
           <Link to="/blogs/$slug" params={{ slug: 'consistent-randomness' }} onPointerMove={trackPointer} className={cn(bentoTile, 'isolate bg-sheet text-ink', focusRing)}>
             <Glow color="var(--blue)" />
@@ -364,7 +479,7 @@ export function Hero() {
               <span className="block text-[1.08rem] font-semibold leading-[1.2] tracking-[-0.015em] transition-colors duration-150 group-hover/t:text-blue-text">
                 Randomness is Beautifully Consistent
               </span>
-              <span className="mt-1 line-clamp-2 block text-[0.85rem] leading-snug text-ink-3">Coin flips, compression and limited memory.</span>
+              <span className="mt-1 line-clamp-2 block text-[0.85rem] leading-snug text-ink-3 max-sm:hidden">Coin flips, compression and limited memory.</span>
             </span>
           </Link>
         </li>
@@ -384,7 +499,33 @@ export function Hero() {
             <span className="sr-only">(opens in a new tab)</span>
           </a>
         </li>
-        <li className="list-none"><SayHiTile /></li>
+        {/* Phones fold the socials column into one small tile of icons. */}
+        <li className="list-none sm:hidden">
+          <div className="flex h-full min-h-[148px] flex-col justify-between rounded-[28px] bg-sheet p-5 shadow-[var(--shadow-tile)]">
+            <span className="text-[0.8rem] font-semibold text-ink-3">Elsewhere</span>
+            <span className="flex gap-1.5">
+              {site.socials.map((s) => (
+                <a
+                  key={s.href}
+                  href={s.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`${s.label} (opens in a new tab)`}
+                  className={cn(
+                    'group/t relative grid size-9 place-items-center overflow-hidden rounded-full bg-sheet-sunk text-ink-2 shadow-[inset_0_0_0_1px_var(--line)] transition-[color,transform] duration-150 active:scale-90 active:text-white',
+                    focusRing,
+                  )}
+                >
+                  <span
+                    aria-hidden
+                    className={cn('absolute inset-0 opacity-0 transition-opacity duration-150 group-active/t:opacity-100', brandFill[s.label])}
+                  />
+                  <SocialIcon label={s.label} className="relative size-4" />
+                </a>
+              ))}
+            </span>
+          </div>
+        </li>
       </ul>
       </div>
     </section>
