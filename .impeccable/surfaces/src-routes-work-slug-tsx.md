@@ -11,7 +11,7 @@ Scope: one route rendering the case studies (Wave, Equanim, offlyn.love, AI Prot
 
 Audience and job: developer peers arriving by deep link from GitHub, LinkedIn or a post. They want the story, the mechanism and the judgement calls, fast, and a way to try the thing.
 
-Content truth: Wave story from David's LinkedIn post (Mac + Windows laptops, Claude Code on each, copy-pasting schemas between them). Wave/Equanim facts from their public repos. offlyn.love facts from David's public blog post and approved product images only; never its private source. Name is always "offlyn.love". cmd-facts facts from its public repo README and npm (`cmd-facts@0.2.0`, MIT, zero runtime dependencies); the library itself runs in the browser, so its demo is the real `explain()`, never a mock.
+Content truth: Wave story from David's LinkedIn post (Mac + Windows laptops, Claude Code on each, copy-pasting schemas between them). Wave/Equanim facts from their public repos. offlyn.love facts from David's public blog post and approved product images only; never its private source. Name is always "offlyn.love". cmd-facts facts from its public repo README and npm (`cmd-facts@0.2.0`, MIT, zero runtime dependencies); the library itself runs in the browser, so its demo is the real `explain()`, never a mock. Origin, from David (2026-11-10): he built it because Valet's approval prompt needed it, made it a library because the surface is broader than Valet, and plans the Valet integration next — Valet does NOT use it yet, so never claim it does.
 
 ## Direction contract
 

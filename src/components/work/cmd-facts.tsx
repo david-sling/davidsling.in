@@ -400,22 +400,25 @@ export function CmdFactsCase({ project }: { project: Project }) {
 
       <CaseSection id="why" title="Why I built it">
         <p>
-          Valet ends at an approval prompt: an agent wants to run a command on
-          a machine you own, and you decide. The prompt can show the command
-          itself, which is honest — and no help at all if you've never opened a
-          terminal.
+          I ran into this building Valet. Valet ends at an approval prompt: an
+          agent wants to run a command on a machine you own, and you decide.
+          The prompt can show the command itself, which is honest — and no
+          help at all if you've never opened a terminal. Valet needed a plain
+          sentence under that command.
         </p>
         <p>
-          That reader is everywhere once you look: a customer clicking Allow in
-          a remote support session, a release manager signing off a CI gate, an
-          agent asking before it runs a tool, an admin console logging who
-          approved what. Everything they're shown should answer one question:{" "}
+          But that reader is everywhere, not just in Valet: a customer
+          clicking Allow in a remote support session, a release manager
+          signing off a CI gate, an agent asking before it runs a tool, an
+          admin console logging who approved what. Everything they're shown
+          should answer one question:{" "}
           <strong>if this runs, what happens to this computer?</strong>
         </p>
         <p>
-          cmd-facts is a library for that surface. Not a man-page browser, not
-          a linter — structured facts about what a command does, written for
-          the person who has to approve it and didn't write it.
+          So it became a library rather than a Valet feature. Not a man-page
+          browser, not a linter — structured facts about what a command does,
+          written for the person who has to approve it and didn't write it.
+          Wiring it into Valet's own prompt is next.
         </p>
       </CaseSection>
 
