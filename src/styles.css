@@ -88,6 +88,11 @@
   --valet-line: oklch(0.88 0.03 32);
   --valet-veil: oklch(1 0 0 / 0.45);
   --valet-veil-hover: oklch(1 0 0 / 0.75);
+  /* cmd-facts' green: the "what will this do" field. Its explain panels sit
+     on the field as ordinary sheets, so only the field tokens live here. */
+  --cmd-facts: #4ec981;
+  --cmd-facts-text: oklch(0.46 0.1 158);
+  --cmd-facts-deep: oklch(0.22 0.05 160);
 
   --shadow-tile:
     0 1px 1px oklch(0.21 0.014 245 / 0.04), 0 6px 14px -4px oklch(0.21 0.014 245 / 0.1),
@@ -120,6 +125,7 @@
     --ai-protect-text: oklch(0.74 0.13 264);
     --valet-text: #efd09b;
     --valet-alert: oklch(0.74 0.15 30);
+    --cmd-facts-text: oklch(0.8 0.13 158);
     --shadow-tile:
       0 1px 1px oklch(0 0 0 / 0.3), 0 8px 18px -6px oklch(0 0 0 / 0.5),
       inset 0 1px 0 oklch(1 0 0 / 0.06);
@@ -147,6 +153,7 @@
   --ai-protect-text: oklch(0.74 0.13 264);
   --valet-text: #efd09b;
   --valet-alert: oklch(0.74 0.15 30);
+  --cmd-facts-text: oklch(0.8 0.13 158);
   --shadow-tile:
     0 1px 1px oklch(0 0 0 / 0.3), 0 8px 18px -6px oklch(0 0 0 / 0.5),
     inset 0 1px 0 oklch(1 0 0 / 0.06);

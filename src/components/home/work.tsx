@@ -5,6 +5,7 @@ import { Pendulum } from '@/components/pendulum'
 import { OfflynDino } from '@/components/offlyn-dino'
 import { CoachedPreview } from '@/components/work/ai-protect'
 import { TicketPreview } from '@/components/work/valet'
+import { ExplainPreview } from '@/components/work/cmd-facts'
 import { TiltCard } from '@/components/tilt-card'
 import { projects, type Project, type ProjectSlug } from '@/lib/content'
 import { cn } from '@/lib/utils'
@@ -15,10 +16,21 @@ const theme: Record<ProjectSlug, { field: string; text: string }> = {
   offlyn: { field: 'bg-[var(--offlyn)]', text: 'group-hover/link:text-[var(--offlyn-text)]' },
   'ai-protect': { field: 'bg-[var(--ai-protect)]', text: 'group-hover/link:text-[var(--ai-protect-text)]' },
   valet: { field: 'bg-[var(--valet)]', text: 'group-hover/link:text-[var(--valet-text)]' },
+  'cmd-facts': { field: 'bg-[var(--cmd-facts)]', text: 'group-hover/link:text-[var(--cmd-facts-text)]' },
+}
+
+/** Whether the card at this index has a partner in its two-up row. */
+function paired(index: number) {
+  let column = 0
+  for (let i = 0; i <= index; i++) {
+    if (projects[i].featured) column = 0
+    else column = column === 1 ? 0 : 1
+  }
+  if (column === 0) return true
+  return index + 1 < projects.length && !projects[index + 1].featured
 }
 
 export function Work() {
-  const [lead, ...rest] = projects
   return (
     <section id="work" aria-labelledby="work-title" className="mx-auto max-w-[1240px] px-4 pt-16 sm:px-6 sm:pt-20">
       <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
@@ -27,15 +39,16 @@ export function Work() {
           <sup className="tabular ml-1.5 align-super text-[0.4em] font-medium tracking-normal text-ink-3">({String(projects.length).padStart(2, '0')})</sup>
         </h2>
         <p className="max-w-[40ch] text-ink-2">
-          Five products from the last year, each built end to end with agents in the loop.
+          Six products from the last year, each built end to end with agents in the loop.
         </p>
       </div>
 
       <div className="mt-12 grid gap-x-6 gap-y-14 md:grid-cols-2">
-        <ProjectCard project={lead} className="md:col-span-2" wide />
-        {rest.map((p, i) => {
-          // An odd one out at the end spans the row, so the grid never leaves a hole.
-          const wide = i === rest.length - 1 && rest.length % 2 === 1
+        {/* Featured work spans the row; the others pair up between the features.
+            Keep an even number of non-featured cards between features so the
+            grid never leaves a hole. */}
+        {projects.map((p, i) => {
+          const wide = p.featured || (i === projects.length - 1 && !paired(i))
           return <ProjectCard key={p.slug} project={p} className={wide ? 'md:col-span-2' : undefined} wide={wide} />
         })}
       </div>
@@ -160,6 +173,20 @@ function Media({
     return (
       <div className="absolute inset-0 grid place-items-center px-8 pb-6 pt-12 sm:p-12">
         <TicketPreview />
+      </div>
+    )
+  }
+  if (slug === 'cmd-facts') {
+    return (
+      <div className="absolute inset-0 grid place-items-center px-4 pb-6 pt-12 sm:px-10 sm:py-10">
+        <div
+          className={cn(
+            'w-full transition-transform duration-500 ease-out-expo group-hover/link:-translate-y-1.5',
+            wide ? 'max-w-[600px]' : 'max-w-[460px]',
+          )}
+        >
+          <ExplainPreview />
+        </div>
       </div>
     )
   }

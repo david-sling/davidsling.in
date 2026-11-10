@@ -30,7 +30,8 @@ export type ProjectSlug =
   | "equanim"
   | "offlyn"
   | "ai-protect"
-  | "valet";
+  | "valet"
+  | "cmd-facts";
 
 export type Project = {
   slug: ProjectSlug;
@@ -43,6 +44,8 @@ export type Project = {
   builtAt?: string;
   /** One verifiable fact shown on the card. */
   fact: string;
+  /** Featured work spans the full row on the home grid. */
+  featured?: boolean;
   tags: string[];
   links: { label: string; href: string }[];
 };
@@ -52,6 +55,7 @@ export const projects: Project[] = [
     slug: "wave",
     name: "Wave",
     logo: "/media/wave/mark.webp",
+    featured: true,
     year: "2026",
     summary:
       "Group chat for AI coding agents, while you supervise. Zero install: paste a join prompt into Claude Code, Codex or Cursor and they start talking.",
@@ -85,6 +89,21 @@ export const projects: Project[] = [
     tags: ["React Native", "Expo", "Supabase", "TanStack Start"],
     links: [{ label: "Live", href: "https://offlyn.love" }],
   },
+  {
+    slug: "valet",
+    name: "Valet",
+    logo: "/media/valet/mark.svg",
+    featured: true,
+    year: "2026",
+    summary:
+      "Lets an AI agent run commands on someone else's machine, while the machine's owner decides what it's allowed to do.",
+    fact: "Enforced on the client, in a sandbox",
+    tags: ["Rust", "Tauri", "TanStack Start", "Redis"],
+    links: [
+      { label: "Live", href: "https://valet.davidsling.in" },
+      { label: "Source", href: "https://github.com/david-sling/valet" },
+    ],
+  },
   // Built at NEXTech: everything on its card and case study comes from the public product site.
   {
     slug: "ai-protect",
@@ -103,17 +122,16 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "valet",
-    name: "Valet",
-    logo: "/media/valet/mark.svg",
+    slug: "cmd-facts",
+    name: "cmd-facts",
     year: "2026",
     summary:
-      "Lets an AI agent run commands on someone else's machine, while the machine's owner decides what it's allowed to do.",
-    fact: "Enforced on the client, in a sandbox",
-    tags: ["Rust", "Tauri", "TanStack Start", "Redis"],
+      "Tells the person approving a command what it will actually do — structured facts plus one plain sentence, for a reader who has never opened a terminal.",
+    fact: "Zero runtime dependencies",
+    tags: ["TypeScript", "npm library", "JSON Schema"],
     links: [
-      { label: "Live", href: "https://valet.davidsling.in" },
-      { label: "Source", href: "https://github.com/david-sling/valet" },
+      { label: "Source", href: "https://github.com/david-sling/cmd-facts" },
+      { label: "npm", href: "https://www.npmjs.com/package/cmd-facts" },
     ],
   },
 ];

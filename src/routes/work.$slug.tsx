@@ -2,6 +2,7 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 import { SiteFooter } from "@/components/home/sections";
 import { SiteHeader } from "@/components/home/site-header";
 import { AiProtectCase } from "@/components/work/ai-protect";
+import { CmdFactsCase } from "@/components/work/cmd-facts";
 import { EquanimCase } from "@/components/work/equanim";
 import { OfflynCase } from "@/components/work/offlyn";
 import { ValetCase } from "@/components/work/valet";
@@ -34,6 +35,7 @@ const cases = {
   offlyn: OfflynCase,
   "ai-protect": AiProtectCase,
   valet: ValetCase,
+  "cmd-facts": CmdFactsCase,
 };
 
 function ProjectPage() {
