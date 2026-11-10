@@ -23,7 +23,7 @@ export function CaseHero({
   jump,
 }: {
   project: Project;
-  facts: { label: string; value: string }[];
+  facts: { label: string; value: React.ReactNode }[];
   media: React.ReactNode;
   /** An in-page shortcut beside the outbound links, e.g. to a live demo. */
   jump?: { label: string; href: string };

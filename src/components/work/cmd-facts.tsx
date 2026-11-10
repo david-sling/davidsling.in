@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { effectsOf, explain } from "cmd-facts";
+import { useJson } from "@/components/home/pulse";
 import type { Project } from "@/lib/content";
+import type { NpmRelease } from "@/routes/api/npm";
 import {
   CaseHero,
   CaseSection,
@@ -483,6 +485,16 @@ function ClearVsOpaque() {
   );
 }
 
+/** The hero's status fact, with the version read live from npm rather than written into the page. */
+function LatestRelease() {
+  const release = useJson<NpmRelease>("/api/npm?package=cmd-facts");
+  return release.status === "ready" && release.data ? (
+    <>Early — v{release.data.version} on npm</>
+  ) : (
+    <>Early, on npm</>
+  );
+}
+
 export function CmdFactsCase({ project }: { project: Project }) {
   return (
     <>
@@ -490,7 +502,7 @@ export function CmdFactsCase({ project }: { project: Project }) {
         project={project}
         facts={[
           { label: "Role", value: "Designed and built it" },
-          { label: "Status", value: "Early — v0.2.0 on npm" },
+          { label: "Status", value: <LatestRelease /> },
           { label: "Stack", value: "TypeScript, zero dependencies" },
           { label: "Licence", value: "MIT" },
         ]}
