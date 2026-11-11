@@ -99,6 +99,12 @@
   --cf-effect-write: oklch(0.5 0.1 80);
   --cf-effect-delete: oklch(0.52 0.18 28);
   --cf-effect-power: oklch(0.47 0.15 300);
+  /* Argument roles in the by-role prompt: where it reaches, which machine, which file, who, which process. */
+  --cf-role-url: oklch(0.5 0.11 235);
+  --cf-role-host: oklch(0.5 0.16 295);
+  --cf-role-path: oklch(0.52 0.11 65);
+  --cf-role-user: oklch(0.5 0.11 160);
+  --cf-role-pid: oklch(0.52 0.17 10);
 
   --shadow-tile:
     0 1px 1px oklch(0.21 0.014 245 / 0.04), 0 6px 14px -4px oklch(0.21 0.014 245 / 0.1),
@@ -136,6 +142,11 @@
     --cf-effect-write: oklch(0.82 0.11 85);
     --cf-effect-delete: oklch(0.75 0.15 28);
     --cf-effect-power: oklch(0.76 0.13 300);
+    --cf-role-url: oklch(0.78 0.1 230);
+    --cf-role-host: oklch(0.78 0.12 295);
+    --cf-role-path: oklch(0.82 0.11 75);
+    --cf-role-user: oklch(0.8 0.12 160);
+    --cf-role-pid: oklch(0.76 0.14 10);
     --shadow-tile:
       0 1px 1px oklch(0 0 0 / 0.3), 0 8px 18px -6px oklch(0 0 0 / 0.5),
       inset 0 1px 0 oklch(1 0 0 / 0.06);
@@ -168,6 +179,11 @@
   --cf-effect-write: oklch(0.82 0.11 85);
   --cf-effect-delete: oklch(0.75 0.15 28);
   --cf-effect-power: oklch(0.76 0.13 300);
+  --cf-role-url: oklch(0.78 0.1 230);
+  --cf-role-host: oklch(0.78 0.12 295);
+  --cf-role-path: oklch(0.82 0.11 75);
+  --cf-role-user: oklch(0.8 0.12 160);
+  --cf-role-pid: oklch(0.76 0.14 10);
   --shadow-tile:
     0 1px 1px oklch(0 0 0 / 0.3), 0 8px 18px -6px oklch(0 0 0 / 0.5),
     inset 0 1px 0 oklch(1 0 0 / 0.06);

@@ -1,5 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { effectsOf, explain } from "cmd-facts";
+import { effectsOf, explain, linePartsOf } from "cmd-facts";
+import type { Role } from "cmd-facts";
+import {
+  ArrowUpRight,
+  Cpu,
+  FileText,
+  Globe,
+  Server,
+  User,
+  type LucideIcon,
+} from "lucide-react";
 import { useJson } from "@/components/home/pulse";
 import type { Project } from "@/lib/content";
 import type { NpmRelease } from "@/routes/api/npm";
@@ -198,7 +208,7 @@ function Explain({
       <p
         className={cn(
           mono,
-          "m-0 whitespace-pre-wrap break-all rounded-2xl bg-sheet-sunk px-4 py-3 leading-relaxed text-ink shadow-[inset_0_0_0_1px_var(--line)]",
+          "m-0 whitespace-pre-wrap [overflow-wrap:anywhere] rounded-2xl bg-sheet-sunk px-4 py-3 leading-relaxed text-ink shadow-[inset_0_0_0_1px_var(--line)]",
         )}
       >
         <span aria-hidden className="select-none text-ink-3">
@@ -499,6 +509,216 @@ function ClearVsOpaque() {
   );
 }
 
+/**
+ * The registry's sentence-by-role demo, rebuilt in this site's own type and
+ * tokens: an approval prompt where each argument wears its role's colour on
+ * the command line and in the sentence, and pointing at either lights both.
+ * The pairing comes from `linePartsOf`, which labels the line word by word.
+ */
+const ROLE_ICON: Partial<Record<Role, LucideIcon>> = {
+  url: Globe,
+  host: Server,
+  path: FileText,
+  user: User,
+  pid: Cpu,
+};
+const roleColor = (role: Role) =>
+  role in ROLE_ICON ? `var(--cf-role-${role})` : "var(--cmd-facts-text)";
+
+const PROMPT_LINE =
+  "curl -o dump.sql https://db.example.com/export && chown alice dump.sql && ssh admin@db.internal";
+
+/** Which words on the line each sentence value came from: the first unclaimed word of its role with the same text. */
+function pairByRole(line: string, ex: Explanation) {
+  const words = linePartsOf(line, ex);
+  const wordPart = new Map<number, number>();
+  const partWord = new Map<number, number>();
+  const strip = (t: string) => t.replace(/^(['"])(.*)\1$/, "$2");
+  (ex.parts ?? []).forEach((p, i) => {
+    if (p.kind !== "values") return;
+    for (const want of p.written ?? p.values) {
+      const at = words.findIndex(
+        (w, j) =>
+          w.kind === "value" &&
+          w.role === p.role &&
+          !wordPart.has(j) &&
+          strip(w.text) === want,
+      );
+      if (at === -1) continue;
+      wordPart.set(at, i);
+      if (!partWord.has(i)) partWord.set(i, at);
+    }
+  });
+  return { words, wordPart };
+}
+
+function RolePrompt() {
+  const ex = useMemo(() => explain(PROMPT_LINE), []);
+  const { words, wordPart } = useMemo(() => pairByRole(PROMPT_LINE, ex), [ex]);
+  const parts = ex.parts ?? [{ kind: "text" as const, text: ex.sentence }];
+  const [hot, setHot] = useState<number | null>(null);
+  const [answer, setAnswer] = useState<"allowed" | "denied" | null>(null);
+  const wash = (role: Role, on: boolean) =>
+    on
+      ? `color-mix(in oklch, ${roleColor(role)} 22%, transparent)`
+      : "transparent";
+
+  return (
+    <div className="mx-auto w-full max-w-[640px] rounded-[24px] bg-sheet p-5 text-left shadow-[var(--shadow-tile)] sm:p-7">
+      <p className="m-0 text-[1.25rem] font-semibold tracking-[-0.01em] text-ink">
+        Allow this command?
+      </p>
+      <p className="m-0 mt-1 text-[0.92rem] text-ink-2">
+        An agent wants to run:
+      </p>
+
+      <p
+        className={cn(
+          mono,
+          "m-0 mt-3 whitespace-pre-wrap [overflow-wrap:anywhere] rounded-2xl bg-sheet-sunk px-4 py-3 leading-relaxed text-ink-2 shadow-[inset_0_0_0_1px_var(--line)]",
+        )}
+      >
+        {words.map((w, j) => {
+          const part = wordPart.get(j);
+          if (w.kind === "value") {
+            const on = part !== undefined && hot === part;
+            return (
+              <span
+                key={j}
+                onPointerEnter={() => part !== undefined && setHot(part)}
+                onPointerLeave={() => setHot(null)}
+                className="rounded-[0.35em] font-semibold transition-colors duration-150"
+                style={{
+                  color: roleColor(w.role),
+                  backgroundColor: wash(w.role, on),
+                }}
+              >
+                {w.text}
+              </span>
+            );
+          }
+          return (
+            <span
+              key={j}
+              className={cn(
+                w.kind === "program" && "font-semibold text-ink",
+                w.kind === "operator" && "text-ink-3",
+              )}
+            >
+              {w.text}
+            </span>
+          );
+        })}
+      </p>
+
+      <p className="m-0 mt-4 text-[clamp(1.05rem,1.5vw,1.2rem)] font-medium leading-relaxed text-ink">
+        {parts.map((p, i) => {
+          if (p.kind === "text") return <span key={i}>{p.text}</span>;
+          const Icon = ROLE_ICON[p.role];
+          const written = (p.written ?? p.values).join(", ");
+          return (
+            <span
+              key={i}
+              tabIndex={0}
+              title={`${p.role}: ${written}`}
+              aria-label={`${joinValues(p.values)} (${p.role}: ${written})`}
+              onPointerEnter={() => setHot(i)}
+              onPointerLeave={() => setHot(null)}
+              onFocus={() => setHot(i)}
+              onBlur={() => setHot(null)}
+              className={cn(
+                mono,
+                "inline-flex items-baseline gap-1 rounded-[0.35em] px-0.5 font-semibold underline decoration-dotted decoration-2 underline-offset-[0.25em] outline-none transition-colors duration-150 focus-visible:shadow-[0_0_0_2px_var(--ink)]",
+              )}
+              style={{
+                color: roleColor(p.role),
+                textDecorationColor: roleColor(p.role),
+                backgroundColor: wash(p.role, hot === i),
+              }}
+            >
+              {Icon && (
+                <Icon
+                  aria-hidden
+                  className="size-[0.85em] shrink-0 self-center"
+                  strokeWidth={2.25}
+                />
+              )}
+              {joinValues(p.values)}
+            </span>
+          );
+        })}
+      </p>
+
+      <p className="m-0 mt-3 text-[0.84rem] text-ink-3">
+        Point at an underlined value or a coloured word to see its pair.
+      </p>
+
+      <div className="mt-5 flex min-h-11 flex-wrap items-center justify-end gap-2 border-t border-line pt-4">
+        <span aria-live="polite" className="mr-auto font-semibold text-ink">
+          {answer === "allowed" ? "Allowed." : answer === "denied" ? "Denied." : ""}
+        </span>
+        {answer ? (
+          <button
+            type="button"
+            onClick={() => setAnswer(null)}
+            className="min-h-11 cursor-pointer rounded-full border-0 bg-sheet-sunk px-5 font-semibold text-ink transition-[background-color,transform] duration-150 ease-out-quart hover:bg-line active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+          >
+            Reset
+          </button>
+        ) : (
+          <>
+            <button
+              type="button"
+              onClick={() => setAnswer("denied")}
+              className="min-h-11 cursor-pointer rounded-full border-0 bg-sheet-sunk px-5 font-semibold text-ink transition-[background-color,transform] duration-150 ease-out-quart hover:bg-line active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+            >
+              Deny
+            </button>
+            <button
+              type="button"
+              onClick={() => setAnswer("allowed")}
+              className="min-h-11 cursor-pointer rounded-full border-0 bg-ink px-5 font-semibold text-sheet transition-[opacity,transform] duration-150 ease-out-quart hover:opacity-90 active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+            >
+              Allow
+            </button>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/** The registry section's wide area: the prompt on the project's green, with where to get it. */
+function RegistryShowcase() {
+  const link =
+    "inline-flex min-h-11 items-center gap-1.5 rounded-full bg-[oklch(1_0_0/0.45)] px-4 text-[0.9rem] font-semibold text-[var(--cmd-facts-deep)] no-underline transition-[background-color,transform] duration-150 ease-out-quart hover:bg-[oklch(1_0_0/0.75)] active:scale-[0.96]";
+  return (
+    <div className="rounded-[32px] bg-[var(--cmd-facts)] p-4 sm:p-8">
+      <RolePrompt />
+      <div className="mx-auto mt-4 flex max-w-[640px] flex-wrap items-center gap-2">
+        <a
+          className={link}
+          href="https://cmd-facts.davidsling.in/react"
+          target="_blank"
+          rel="noreferrer"
+        >
+          The components
+          <ArrowUpRight aria-hidden className="size-4" />
+        </a>
+        <a
+          className={link}
+          href="https://v0.dev/chat/api/open?url=https%3A%2F%2Fcmd-facts.davidsling.in%2Fr%2Fsentence-by-role-demo.json"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open this demo in v0
+          <ArrowUpRight aria-hidden className="size-4" />
+        </a>
+      </div>
+    </div>
+  );
+}
+
 /** The hero's status fact, with the version read live from npm rather than written into the page. */
 function LatestRelease() {
   const release = useJson<NpmRelease>("/api/npm?package=cmd-facts");
@@ -576,12 +796,25 @@ export function CmdFactsCase({ project }: { project: Project }) {
           command's own text separately. Hover an argument in any panel on
           this page — that pairing is <code>parts</code> doing its job.
         </p>
+      </CaseSection>
+
+      <CaseSection
+        id="registry"
+        title="React, as a shadcn registry"
+        wide={<RegistryShowcase />}
+      >
         <p>
-          That split is also what the React components render. They ship as
-          a shadcn registry rather than inside the package, so they're copied
-          into your project and take your theme, and the sentence component
-          takes the command and nothing else. The library itself stays at
-          zero dependencies.
+          The components that render all this ship as a shadcn registry, not
+          inside the package. One command copies the source into your project,
+          where it takes your theme and is yours to change, and the library
+          itself stays at zero dependencies.
+        </p>
+        <p>
+          The sentence component takes the command and nothing else.{" "}
+          <code>linePartsOf</code> labels the line word by word, so the same
+          role can be coloured in both places: the address it reaches, the
+          machine, the file, the person. This is the registry's by-role demo,
+          redrawn in this site's type.
         </p>
       </CaseSection>
 
