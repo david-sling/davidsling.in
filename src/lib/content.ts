@@ -130,6 +130,7 @@ export const projects: Project[] = [
     fact: "Zero runtime dependencies",
     tags: ["TypeScript", "npm library", "JSON Schema"],
     links: [
+      { label: "Docs", href: "https://cmd-facts.davidsling.in" },
       { label: "Source", href: "https://github.com/david-sling/cmd-facts" },
       { label: "npm", href: "https://www.npmjs.com/package/cmd-facts" },
     ],

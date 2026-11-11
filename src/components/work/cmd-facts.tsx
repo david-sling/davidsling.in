@@ -1,6 +1,20 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { effectsOf, explain } from "cmd-facts";
+import { effectsOf, explain, linePartsOf } from "cmd-facts";
+import type { Role } from "cmd-facts";
+import {
+  ArrowUpRight,
+  Cpu,
+  FileText,
+  Globe,
+  Server,
+  User,
+  type LucideIcon,
+} from "lucide-react";
+import { getRouteApi } from "@tanstack/react-router";
+import { useJson } from "@/components/home/pulse";
+import type { RegistryCode } from "@/lib/registry-code";
 import type { Project } from "@/lib/content";
+import type { NpmRelease } from "@/routes/api/npm";
 import {
   CaseHero,
   CaseSection,
@@ -196,7 +210,7 @@ function Explain({
       <p
         className={cn(
           mono,
-          "m-0 whitespace-pre-wrap break-all rounded-2xl bg-sheet-sunk px-4 py-3 leading-relaxed text-ink shadow-[inset_0_0_0_1px_var(--line)]",
+          "m-0 whitespace-pre-wrap [overflow-wrap:anywhere] rounded-2xl bg-sheet-sunk px-4 py-3 leading-relaxed text-ink shadow-[inset_0_0_0_1px_var(--line)]",
         )}
       >
         <span aria-hidden className="select-none text-ink-3">
@@ -305,6 +319,19 @@ function Explain({
           measurement.
         </p>
       )}
+      {!preview && ex.unread && ex.unread.length > 0 && (
+        <p className="m-0 mt-3 text-[0.92rem] leading-relaxed text-ink-2">
+          <strong className="font-semibold text-ink">Not read</strong>{" "}
+          {ex.unread.map((w, i) => (
+            <span key={w}>
+              {i > 0 && ", "}
+              <code className={cn(mono, "text-ink")}>{w}</code>
+            </span>
+          ))}
+          . The answer comes from the program's widest row instead of a
+          guess.
+        </p>
+      )}
       {!compact && facts.note && (
         <p className="m-0 mt-3 text-[0.92rem] leading-relaxed text-ink-2">
           {facts.note}
@@ -321,6 +348,7 @@ const EXAMPLES = [
   "sudo rm -rf /var/tmp",
   "ls ~/Documents > listing.txt",
   "df -h",
+  "rm --no-preserve-root -rf /",
 ];
 
 /** Hero media: the panel working through real commands, one at a time. */
@@ -483,6 +511,424 @@ function ClearVsOpaque() {
   );
 }
 
+/**
+ * The registry's sentence-by-role demo, rebuilt in this site's own type and
+ * tokens: an approval prompt where each argument wears its role's colour on
+ * the command line and in the sentence, and pointing at either lights both.
+ * The pairing comes from `linePartsOf`, which labels the line word by word.
+ */
+const ROLE_ICON: Partial<Record<Role, LucideIcon>> = {
+  url: Globe,
+  host: Server,
+  path: FileText,
+  user: User,
+  pid: Cpu,
+};
+const roleColor = (role: Role) =>
+  role in ROLE_ICON ? `var(--cf-role-${role})` : "var(--cmd-facts-text)";
+
+const PROMPT_LINE =
+  "curl -o dump.sql https://db.example.com/export && chown alice dump.sql && ssh admin@db.internal";
+
+/** Which words on the line each sentence value came from: the first unclaimed word of its role with the same text. */
+function pairByRole(line: string, ex: Explanation) {
+  const words = linePartsOf(line, ex);
+  const wordPart = new Map<number, number>();
+  const partWord = new Map<number, number>();
+  const strip = (t: string) => t.replace(/^(['"])(.*)\1$/, "$2");
+  (ex.parts ?? []).forEach((p, i) => {
+    if (p.kind !== "values") return;
+    for (const want of p.written ?? p.values) {
+      const at = words.findIndex(
+        (w, j) =>
+          w.kind === "value" &&
+          w.role === p.role &&
+          !wordPart.has(j) &&
+          strip(w.text) === want,
+      );
+      if (at === -1) continue;
+      wordPart.set(at, i);
+      if (!partWord.has(i)) partWord.set(i, at);
+    }
+  });
+  return { words, wordPart };
+}
+
+function RolePrompt({ className }: { className?: string }) {
+  const ex = useMemo(() => explain(PROMPT_LINE), []);
+  const { words, wordPart } = useMemo(() => pairByRole(PROMPT_LINE, ex), [ex]);
+  const parts = ex.parts ?? [{ kind: "text" as const, text: ex.sentence }];
+  const [hot, setHot] = useState<number | null>(null);
+  const [answer, setAnswer] = useState<"allowed" | "denied" | null>(null);
+  const wash = (role: Role, on: boolean) =>
+    on
+      ? `color-mix(in oklch, ${roleColor(role)} 22%, transparent)`
+      : "transparent";
+
+  return (
+    <div
+      className={cn(
+        "w-full rounded-[24px] bg-sheet p-5 text-left shadow-[var(--shadow-tile)] sm:p-7",
+        className,
+      )}
+    >
+      <p className="m-0 text-[1.25rem] font-semibold tracking-[-0.01em] text-ink">
+        Allow this command?
+      </p>
+      <p className="m-0 mt-1 text-[0.92rem] text-ink-2">
+        An agent wants to run:
+      </p>
+
+      <p
+        className={cn(
+          mono,
+          "m-0 mt-3 whitespace-pre-wrap [overflow-wrap:anywhere] rounded-2xl bg-sheet-sunk px-4 py-3 leading-relaxed text-ink-2 shadow-[inset_0_0_0_1px_var(--line)]",
+        )}
+      >
+        {words.map((w, j) => {
+          const part = wordPart.get(j);
+          if (w.kind === "value") {
+            const on = part !== undefined && hot === part;
+            return (
+              <span
+                key={j}
+                onPointerEnter={() => part !== undefined && setHot(part)}
+                onPointerLeave={() => setHot(null)}
+                className="rounded-[0.35em] font-semibold transition-colors duration-150"
+                style={{
+                  color: roleColor(w.role),
+                  backgroundColor: wash(w.role, on),
+                }}
+              >
+                {w.text}
+              </span>
+            );
+          }
+          return (
+            <span
+              key={j}
+              className={cn(
+                w.kind === "program" && "font-semibold text-ink",
+                w.kind === "operator" && "text-ink-3",
+              )}
+            >
+              {w.text}
+            </span>
+          );
+        })}
+      </p>
+
+      <p className="m-0 mt-4 text-[clamp(1.05rem,1.5vw,1.2rem)] font-medium leading-relaxed text-ink">
+        {parts.map((p, i) => {
+          if (p.kind === "text") return <span key={i}>{p.text}</span>;
+          const Icon = ROLE_ICON[p.role];
+          const written = (p.written ?? p.values).join(", ");
+          return (
+            <span
+              key={i}
+              tabIndex={0}
+              title={`${p.role}: ${written}`}
+              aria-label={`${joinValues(p.values)} (${p.role}: ${written})`}
+              onPointerEnter={() => setHot(i)}
+              onPointerLeave={() => setHot(null)}
+              onFocus={() => setHot(i)}
+              onBlur={() => setHot(null)}
+              className={cn(
+                mono,
+                "inline-flex items-baseline gap-1 rounded-[0.35em] px-0.5 font-semibold underline decoration-dotted decoration-2 underline-offset-[0.25em] outline-none transition-colors duration-150 focus-visible:shadow-[0_0_0_2px_var(--ink)]",
+              )}
+              style={{
+                color: roleColor(p.role),
+                textDecorationColor: roleColor(p.role),
+                backgroundColor: wash(p.role, hot === i),
+              }}
+            >
+              {Icon && (
+                <Icon
+                  aria-hidden
+                  className="size-[0.85em] shrink-0 self-center"
+                  strokeWidth={2.25}
+                />
+              )}
+              {joinValues(p.values)}
+            </span>
+          );
+        })}
+      </p>
+
+      <p className="m-0 mt-3 text-[0.84rem] text-ink-3">
+        Point at an underlined value or a coloured word to see its pair.
+      </p>
+
+      <div className="mt-5 flex min-h-11 flex-wrap items-center justify-end gap-2 border-t border-line pt-4">
+        <span aria-live="polite" className="mr-auto font-semibold text-ink">
+          {answer === "allowed"
+            ? "Allowed."
+            : answer === "denied"
+              ? "Denied."
+              : ""}
+        </span>
+        {answer ? (
+          <button
+            type="button"
+            onClick={() => setAnswer(null)}
+            className="min-h-11 cursor-pointer rounded-full border-0 bg-sheet-sunk px-5 font-semibold text-ink transition-[background-color,transform] duration-150 ease-out-quart hover:bg-line active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+          >
+            Reset
+          </button>
+        ) : (
+          <>
+            <button
+              type="button"
+              onClick={() => setAnswer("denied")}
+              className="min-h-11 cursor-pointer rounded-full border-0 bg-sheet-sunk px-5 font-semibold text-ink transition-[background-color,transform] duration-150 ease-out-quart hover:bg-line active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+            >
+              Deny
+            </button>
+            <button
+              type="button"
+              onClick={() => setAnswer("allowed")}
+              className="min-h-11 cursor-pointer rounded-full border-0 bg-ink px-5 font-semibold text-sheet transition-[opacity,transform] duration-150 ease-out-quart hover:opacity-90 active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+            >
+              Allow
+            </button>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+const route = getRouteApi("/work/$slug");
+
+type View = "prompt" | "demo" | "install";
+
+/** Tabs that move with the arrow keys, as a tablist should. */
+function Tabs({
+  label,
+  items,
+  value,
+  onChange,
+  idPrefix,
+  className,
+  tabClassName,
+}: {
+  label: string;
+  items: readonly { key: View; label: string }[];
+  value: View;
+  onChange: (v: View) => void;
+  idPrefix: string;
+  className?: string;
+  tabClassName: (on: boolean) => string;
+}) {
+  const refs = useRef<(HTMLButtonElement | null)[]>([]);
+  const at = Math.max(
+    0,
+    items.findIndex((t) => t.key === value),
+  );
+  const move = (by: number) => {
+    const next = (at + by + items.length) % items.length;
+    onChange(items[next].key);
+    refs.current[next]?.focus();
+  };
+  return (
+    <div
+      role="tablist"
+      aria-label={label}
+      className={className}
+      onKeyDown={(e) => {
+        if (e.key === "ArrowRight") move(1);
+        if (e.key === "ArrowLeft") move(-1);
+      }}
+    >
+      {items.map((t, i) => (
+        <button
+          key={t.key}
+          ref={(el) => {
+            refs.current[i] = el;
+          }}
+          type="button"
+          role="tab"
+          id={`${idPrefix}-${t.key}`}
+          aria-selected={i === at}
+          tabIndex={i === at ? 0 : -1}
+          onClick={() => onChange(t.key)}
+          className={tabClassName(i === at)}
+        >
+          {t.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+/**
+ * The registry's own source for the prompt beside it, trimmed, plus the
+ * install line. Highlighted on the server; on wide screens the panel takes
+ * the prompt's height and scrolls inside it.
+ */
+function CodePanel({
+  code,
+  view,
+  onView,
+  className,
+}: {
+  code: RegistryCode;
+  view: View;
+  onView: (v: View) => void;
+  className?: string;
+}) {
+  const shown = view === "install" ? "install" : "demo";
+  return (
+    <div className={cn("relative lg:min-h-0", className)}>
+      {/* No card of its own: the tabs' card on phones, the prompt's on wide screens, with a line between. */}
+      <div
+        className={cn(
+          "flex flex-col overflow-hidden bg-sheet text-left lg:absolute lg:inset-0 lg:h-auto lg:border-l lg:border-line",
+          // The install line is short: on phones the panel fits it rather than holding the file's height.
+          shown === "demo" && "h-[480px]",
+        )}
+      >
+        <div className="flex min-h-[3.25rem] items-center gap-1 border-b border-line px-3 py-2">
+          {/* On phones the tabs above the panel do this. */}
+          <Tabs
+            label="Source"
+            idPrefix="cf-code-tab"
+            items={[
+              { key: "demo", label: "page.tsx" },
+              { key: "install", label: "Install" },
+            ]}
+            value={shown}
+            onChange={onView}
+            className="hidden gap-1 lg:flex"
+            tabClassName={(on) =>
+              cn(
+                mono,
+                "min-h-9 cursor-pointer rounded-full border-0 px-3 text-[0.78rem] font-medium transition-[background-color,color,transform] duration-150 ease-out-quart active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink",
+                on
+                  ? "bg-sheet-sunk text-ink"
+                  : "bg-transparent text-ink-3 hover:text-ink",
+              )
+            }
+          />
+          <a
+            href="https://github.com/david-sling/cmd-facts/blob/main/web/src/registry/examples/sentence-by-role-demo.tsx"
+            target="_blank"
+            rel="noreferrer"
+            className="ml-auto inline-flex min-h-9 items-center gap-1 rounded-full px-3 text-[0.8rem] font-medium text-ink-2 no-underline transition-colors duration-150 hover:text-ink"
+          >
+            Full file
+            <ArrowUpRight aria-hidden className="size-3.5" />
+          </a>
+        </div>
+        <div
+          role="tabpanel"
+          aria-label={shown === "install" ? "Install" : "page.tsx"}
+          tabIndex={0}
+          className="code-sheet min-h-0 flex-1 overflow-auto outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--ink)]"
+          dangerouslySetInnerHTML={{ __html: code[shown] }}
+        />
+      </div>
+    </div>
+  );
+}
+
+/**
+ * The registry section's wide area, on the project's green. Wide screens put
+ * the prompt beside its source; phones get one panel at a time, behind three
+ * tabs. Both panels stay mounted, so a decision survives a tab switch.
+ */
+function RegistryShowcase() {
+  const { code } = route.useLoaderData();
+  const [view, setView] = useState<View>("prompt");
+  const link =
+    "inline-flex min-h-11 items-center gap-1.5 rounded-full bg-[oklch(1_0_0/0.45)] px-4 text-[0.9rem] font-semibold text-[var(--cmd-facts-deep)] no-underline transition-[background-color,transform] duration-150 ease-out-quart hover:bg-[oklch(1_0_0/0.75)] active:scale-[0.96]";
+  return (
+    <div className="rounded-[32px] bg-[var(--cmd-facts)] p-4 sm:p-8">
+      <div
+        className={cn(
+          code &&
+            "overflow-hidden rounded-[24px] bg-sheet shadow-[var(--shadow-tile)] lg:overflow-visible lg:rounded-none lg:bg-transparent lg:shadow-none",
+        )}
+      >
+        {code && (
+          <Tabs
+            label="Demo and source"
+            idPrefix="cf-view-tab"
+            items={[
+              { key: "prompt", label: "Demo" },
+              { key: "demo", label: "Code" },
+              { key: "install", label: "Install" },
+            ]}
+            value={view}
+            onChange={setView}
+            className="flex border-b border-line lg:hidden"
+            tabClassName={(on) =>
+              cn(
+                "min-h-12 flex-1 cursor-pointer border-0 px-3 text-[0.9rem] font-semibold transition-[background-color,color] duration-150 ease-out-quart focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ink",
+                on
+                  ? "bg-sheet text-ink"
+                  : "bg-sheet-sunk text-ink-3 hover:text-ink",
+              )
+            }
+          />
+        )}
+        <div
+          className={cn(
+            // minmax(0, …): the code's longest line must scroll, not widen the column.
+            "grid grid-cols-[minmax(0,1fr)]",
+            code
+              ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-0 lg:overflow-hidden lg:rounded-[24px] lg:bg-sheet lg:shadow-[var(--shadow-tile)]"
+              : "mx-auto max-w-[640px]",
+          )}
+        >
+          <div className={cn(code && view !== "prompt" && "hidden lg:block")}>
+            <RolePrompt className={cn(code && "rounded-none shadow-none")} />
+          </div>
+          {code && (
+            <CodePanel
+              code={code}
+              view={view}
+              onView={setView}
+              className={cn(view === "prompt" && "hidden lg:block")}
+            />
+          )}
+        </div>
+      </div>
+      <div className="mt-4 flex flex-wrap items-center gap-2">
+        <a
+          className={link}
+          href="https://cmd-facts.davidsling.in/react"
+          target="_blank"
+          rel="noreferrer"
+        >
+          The components
+          <ArrowUpRight aria-hidden className="size-4" />
+        </a>
+        <a
+          className={link}
+          href="https://v0.dev/chat/api/open?url=https%3A%2F%2Fcmd-facts.davidsling.in%2Fr%2Fsentence-by-role-demo.json"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Open this demo in v0
+          <ArrowUpRight aria-hidden className="size-4" />
+        </a>
+      </div>
+    </div>
+  );
+}
+
+/** The hero's status fact, with the version read live from npm rather than written into the page. */
+function LatestRelease() {
+  const release = useJson<NpmRelease>("/api/npm?package=cmd-facts");
+  return release.status === "ready" && release.data ? (
+    <>Early — v{release.data.version} on npm</>
+  ) : (
+    <>Early, on npm</>
+  );
+}
+
 export function CmdFactsCase({ project }: { project: Project }) {
   return (
     <>
@@ -490,7 +936,7 @@ export function CmdFactsCase({ project }: { project: Project }) {
         project={project}
         facts={[
           { label: "Role", value: "Designed and built it" },
-          { label: "Status", value: "Early — v0.2.0 on npm" },
+          { label: "Status", value: <LatestRelease /> },
           { label: "Stack", value: "TypeScript, zero dependencies" },
           { label: "Licence", value: "MIT" },
         ]}
@@ -552,6 +998,27 @@ export function CmdFactsCase({ project }: { project: Project }) {
         </p>
       </CaseSection>
 
+      <CaseSection
+        id="registry"
+        title="React, as a shadcn registry"
+        wide={<RegistryShowcase />}
+      >
+        <p>
+          The components that render all this ship as a shadcn registry, not
+          inside the package. One command copies the source into your project,
+          where it takes your theme and is yours to change, and the library
+          itself stays at zero dependencies.
+        </p>
+        <p>
+          The sentence component takes the command and nothing else.{" "}
+          <code>linePartsOf</code> labels the line word by word, so the same
+          role can be coloured in both places: the address it reaches, the
+          machine, the file, the person. Below is the registry's by-role
+          demo, redrawn in this site's type, beside a trimmed copy of its
+          source.
+        </p>
+      </CaseSection>
+
       <CaseSection id="decisions" title="The decisions that mattered">
         <p>
           Most of what shaped cmd-facts is refusals. Each one is something a
@@ -608,6 +1075,32 @@ export function CmdFactsCase({ project }: { project: Project }) {
                 </p>
               ),
             },
+            {
+              title: "What wasn't read is named, not guessed",
+              body: (
+                <p>
+                  A flag no row was written for, or a word the shell would
+                  rewrite into one (<code>$OPTS</code>, <code>{"{-o,x}"}</code>
+                  ), isn't assumed harmless. The line is answered from the
+                  program's widest row at <code>derived</code>, and{" "}
+                  <code>unread</code> lists the words. Try{" "}
+                  <code>rm --no-preserve-root -rf /</code> in the playground.
+                </p>
+              ),
+            },
+            {
+              title: "Fig for grammar, never for facts",
+              body: (
+                <p>
+                  Coverage is measured against Fig's autocomplete specs. As
+                  of 0.5.0 the table answers for 125 of the 720 commands Fig
+                  completes, plus 41 commands Fig has no spec for. A
+                  spec knows which flags take a value, not what a command
+                  does to a computer, so Fig only cross-checks the grammar
+                  (zero conflicts) and every fact is still written by hand.
+                </p>
+              ),
+            },
           ]}
         />
       </CaseSection>
@@ -622,7 +1115,7 @@ export function CmdFactsCase({ project }: { project: Project }) {
           <code>pnpm test</code>, not by review alone.
         </p>
         <p>
-          Claude wrote most of the code: <strong>48 of the 58 commits</strong>{" "}
+          Claude wrote most of the code: <strong>124 of the 155 commits</strong>{" "}
           carry its co-author line. My part was the spec and the refusals —
           deciding what this library must never do was most of the design.
         </p>
@@ -634,7 +1127,8 @@ export function CmdFactsCase({ project }: { project: Project }) {
           along, with the keyboard handed to you. Pipes, redirections,{" "}
           <code>sudo</code> and quoting are all read; substitutions are
           refused on purpose, because what <code>$(…)</code> stands for is not
-          on the line.
+          on the line, and a flag the table hasn't read is named rather than
+          guessed at.
         </p>
       </CaseSection>
 

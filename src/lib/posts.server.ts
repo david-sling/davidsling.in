@@ -1,6 +1,5 @@
 import { Marked } from "marked";
-import { createHighlighterCore } from "shiki/core";
-import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
+import { highlight, loadHighlighter } from "@/lib/highlight.server";
 import type { Post } from "@/lib/posts";
 
 /**
@@ -54,21 +53,6 @@ const all = Object.entries(files)
 
 export const listPosts = (): Post[] => all.map(({ body: _, ...p }) => p);
 
-// Only the grammars posts use, and the JavaScript regex engine (no WebAssembly on the server).
-const grammars = {
-  typescript: () => import("shiki/langs/typescript.mjs"),
-  tsx: () => import("shiki/langs/tsx.mjs"),
-  javascript: () => import("shiki/langs/javascript.mjs"),
-  jsx: () => import("shiki/langs/jsx.mjs"),
-  sql: () => import("shiki/langs/sql.mjs"),
-  bash: () => import("shiki/langs/bash.mjs"),
-  json: () => import("shiki/langs/json.mjs"),
-  css: () => import("shiki/langs/css.mjs"),
-  html: () => import("shiki/langs/html.mjs"),
-};
-const langs = Object.keys(grammars);
-let highlighter: ReturnType<typeof createHighlighterCore> | undefined;
-
 const slugify = (s: string) =>
   s
     .toLowerCase()
@@ -79,24 +63,12 @@ const slugify = (s: string) =>
 export async function renderPost(slug: string) {
   const post = all.find((p) => p.slug === slug);
   if (!post) return null;
-  const shiki = await (highlighter ??= createHighlighterCore({
-    themes: [
-      import("shiki/themes/github-light.mjs"),
-      import("shiki/themes/github-dark.mjs"),
-    ],
-    langs: Object.values(grammars).map((load) => load()),
-    engine: createJavaScriptRegexEngine(),
-  }));
+  await loadHighlighter();
   const marked = new Marked({
     renderer: {
       // Code is highlighted at render time with both themes; CSS picks one.
       code({ text, lang }) {
-        const l = (lang ?? "").split(/\s/)[0];
-        return shiki.codeToHtml(text, {
-          lang: langs.includes(l) ? l : "text",
-          themes: { light: "github-light", dark: "github-dark" },
-          defaultColor: false,
-        });
+        return highlight(text, (lang ?? "").split(/\s/)[0]);
       },
       heading({ tokens, depth }) {
         const html = this.parser.parseInline(tokens);

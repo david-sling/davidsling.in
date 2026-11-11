@@ -1,0 +1,798 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-10T12:54:28+00:00",
+  "title": "Design System: davidsling.in",
+  "extensions": {
+    "colorMeta": {
+      "ground": {
+        "role": "neutral",
+        "displayName": "Soft Ground",
+        "canonical": "oklch(0.962 0.004 225)",
+        "tonalRamp": [
+          "oklch(0.15 0.004 225)",
+          "oklch(0.26 0.004 225)",
+          "oklch(0.38 0.004 225)",
+          "oklch(0.50 0.004 225)",
+          "oklch(0.62 0.004 225)",
+          "oklch(0.74 0.004 225)",
+          "oklch(0.85 0.004 225)",
+          "oklch(0.95 0.004 225)"
+        ],
+        "dark": "oklch(0.165 0.01 245)"
+      },
+      "sheet": {
+        "role": "neutral",
+        "displayName": "Sheet",
+        "canonical": "oklch(0.993 0.002 225)",
+        "tonalRamp": [
+          "oklch(0.15 0.002 225)",
+          "oklch(0.26 0.002 225)",
+          "oklch(0.38 0.002 225)",
+          "oklch(0.50 0.002 225)",
+          "oklch(0.62 0.002 225)",
+          "oklch(0.74 0.002 225)",
+          "oklch(0.85 0.002 225)",
+          "oklch(0.95 0.002 225)"
+        ],
+        "dark": "oklch(0.205 0.012 245)"
+      },
+      "sheet-sunk": {
+        "role": "neutral",
+        "displayName": "Sunk Sheet",
+        "canonical": "oklch(0.945 0.005 225)",
+        "tonalRamp": [
+          "oklch(0.15 0.005 225)",
+          "oklch(0.26 0.005 225)",
+          "oklch(0.38 0.005 225)",
+          "oklch(0.50 0.005 225)",
+          "oklch(0.62 0.005 225)",
+          "oklch(0.74 0.005 225)",
+          "oklch(0.85 0.005 225)",
+          "oklch(0.95 0.005 225)"
+        ],
+        "dark": "oklch(0.185 0.011 245)"
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "oklch(0.89 0.006 225)",
+        "tonalRamp": [
+          "oklch(0.15 0.006 225)",
+          "oklch(0.26 0.006 225)",
+          "oklch(0.38 0.006 225)",
+          "oklch(0.50 0.006 225)",
+          "oklch(0.62 0.006 225)",
+          "oklch(0.74 0.006 225)",
+          "oklch(0.85 0.006 225)",
+          "oklch(0.95 0.006 225)"
+        ],
+        "dark": "oklch(0.3 0.012 245)"
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "oklch(0.21 0.014 245)",
+        "tonalRamp": [
+          "oklch(0.15 0.014 245)",
+          "oklch(0.26 0.014 245)",
+          "oklch(0.38 0.014 245)",
+          "oklch(0.50 0.014 245)",
+          "oklch(0.62 0.014 245)",
+          "oklch(0.74 0.014 245)",
+          "oklch(0.85 0.014 245)",
+          "oklch(0.95 0.014 245)"
+        ],
+        "dark": "oklch(0.95 0.006 225)"
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Ink 2",
+        "canonical": "oklch(0.45 0.012 245)",
+        "tonalRamp": [
+          "oklch(0.15 0.012 245)",
+          "oklch(0.26 0.012 245)",
+          "oklch(0.38 0.012 245)",
+          "oklch(0.50 0.012 245)",
+          "oklch(0.62 0.012 245)",
+          "oklch(0.74 0.012 245)",
+          "oklch(0.85 0.012 245)",
+          "oklch(0.95 0.012 245)"
+        ],
+        "dark": "oklch(0.76 0.01 230)"
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Ink 3",
+        "canonical": "oklch(0.58 0.01 245)",
+        "tonalRamp": [
+          "oklch(0.15 0.01 245)",
+          "oklch(0.26 0.01 245)",
+          "oklch(0.38 0.01 245)",
+          "oklch(0.50 0.01 245)",
+          "oklch(0.62 0.01 245)",
+          "oklch(0.74 0.01 245)",
+          "oklch(0.85 0.01 245)",
+          "oklch(0.95 0.01 245)"
+        ],
+        "dark": "oklch(0.64 0.01 235)"
+      },
+      "ink-fixed": {
+        "role": "neutral",
+        "displayName": "Fixed Ink (on blue, both themes)",
+        "canonical": "oklch(0.21 0.014 245)",
+        "tonalRamp": [
+          "oklch(0.15 0.014 245)",
+          "oklch(0.26 0.014 245)",
+          "oklch(0.38 0.014 245)",
+          "oklch(0.50 0.014 245)",
+          "oklch(0.62 0.014 245)",
+          "oklch(0.74 0.014 245)",
+          "oklch(0.85 0.014 245)",
+          "oklch(0.95 0.014 245)"
+        ]
+      },
+      "blue": {
+        "role": "primary",
+        "displayName": "David's Blue (#67D0E8)",
+        "canonical": "oklch(0.81 0.105 214)",
+        "tonalRamp": [
+          "oklch(0.15 0.105 214)",
+          "oklch(0.26 0.105 214)",
+          "oklch(0.38 0.105 214)",
+          "oklch(0.50 0.105 214)",
+          "oklch(0.62 0.105 214)",
+          "oklch(0.74 0.105 214)",
+          "oklch(0.85 0.105 214)",
+          "oklch(0.95 0.105 214)"
+        ]
+      },
+      "blue-strong": {
+        "role": "primary",
+        "displayName": "Pressed Blue",
+        "canonical": "oklch(0.74 0.12 216)",
+        "tonalRamp": [
+          "oklch(0.15 0.12 216)",
+          "oklch(0.26 0.12 216)",
+          "oklch(0.38 0.12 216)",
+          "oklch(0.50 0.12 216)",
+          "oklch(0.62 0.12 216)",
+          "oklch(0.74 0.12 216)",
+          "oklch(0.85 0.12 216)",
+          "oklch(0.95 0.12 216)"
+        ]
+      },
+      "blue-wash": {
+        "role": "primary",
+        "displayName": "Blue Wash",
+        "canonical": "oklch(0.94 0.035 214)",
+        "tonalRamp": [
+          "oklch(0.15 0.035 214)",
+          "oklch(0.26 0.035 214)",
+          "oklch(0.38 0.035 214)",
+          "oklch(0.50 0.035 214)",
+          "oklch(0.62 0.035 214)",
+          "oklch(0.74 0.035 214)",
+          "oklch(0.85 0.035 214)",
+          "oklch(0.95 0.035 214)"
+        ],
+        "dark": "oklch(0.27 0.04 220)"
+      },
+      "blue-text": {
+        "role": "primary",
+        "displayName": "Blue Ink",
+        "canonical": "oklch(0.47 0.1 224)",
+        "tonalRamp": [
+          "oklch(0.15 0.1 224)",
+          "oklch(0.26 0.1 224)",
+          "oklch(0.38 0.1 224)",
+          "oklch(0.50 0.1 224)",
+          "oklch(0.62 0.1 224)",
+          "oklch(0.74 0.1 224)",
+          "oklch(0.85 0.1 224)",
+          "oklch(0.95 0.1 224)"
+        ],
+        "dark": "oklch(0.83 0.1 214)"
+      },
+      "wave": {
+        "role": "secondary",
+        "displayName": "Wave Yellow",
+        "canonical": "#f8c840",
+        "tonalRamp": [
+          "oklch(0.15 0.15 88)",
+          "oklch(0.26 0.15 88)",
+          "oklch(0.38 0.15 88)",
+          "oklch(0.50 0.15 88)",
+          "oklch(0.62 0.15 88)",
+          "oklch(0.74 0.15 88)",
+          "oklch(0.85 0.15 88)",
+          "oklch(0.95 0.15 88)"
+        ]
+      },
+      "wave-text": {
+        "role": "secondary",
+        "displayName": "Wave Text",
+        "canonical": "oklch(0.43 0.085 80)",
+        "tonalRamp": [
+          "oklch(0.15 0.085 80)",
+          "oklch(0.26 0.085 80)",
+          "oklch(0.38 0.085 80)",
+          "oklch(0.50 0.085 80)",
+          "oklch(0.62 0.085 80)",
+          "oklch(0.74 0.085 80)",
+          "oklch(0.85 0.085 80)",
+          "oklch(0.95 0.085 80)"
+        ],
+        "dark": "oklch(0.85 0.12 88)"
+      },
+      "wave-deep": {
+        "role": "secondary",
+        "displayName": "Wave Deep",
+        "canonical": "oklch(0.22 0.04 85)",
+        "tonalRamp": [
+          "oklch(0.15 0.04 85)",
+          "oklch(0.26 0.04 85)",
+          "oklch(0.38 0.04 85)",
+          "oklch(0.50 0.04 85)",
+          "oklch(0.62 0.04 85)",
+          "oklch(0.74 0.04 85)",
+          "oklch(0.85 0.04 85)",
+          "oklch(0.95 0.04 85)"
+        ]
+      },
+      "equanim": {
+        "role": "secondary",
+        "displayName": "Equanim Cyan",
+        "canonical": "#06b6d4",
+        "tonalRamp": [
+          "oklch(0.15 0.12 215)",
+          "oklch(0.26 0.12 215)",
+          "oklch(0.38 0.12 215)",
+          "oklch(0.50 0.12 215)",
+          "oklch(0.62 0.12 215)",
+          "oklch(0.74 0.12 215)",
+          "oklch(0.85 0.12 215)",
+          "oklch(0.95 0.12 215)"
+        ]
+      },
+      "equanim-text": {
+        "role": "secondary",
+        "displayName": "Equanim Text",
+        "canonical": "oklch(0.48 0.09 215)",
+        "tonalRamp": [
+          "oklch(0.15 0.09 215)",
+          "oklch(0.26 0.09 215)",
+          "oklch(0.38 0.09 215)",
+          "oklch(0.50 0.09 215)",
+          "oklch(0.62 0.09 215)",
+          "oklch(0.74 0.09 215)",
+          "oklch(0.85 0.09 215)",
+          "oklch(0.95 0.09 215)"
+        ],
+        "dark": "oklch(0.8 0.11 210)"
+      },
+      "equanim-deep": {
+        "role": "secondary",
+        "displayName": "Equanim Deep",
+        "canonical": "oklch(0.2 0.035 225)",
+        "tonalRamp": [
+          "oklch(0.15 0.035 225)",
+          "oklch(0.26 0.035 225)",
+          "oklch(0.38 0.035 225)",
+          "oklch(0.50 0.035 225)",
+          "oklch(0.62 0.035 225)",
+          "oklch(0.74 0.035 225)",
+          "oklch(0.85 0.035 225)",
+          "oklch(0.95 0.035 225)"
+        ]
+      },
+      "offlyn": {
+        "role": "secondary",
+        "displayName": "Offlyn Pink",
+        "canonical": "#ff6b9f",
+        "tonalRamp": [
+          "oklch(0.15 0.18 2)",
+          "oklch(0.26 0.18 2)",
+          "oklch(0.38 0.18 2)",
+          "oklch(0.50 0.18 2)",
+          "oklch(0.62 0.18 2)",
+          "oklch(0.74 0.18 2)",
+          "oklch(0.85 0.18 2)",
+          "oklch(0.95 0.18 2)"
+        ]
+      },
+      "offlyn-text": {
+        "role": "secondary",
+        "displayName": "Offlyn Text",
+        "canonical": "oklch(0.5 0.17 2)",
+        "tonalRamp": [
+          "oklch(0.15 0.17 2)",
+          "oklch(0.26 0.17 2)",
+          "oklch(0.38 0.17 2)",
+          "oklch(0.50 0.17 2)",
+          "oklch(0.62 0.17 2)",
+          "oklch(0.74 0.17 2)",
+          "oklch(0.85 0.17 2)",
+          "oklch(0.95 0.17 2)"
+        ],
+        "dark": "oklch(0.78 0.13 2)"
+      },
+      "offlyn-deep": {
+        "role": "secondary",
+        "displayName": "Offlyn Deep",
+        "canonical": "oklch(0.24 0.06 0)",
+        "tonalRamp": [
+          "oklch(0.15 0.06 0)",
+          "oklch(0.26 0.06 0)",
+          "oklch(0.38 0.06 0)",
+          "oklch(0.50 0.06 0)",
+          "oklch(0.62 0.06 0)",
+          "oklch(0.74 0.06 0)",
+          "oklch(0.85 0.06 0)",
+          "oklch(0.95 0.06 0)"
+        ]
+      },
+      "ai-protect": {
+        "role": "secondary",
+        "displayName": "AI Protect Blue",
+        "canonical": "#2563eb",
+        "tonalRamp": [
+          "oklch(0.15 0.2 264)",
+          "oklch(0.26 0.2 264)",
+          "oklch(0.38 0.2 264)",
+          "oklch(0.50 0.2 264)",
+          "oklch(0.62 0.2 264)",
+          "oklch(0.74 0.2 264)",
+          "oklch(0.85 0.2 264)",
+          "oklch(0.95 0.2 264)"
+        ]
+      },
+      "ai-protect-text": {
+        "role": "secondary",
+        "displayName": "AI Protect Text",
+        "canonical": "oklch(0.5 0.2 264)",
+        "tonalRamp": [
+          "oklch(0.15 0.2 264)",
+          "oklch(0.26 0.2 264)",
+          "oklch(0.38 0.2 264)",
+          "oklch(0.50 0.2 264)",
+          "oklch(0.62 0.2 264)",
+          "oklch(0.74 0.2 264)",
+          "oklch(0.85 0.2 264)",
+          "oklch(0.95 0.2 264)"
+        ],
+        "dark": "oklch(0.74 0.13 264)"
+      },
+      "ai-protect-deep": {
+        "role": "secondary",
+        "displayName": "AI Protect Deep (near-white, on a dark field)",
+        "canonical": "oklch(0.985 0.008 260)",
+        "tonalRamp": [
+          "oklch(0.15 0.008 260)",
+          "oklch(0.26 0.008 260)",
+          "oklch(0.38 0.008 260)",
+          "oklch(0.50 0.008 260)",
+          "oklch(0.62 0.008 260)",
+          "oklch(0.74 0.008 260)",
+          "oklch(0.85 0.008 260)",
+          "oklch(0.95 0.008 260)"
+        ]
+      },
+      "valet": {
+        "role": "secondary",
+        "displayName": "Valet Sand",
+        "canonical": "#efd09b",
+        "tonalRamp": [
+          "oklch(0.15 0.08 80)",
+          "oklch(0.26 0.08 80)",
+          "oklch(0.38 0.08 80)",
+          "oklch(0.50 0.08 80)",
+          "oklch(0.62 0.08 80)",
+          "oklch(0.74 0.08 80)",
+          "oklch(0.85 0.08 80)",
+          "oklch(0.95 0.08 80)"
+        ]
+      },
+      "valet-text": {
+        "role": "secondary",
+        "displayName": "Valet Text",
+        "canonical": "#7a5c2c",
+        "tonalRamp": [
+          "oklch(0.15 0.07 70)",
+          "oklch(0.26 0.07 70)",
+          "oklch(0.38 0.07 70)",
+          "oklch(0.50 0.07 70)",
+          "oklch(0.62 0.07 70)",
+          "oklch(0.74 0.07 70)",
+          "oklch(0.85 0.07 70)",
+          "oklch(0.95 0.07 70)"
+        ],
+        "dark": "#efd09b"
+      },
+      "valet-deep": {
+        "role": "secondary",
+        "displayName": "Valet Deep",
+        "canonical": "oklch(0.3 0.05 65)",
+        "tonalRamp": [
+          "oklch(0.15 0.05 65)",
+          "oklch(0.26 0.05 65)",
+          "oklch(0.38 0.05 65)",
+          "oklch(0.50 0.05 65)",
+          "oklch(0.62 0.05 65)",
+          "oklch(0.74 0.05 65)",
+          "oklch(0.85 0.05 65)",
+          "oklch(0.95 0.05 65)"
+        ]
+      },
+      "cmd-facts": {
+        "role": "secondary",
+        "displayName": "cmd-facts Green",
+        "canonical": "#4ec981",
+        "tonalRamp": [
+          "oklch(0.15 0.15 155)",
+          "oklch(0.26 0.15 155)",
+          "oklch(0.38 0.15 155)",
+          "oklch(0.50 0.15 155)",
+          "oklch(0.62 0.15 155)",
+          "oklch(0.74 0.15 155)",
+          "oklch(0.85 0.15 155)",
+          "oklch(0.95 0.15 155)"
+        ]
+      },
+      "cmd-facts-text": {
+        "role": "secondary",
+        "displayName": "cmd-facts Text",
+        "canonical": "oklch(0.46 0.1 158)",
+        "tonalRamp": [
+          "oklch(0.15 0.1 158)",
+          "oklch(0.26 0.1 158)",
+          "oklch(0.38 0.1 158)",
+          "oklch(0.50 0.1 158)",
+          "oklch(0.62 0.1 158)",
+          "oklch(0.74 0.1 158)",
+          "oklch(0.85 0.1 158)",
+          "oklch(0.95 0.1 158)"
+        ],
+        "dark": "oklch(0.8 0.13 158)"
+      },
+      "cmd-facts-deep": {
+        "role": "secondary",
+        "displayName": "cmd-facts Deep",
+        "canonical": "oklch(0.22 0.05 160)",
+        "tonalRamp": [
+          "oklch(0.15 0.05 160)",
+          "oklch(0.26 0.05 160)",
+          "oklch(0.38 0.05 160)",
+          "oklch(0.50 0.05 160)",
+          "oklch(0.62 0.05 160)",
+          "oklch(0.74 0.05 160)",
+          "oklch(0.85 0.05 160)",
+          "oklch(0.95 0.05 160)"
+        ]
+      },
+      "cf-effect-read": {
+        "role": "tertiary",
+        "displayName": "Looks (read)",
+        "canonical": "oklch(0.47 0.09 230)",
+        "tonalRamp": [
+          "oklch(0.15 0.09 230)",
+          "oklch(0.26 0.09 230)",
+          "oklch(0.38 0.09 230)",
+          "oklch(0.50 0.09 230)",
+          "oklch(0.62 0.09 230)",
+          "oklch(0.74 0.09 230)",
+          "oklch(0.85 0.09 230)",
+          "oklch(0.95 0.09 230)"
+        ],
+        "dark": "oklch(0.78 0.09 225)"
+      },
+      "cf-effect-write": {
+        "role": "tertiary",
+        "displayName": "Leaves Marks (write)",
+        "canonical": "oklch(0.5 0.1 80)",
+        "tonalRamp": [
+          "oklch(0.15 0.1 80)",
+          "oklch(0.26 0.1 80)",
+          "oklch(0.38 0.1 80)",
+          "oklch(0.50 0.1 80)",
+          "oklch(0.62 0.1 80)",
+          "oklch(0.74 0.1 80)",
+          "oklch(0.85 0.1 80)",
+          "oklch(0.95 0.1 80)"
+        ],
+        "dark": "oklch(0.82 0.11 85)"
+      },
+      "cf-effect-delete": {
+        "role": "tertiary",
+        "displayName": "Takes Away (delete)",
+        "canonical": "oklch(0.52 0.18 28)",
+        "tonalRamp": [
+          "oklch(0.15 0.18 28)",
+          "oklch(0.26 0.18 28)",
+          "oklch(0.38 0.18 28)",
+          "oklch(0.50 0.18 28)",
+          "oklch(0.62 0.18 28)",
+          "oklch(0.74 0.18 28)",
+          "oklch(0.85 0.18 28)",
+          "oklch(0.95 0.18 28)"
+        ],
+        "dark": "oklch(0.75 0.15 28)"
+      },
+      "cf-effect-power": {
+        "role": "tertiary",
+        "displayName": "Hands Over Control (power)",
+        "canonical": "oklch(0.47 0.15 300)",
+        "tonalRamp": [
+          "oklch(0.15 0.15 300)",
+          "oklch(0.26 0.15 300)",
+          "oklch(0.38 0.15 300)",
+          "oklch(0.50 0.15 300)",
+          "oklch(0.62 0.15 300)",
+          "oklch(0.74 0.15 300)",
+          "oklch(0.85 0.15 300)",
+          "oklch(0.95 0.15 300)"
+        ],
+        "dark": "oklch(0.76 0.13 300)"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Case-study project names; the footer's 'Say hi.' runs larger (clamp(3rem, 9vw, 6rem))."
+      },
+      "hero-headline": {
+        "displayName": "Hero headline",
+        "purpose": "The landing headline, staggered in once; capped at 3.75rem on large screens."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Home section titles."
+      },
+      "headline-case": {
+        "displayName": "Case headline",
+        "purpose": "Case-study section titles, sticky beside prose on large screens."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Project names on cards and in the carousel."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Hero subline and case summaries."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Default copy, with ss01 on."
+      },
+      "body-case": {
+        "displayName": "Case prose",
+        "purpose": "Case-study body copy in ink-2 at 64ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Fact labels, dates, tile labels, chips. Sentence case only."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Literal commands, code and package names only."
+      }
+    },
+    "shadows": [
+      {
+        "name": "shadow-tile",
+        "value": "0 1px 1px oklch(0.21 0.014 245 / 0.04), 0 6px 14px -4px oklch(0.21 0.014 245 / 0.1), inset 0 1px 0 oklch(1 0 0 / 0.9)",
+        "dark": "0 1px 1px oklch(0 0 0 / 0.3), 0 8px 18px -6px oklch(0 0 0 / 0.5), inset 0 1px 0 oklch(1 0 0 / 0.06)",
+        "purpose": "Resting tiles, explain panels, quiet buttons, nav hover pill, code blocks."
+      },
+      {
+        "name": "shadow-lift",
+        "value": "0 2px 2px oklch(0.21 0.014 245 / 0.05), 0 18px 32px -10px oklch(0.21 0.014 245 / 0.18), inset 0 1px 0 oklch(1 0 0 / 0.9)",
+        "dark": "0 2px 2px oklch(0 0 0 / 0.3), 0 20px 36px -12px oklch(0 0 0 / 0.65), inset 0 1px 0 oklch(1 0 0 / 0.08)",
+        "purpose": "Hover state of tiles; floating role tips."
+      },
+      {
+        "name": "ring-line",
+        "value": "inset 0 0 0 1px var(--line)",
+        "purpose": "Wells, icon squares and the flow button at rest, in place of borders."
+      },
+      {
+        "name": "accent-glow",
+        "value": "0 1px 0 oklch(1 0 0 / 0.5) inset, 0 8px 20px -8px oklch(0.6 0.12 216 / 0.7)",
+        "purpose": "Primary blue button only."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Expo-out. Hover travel, arrows, glows, carousel slides (450ms)."
+      },
+      {
+        "name": "ease-quart",
+        "value": "cubic-bezier(0.25, 1, 0.5, 1)",
+        "purpose": "Quart-out. Button and chip press and colour changes (150ms)."
+      },
+      {
+        "name": "press-squash",
+        "value": "scaleX(1.02) scaleY(0.92), origin bottom, 75ms",
+        "purpose": "Pill press feedback."
+      },
+      {
+        "name": "hover-asymmetry",
+        "value": "in 500ms / out 200ms",
+        "purpose": "Tile lift, glow and icon tilt."
+      },
+      {
+        "name": "words-rise",
+        "value": "0.75s ease-out, from translateY(0.35em) blur(8px) opacity 0",
+        "purpose": "Hero headline stagger, once; reduced motion swaps to a 0.4s fade."
+      },
+      {
+        "name": "carousel-dwell",
+        "value": "6000ms, paused on hover or focus",
+        "purpose": "'Currently working on' slide stay, shown by the progress-fill indicator."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The main pill: blue fill, fixed ink, sliding arrow, squash on press.",
+      "html": "<button class=\"ds-btn-primary\"><span>See the work</span><svg class=\"ds-arrow\" viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.25\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 20px 0 24px; border: 0; border-radius: 999px; font-family: var(--font-sans, 'General Sans', ui-sans-serif, system-ui, sans-serif); font-size: 0.95rem; font-weight: 600; background: var(--blue); color: oklch(0.21 0.014 245); box-shadow: 0 1px 0 oklch(1 0 0 / 0.5) inset, 0 8px 20px -8px oklch(0.6 0.12 216 / 0.7); transform-origin: bottom; cursor: pointer; transition: transform 150ms cubic-bezier(0.25, 1, 0.5, 1), background-color 150ms cubic-bezier(0.25, 1, 0.5, 1); } .ds-btn-primary:hover { background: var(--blue-strong); } .ds-btn-primary:active { transform: scaleX(1.02) scaleY(0.92); transition-duration: 75ms; } .ds-btn-primary:focus-visible { outline: 2px solid var(--blue-strong); outline-offset: 3px; } .ds-btn-primary .ds-arrow { transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-primary:hover .ds-arrow { transform: translateX(4px); }"
+    },
+    {
+      "name": "Flow Button",
+      "kind": "button",
+      "refersTo": "button-flow",
+      "description": "Secondary pill: sunk sheet at rest; on hover the fill clears and a dashed blue-ink outline runs around it.",
+      "html": "<span class=\"ds-flow\"><svg class=\"ds-flow-ring\" aria-hidden=\"true\"><rect x=\"0.75\" y=\"0.75\" rx=\"23.25\" style=\"width: calc(100% - 1.5px); height: calc(100% - 1.5px)\"/></svg><button class=\"ds-flow-btn\">Read the writing</button></span>",
+      "css": ".ds-flow { position: relative; display: inline-flex; } .ds-flow-ring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; opacity: 0; transition: opacity 200ms ease-out; } .ds-flow-ring rect { fill: none; stroke: var(--blue-text); stroke-width: 1.5; stroke-dasharray: 6 4; } .ds-flow:hover .ds-flow-ring { opacity: 1; } .ds-flow:hover .ds-flow-ring rect { animation: ds-dash 0.9s linear infinite; } @keyframes ds-dash { to { stroke-dashoffset: -10; } } .ds-flow-btn { position: relative; height: 48px; padding: 0 24px; border: 0; border-radius: 999px; font-family: var(--font-sans, 'General Sans', ui-sans-serif, system-ui, sans-serif); font-size: 0.95rem; font-weight: 600; color: var(--ink); background: var(--sheet-sunk); box-shadow: inset 0 0 0 1px var(--line); transform-origin: bottom; cursor: pointer; transition: background-color 200ms cubic-bezier(0.25, 1, 0.5, 1), box-shadow 200ms, transform 200ms; } .ds-flow:hover .ds-flow-btn { background: transparent; box-shadow: none; } .ds-flow-btn:active { transform: scaleY(0.94); transition-duration: 75ms; } .ds-flow-btn:focus-visible { outline: 2px solid var(--blue-strong); outline-offset: 3px; } @media (prefers-reduced-motion: reduce) { .ds-flow:hover .ds-flow-ring rect { animation: none; } }"
+    },
+    {
+      "name": "Quiet Button",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "Sheet pill on the tile shadow, for actions on the ground.",
+      "html": "<button class=\"ds-btn-quiet\">Copy email</button>",
+      "css": ".ds-btn-quiet { height: 48px; padding: 0 20px 0 24px; border: 0; border-radius: 999px; font-family: var(--font-sans, 'General Sans', ui-sans-serif, system-ui, sans-serif); font-size: 0.95rem; font-weight: 600; background: var(--sheet); color: var(--ink); box-shadow: var(--shadow-tile); transform-origin: bottom; cursor: pointer; transition: transform 150ms cubic-bezier(0.25, 1, 0.5, 1), background-color 150ms; } .ds-btn-quiet:hover { background: var(--sheet-sunk); } .ds-btn-quiet:active { transform: scaleX(1.02) scaleY(0.92); transition-duration: 75ms; } .ds-btn-quiet:focus-visible { outline: 2px solid var(--blue-strong); outline-offset: 3px; }"
+    },
+    {
+      "name": "Nav Link",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Header text links; a sheet pill on the tile shadow sits behind the hovered one.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\">Work</a><a href=\"#\">Experience</a><a href=\"#\">Writing</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 2px; padding: 8px; background: var(--ground); font-family: var(--font-sans, 'General Sans', ui-sans-serif, system-ui, sans-serif); } .ds-nav a { display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; font-size: 0.92rem; font-weight: 500; color: var(--ink-2); text-decoration: none; transition: color 150ms, background-color 150ms, box-shadow 150ms; } .ds-nav a:hover { color: var(--ink); background: var(--sheet); box-shadow: var(--shadow-tile); } .ds-nav a:focus-visible { outline: 2px solid var(--blue-strong); outline-offset: 3px; }"
+    },
+    {
+      "name": "Tag Chip",
+      "kind": "chip",
+      "refersTo": "tag-chip",
+      "description": "Static 'Built with' tags under project cards.",
+      "html": "<ul class=\"ds-tags\"><li>TypeScript</li><li>React</li><li>Claude Code</li></ul>",
+      "css": ".ds-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; font-family: var(--font-sans, 'General Sans', ui-sans-serif, system-ui, sans-serif); } .ds-tags li { list-style: none; padding: 4px 12px; border-radius: 999px; background: var(--sheet); color: var(--ink-2); font-size: 0.8rem; font-weight: 500; box-shadow: 0 0 0 1px var(--line); }"
+    },
+    {
+      "name": "Bento Tile",
+      "kind": "card",
+      "refersTo": "bento-tile",
+      "description": "Hero bento tile: label and arrow on top, content below; lifts on hover, squeezes on press.",
+      "html": "<a class=\"ds-tile\" href=\"#\"><span class=\"ds-tile-top\"><span class=\"ds-tile-label\">Sep 2024</span><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"ds-tile-arrow\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></span><span class=\"ds-tile-title\">Randomness is Beautifully Consistent</span></a>",
+      "css": ".ds-tile { display: flex; flex-direction: column; justify-content: space-between; min-height: 148px; max-width: 260px; padding: 20px; border-radius: 28px; background: var(--sheet); color: var(--ink); text-decoration: none; font-family: var(--font-sans, 'General Sans', ui-sans-serif, system-ui, sans-serif); box-shadow: var(--shadow-tile); transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-tile:hover { box-shadow: var(--shadow-lift); transition-duration: 500ms; } .ds-tile:active { transform: scale(0.985); transition-duration: 100ms; } .ds-tile:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; } .ds-tile-top { display: flex; justify-content: space-between; } .ds-tile-label { font-size: 0.85rem; font-weight: 500; color: var(--ink-3); } .ds-tile-arrow { opacity: 0.6; transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), opacity 200ms; } .ds-tile:hover .ds-tile-arrow { opacity: 1; transform: translateX(4px); } .ds-tile-title { font-size: 1.08rem; font-weight: 600; line-height: 1.2; letter-spacing: -0.015em; transition: color 150ms; } .ds-tile:hover .ds-tile-title { color: var(--blue-text); }"
+    },
+    {
+      "name": "Project Field Hero",
+      "kind": "custom",
+      "refersTo": "sheet",
+      "description": "Case-study hero: a 40px sheet in the project's field colour with deep text and a deep-filled pill.",
+      "html": "<section class=\"ds-field\"><h1>cmd-facts</h1><p>What a shell command will do, as structured facts.</p><a class=\"ds-field-btn\" href=\"#\">Source</a></section>",
+      "css": ".ds-field { padding: 40px 48px; border-radius: 40px; background: var(--cmd-facts); color: var(--cmd-facts-deep); font-family: var(--font-sans, 'General Sans', ui-sans-serif, system-ui, sans-serif); } .ds-field h1 { margin: 0; font-size: clamp(2.8rem, 6.4vw, 5.25rem); font-weight: 600; line-height: 0.95; letter-spacing: -0.04em; } .ds-field p { margin: 20px 0 0; max-width: 36ch; font-size: clamp(1.12rem, 1.5vw, 1.35rem); font-weight: 500; line-height: 1.375; } .ds-field-btn { display: inline-flex; align-items: center; margin-top: 32px; height: 48px; padding: 0 20px 0 24px; border-radius: 999px; background: var(--cmd-facts-deep); color: var(--cmd-facts); font-weight: 600; text-decoration: none; transform-origin: bottom; transition: transform 150ms cubic-bezier(0.25, 1, 0.5, 1), background-color 150ms; } .ds-field-btn:hover { background: color-mix(in oklch, var(--cmd-facts-deep) 86%, var(--cmd-facts)); } .ds-field-btn:active { transform: scaleX(1.02) scaleY(0.92); transition-duration: 75ms; } .ds-field-btn:focus-visible { outline: 2px solid var(--cmd-facts-deep); outline-offset: 3px; }"
+    },
+    {
+      "name": "Explain Panel",
+      "kind": "custom",
+      "refersTo": "explain-panel",
+      "description": "cmd-facts signature: command well, sentence, ruled fact row with effect-coloured words; argument and slot highlight each other.",
+      "html": "<div class=\"ds-explain\"><p class=\"ds-cmd\"><span class=\"ds-prompt\">$ </span>rm -rf <span class=\"ds-arg\">node_modules</span></p><p class=\"ds-sentence\">Deletes the folder <span class=\"ds-slot\">node_modules</span> and everything in it.</p><dl class=\"ds-facts\"><div><dt>Effect</dt><dd style=\"color: var(--cf-effect-delete)\">delete</dd></div><div><dt>Reversible</dt><dd>no</dd></div><div><dt>Network</dt><dd>none</dd></div><div><dt>Confidence</dt><dd>verified</dd></div></dl></div>",
+      "css": ".ds-explain { max-width: 520px; padding: 28px; border-radius: 24px; background: var(--sheet); color: var(--ink); font-family: var(--font-sans, 'General Sans', ui-sans-serif, system-ui, sans-serif); box-shadow: var(--shadow-tile); } .ds-cmd { margin: 0; padding: 12px 16px; border-radius: 16px; background: var(--sheet-sunk); box-shadow: inset 0 0 0 1px var(--line); font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 0.88em; line-height: 1.625; } .ds-prompt { color: var(--ink-3); user-select: none; } .ds-arg { border-radius: 0.35em; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.22em; text-decoration-color: color-mix(in oklch, var(--cmd-facts) 70%, var(--ink)); transition: background-color 150ms; } .ds-slot { border-radius: 0.35em; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 0.88em; font-weight: 600; transition: background-color 150ms; } .ds-explain:hover .ds-arg, .ds-explain:hover .ds-slot { background: color-mix(in oklch, var(--cmd-facts) 32%, transparent); } .ds-sentence { margin: 16px 0 0; font-size: clamp(1.1rem, 1.6vw, 1.3rem); font-weight: 500; line-height: 1.375; } .ds-facts { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 20px 0 0; padding-top: 16px; border-top: 1px solid var(--line); } .ds-facts dt { font-size: 0.76rem; font-weight: 500; color: var(--ink-3); } .ds-facts dd { margin: 0; font-size: 0.92rem; font-weight: 600; }"
+    },
+    {
+      "name": "Field Input",
+      "kind": "input",
+      "refersTo": "command-line",
+      "description": "Playground text field on a project field: translucent white, deep monospace text, ring thickens on focus.",
+      "html": "<div class=\"ds-input-wrap\"><label for=\"ds-line\">Type a command</label><input id=\"ds-line\" class=\"ds-input\" value=\"rm -rf node_modules\" spellcheck=\"false\"></div>",
+      "css": ".ds-input-wrap { padding: 24px; border-radius: 32px; background: var(--cmd-facts); font-family: var(--font-sans, 'General Sans', ui-sans-serif, system-ui, sans-serif); } .ds-input-wrap label { display: block; padding: 0 4px 12px; font-weight: 600; color: var(--cmd-facts-deep); } .ds-input { display: block; width: 100%; padding: 16px 20px; border: 0; border-radius: 16px; background: oklch(1 0 0 / 0.75); color: var(--cmd-facts-deep); font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 0.95rem; box-shadow: inset 0 0 0 1px oklch(0 0 0 / 0.08); outline: none; transition: box-shadow 150ms; } .ds-input:focus-visible { box-shadow: inset 0 0 0 2px var(--cmd-facts-deep); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Well-Made Ordinary",
+    "overview": "A familiar personal portfolio, built so that every surface answers the hand. The structure is the category standard (a sticky header, a hero, selected work, a role history, writing, a footer) and the quality lives in the execution: soft tinted ground, large rounded sheets floating on it, one blue that works as a fill, and per-project colour fields that let each piece of work wear its own identity. Nothing on the page is a concept costume; the craft is in squash-on-press buttons, pointer-following glows, arrows that slide, and tiles that lift.\n\nDensity is calm and generous at the section level (96 to 144px between sections) and compact inside tiles and panels. Neutrals are tinted toward the accent hue so ground, sheet and ink read as one family. Dark mode is its own palette with deeper sheets and softer ink, never an inversion.\n\nThe site has a confirmed visual rejection on record: concept-driven worlds (railway chart, cut-paper, contact sheet, ikebana) were declined in favour of \"normal looking sites, but make it good and interactive\". The previous davidsling.in design language does not carry over.",
+    "keyCharacteristics": [
+      "Rounded sheets (40px) and bento tiles (28px) on a cool soft-neutral ground.",
+      "One accent, David's blue, used as a fill with ink on it.",
+      "Each project owns a colour field for its hero, its signature block, its home card and its \"next project\" door.",
+      "General Sans throughout, semibold headlines with tight negative tracking.",
+      "Every clickable element gives tactile feedback; every motion has a reduced-motion path."
+    ],
+    "rules": [
+      {
+        "name": "The Fill-Not-Text Rule",
+        "body": "Blue is a surface, never a text colour. Text that needs the accent uses `blue-text`; text on blue uses fixed ink.",
+        "section": "colors"
+      },
+      {
+        "name": "The Field Owns Its Moments Rule",
+        "body": "A project colour appears only in that project's case hero, its signature block, its home card and the \"next project\" door that leads to it. Shared frame sections (prose, decisions) stay on ground and sheet.",
+        "section": "colors"
+      },
+      {
+        "name": "The Dark Is Its Own Palette Rule",
+        "body": "Dark mode redefines every neutral, every `-text` shade, both shadows and the effect colours. Field fills and blue stay; anything read as text is retuned for the dark ground.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tracking Scales With Size Rule",
+        "body": "The bigger the type, the tighter it is: -0.04em for display, -0.03em for headlines, -0.02em for titles, normal for body.",
+        "section": "typography"
+      },
+      {
+        "name": "The Mono Means Literal Rule",
+        "body": "Monospace appears only for text a machine would read: commands, code, package names. Never for decoration or labels.",
+        "section": "typography"
+      },
+      {
+        "name": "The Lift-On-Hover Rule",
+        "body": "Resting tiles sit on `shadow-tile`; hover moves them to `shadow-lift` (eases in over 500ms, out over 200ms) and press squeezes them to 98.5%.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Ring-Not-Border Rule",
+        "body": "Wells and chips are outlined with a 1px inset or outer box-shadow ring in `line`, not a CSS border. Ruled lists (decisions, the explain panel's fact row) are the exception and use a 1px top border.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Nesting Radius Rule",
+        "body": "A child's radius is always smaller than its parent's. Never put a 28px tile inside a 24px panel.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do put ink on blue (fixed ink, `oklch(0.21 0.014 245)`) and use `blue-text` wherever the accent has to be read as text.",
+      "Do give every clickable element press feedback: the pill squash (`scale-y 0.92`, 75ms) for buttons, 98.5% for tiles, 90 to 95% for small chips and dots.",
+      "Do ease hover-in slowly (500ms) and hover-out quickly (200ms) on the expo curve `cubic-bezier(0.16, 1, 0.3, 1)`.",
+      "Do mark travelling or tilting elements `data-motion=\"travel\"` so reduced motion strips transform and keeps colour, opacity and shadow feedback.",
+      "Do step radii down as containers nest (40, 32, 28, 24, 16, 12).",
+      "Do keep a project's field colour to its hero, signature block, home card and next-project door.",
+      "Do show real or live media in project frames (video, a live pendulum, the real npm package running)."
+    ],
+    "donts": [
+      "Don't put white text on David's blue.",
+      "Don't use tracked uppercase eyebrows or kickers; labels are sentence case at 0.76 to 0.85rem in ink-3.",
+      "Don't invert the light palette for dark mode; retune neutrals, `-text` shades and shadows.",
+      "Don't use the `cf-effect-*` colours outside the cmd-facts explain panel.",
+      "Don't use monospace for anything a machine wouldn't read.",
+      "Don't reintroduce the previous davidsling.in design language or a concept-driven world."
+    ]
+  }
+}

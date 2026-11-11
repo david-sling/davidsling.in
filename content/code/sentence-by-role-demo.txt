@@ -1,0 +1,91 @@
+import { linePartsOf, type Explanation, type Role } from 'cmd-facts'
+import { CommandLine } from '@/components/command-line'
+import { Sentence } from '@/components/sentence'
+import { useExplain } from '@/hooks/use-explain'
+
+const command =
+  'curl -o dump.sql https://db.example.com/export && chown alice dump.sql && ssh admin@db.internal'
+
+// One look per kind of value: a colour for the word in the command,
+// an underline and an icon for the value in the sentence.
+const byRole: Partial<Record<Role, Look>> = {
+  url: { icon: Globe, text: 'text-sky-700', underline: 'decoration-sky-500' },
+  host: { icon: Server, text: 'text-violet-700', underline: 'decoration-violet-500' },
+  path: { icon: FileText, text: 'text-amber-700', underline: 'decoration-amber-500' },
+  user: { icon: User, text: 'text-emerald-700', underline: 'decoration-emerald-500' },
+  // …
+}
+
+// Which word of the line each sentence value was read from: the first
+// unclaimed word of its role, spelled the way it was typed.
+function wordsOf(explanation: Explanation) {
+  const line = linePartsOf(command, explanation)
+  const valueOf = new Map<number, number>()
+  explanation.parts.forEach((part, index) => {
+    if (part.kind !== 'values') return
+    for (const written of part.written ?? part.values) {
+      const at = line.findIndex(
+        (word, i) =>
+          !valueOf.has(i) &&
+          word.kind === 'value' &&
+          word.role === part.role &&
+          word.text.replace(/^['"]|['"]$/g, '') === written,
+      )
+      if (at >= 0) valueOf.set(at, index)
+    }
+  })
+  return valueOf
+}
+
+export default function Page() {
+  const explanation = useExplain(command)
+  const valueOf = useMemo(() => wordsOf(explanation), [explanation])
+  const [pointed, setPointed] = useState<number | null>(null)
+  const roleOf = (index: number) => {
+    const part = explanation.parts[index]
+    return part?.kind === 'values' ? part.role : 'unknown'
+  }
+
+  return (
+    <Card>
+      {/* … "Allow this command?" */}
+      <CommandLine
+        command={command}
+        of={explanation}
+        renderPart={(part, i) => {
+          if (part.kind === 'space') return part.text
+          const value = valueOf.get(i)
+          if (value === undefined) return part.text
+          return (
+            <span
+              onMouseEnter={() => setPointed(value)}
+              onMouseLeave={() => setPointed(null)}
+              className={byRole[roleOf(value)]?.text}
+            >
+              {part.text}
+            </span>
+          )
+        }}
+      />
+      <Sentence
+        of={explanation}
+        renderValue={(v) => {
+          const look = byRole[v.role]
+          return (
+            <span
+              tabIndex={0}
+              title={`${v.role}: ${v.written.join(', ')}`}
+              onMouseEnter={() => setPointed(v.index)}
+              onFocus={() => setPointed(v.index)}
+              className={`underline decoration-dotted ${look?.underline}`}
+            >
+              {look && <look.icon aria-hidden />}
+              {v.text}
+            </span>
+          )
+        }}
+      />
+      {/* … Deny / Allow */}
+    </Card>
+  )
+}
