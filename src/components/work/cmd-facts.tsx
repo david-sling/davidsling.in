@@ -307,6 +307,19 @@ function Explain({
           measurement.
         </p>
       )}
+      {!preview && ex.unread && ex.unread.length > 0 && (
+        <p className="m-0 mt-3 text-[0.92rem] leading-relaxed text-ink-2">
+          <strong className="font-semibold text-ink">Not read</strong>{" "}
+          {ex.unread.map((w, i) => (
+            <span key={w}>
+              {i > 0 && ", "}
+              <code className={cn(mono, "text-ink")}>{w}</code>
+            </span>
+          ))}
+          . The answer comes from the program's widest row instead of a
+          guess.
+        </p>
+      )}
       {!compact && facts.note && (
         <p className="m-0 mt-3 text-[0.92rem] leading-relaxed text-ink-2">
           {facts.note}
@@ -323,6 +336,7 @@ const EXAMPLES = [
   "sudo rm -rf /var/tmp",
   "ls ~/Documents > listing.txt",
   "df -h",
+  "rm --no-preserve-root -rf /",
 ];
 
 /** Hero media: the panel working through real commands, one at a time. */
@@ -562,6 +576,13 @@ export function CmdFactsCase({ project }: { project: Project }) {
           command's own text separately. Hover an argument in any panel on
           this page — that pairing is <code>parts</code> doing its job.
         </p>
+        <p>
+          That split is also what the React components render. They ship as
+          a shadcn registry rather than inside the package, so they're copied
+          into your project and take your theme, and the sentence component
+          takes the command and nothing else. The library itself stays at
+          zero dependencies.
+        </p>
       </CaseSection>
 
       <CaseSection id="decisions" title="The decisions that mattered">
@@ -620,6 +641,32 @@ export function CmdFactsCase({ project }: { project: Project }) {
                 </p>
               ),
             },
+            {
+              title: "What wasn't read is named, not guessed",
+              body: (
+                <p>
+                  A flag no row was written for, or a word the shell would
+                  rewrite into one (<code>$OPTS</code>, <code>{"{-o,x}"}</code>
+                  ), isn't assumed harmless. The line is answered from the
+                  program's widest row at <code>derived</code>, and{" "}
+                  <code>unread</code> lists the words. Try{" "}
+                  <code>rm --no-preserve-root -rf /</code> in the playground.
+                </p>
+              ),
+            },
+            {
+              title: "Fig for grammar, never for facts",
+              body: (
+                <p>
+                  Coverage is measured against Fig's autocomplete specs. As
+                  of 0.5.0 the table answers for 125 of the 720 commands Fig
+                  completes, plus 41 commands Fig has no spec for. A
+                  spec knows which flags take a value, not what a command
+                  does to a computer, so Fig only cross-checks the grammar
+                  (zero conflicts) and every fact is still written by hand.
+                </p>
+              ),
+            },
           ]}
         />
       </CaseSection>
@@ -634,7 +681,7 @@ export function CmdFactsCase({ project }: { project: Project }) {
           <code>pnpm test</code>, not by review alone.
         </p>
         <p>
-          Claude wrote most of the code: <strong>48 of the 58 commits</strong>{" "}
+          Claude wrote most of the code: <strong>124 of the 155 commits</strong>{" "}
           carry its co-author line. My part was the spec and the refusals —
           deciding what this library must never do was most of the design.
         </p>
@@ -646,7 +693,8 @@ export function CmdFactsCase({ project }: { project: Project }) {
           along, with the keyboard handed to you. Pipes, redirections,{" "}
           <code>sudo</code> and quoting are all read; substitutions are
           refused on purpose, because what <code>$(…)</code> stands for is not
-          on the line.
+          on the line, and a flag the table hasn't read is named rather than
+          guessed at.
         </p>
       </CaseSection>
 
