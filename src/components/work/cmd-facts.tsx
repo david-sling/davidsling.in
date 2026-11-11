@@ -10,7 +10,9 @@ import {
   User,
   type LucideIcon,
 } from "lucide-react";
+import { getRouteApi } from "@tanstack/react-router";
 import { useJson } from "@/components/home/pulse";
+import type { RegistryCode } from "@/lib/registry-code";
 import type { Project } from "@/lib/content";
 import type { NpmRelease } from "@/routes/api/npm";
 import {
@@ -552,7 +554,7 @@ function pairByRole(line: string, ex: Explanation) {
   return { words, wordPart };
 }
 
-function RolePrompt() {
+function RolePrompt({ className }: { className?: string }) {
   const ex = useMemo(() => explain(PROMPT_LINE), []);
   const { words, wordPart } = useMemo(() => pairByRole(PROMPT_LINE, ex), [ex]);
   const parts = ex.parts ?? [{ kind: "text" as const, text: ex.sentence }];
@@ -564,7 +566,12 @@ function RolePrompt() {
       : "transparent";
 
   return (
-    <div className="mx-auto w-full max-w-[640px] rounded-[24px] bg-sheet p-5 text-left shadow-[var(--shadow-tile)] sm:p-7">
+    <div
+      className={cn(
+        "w-full rounded-[24px] bg-sheet p-5 text-left shadow-[var(--shadow-tile)] sm:p-7",
+        className,
+      )}
+    >
       <p className="m-0 text-[1.25rem] font-semibold tracking-[-0.01em] text-ink">
         Allow this command?
       </p>
@@ -655,7 +662,11 @@ function RolePrompt() {
 
       <div className="mt-5 flex min-h-11 flex-wrap items-center justify-end gap-2 border-t border-line pt-4">
         <span aria-live="polite" className="mr-auto font-semibold text-ink">
-          {answer === "allowed" ? "Allowed." : answer === "denied" ? "Denied." : ""}
+          {answer === "allowed"
+            ? "Allowed."
+            : answer === "denied"
+              ? "Denied."
+              : ""}
         </span>
         {answer ? (
           <button
@@ -688,14 +699,203 @@ function RolePrompt() {
   );
 }
 
-/** The registry section's wide area: the prompt on the project's green, with where to get it. */
+const route = getRouteApi("/work/$slug");
+
+type View = "prompt" | "demo" | "install";
+
+/** Tabs that move with the arrow keys, as a tablist should. */
+function Tabs({
+  label,
+  items,
+  value,
+  onChange,
+  idPrefix,
+  className,
+  tabClassName,
+}: {
+  label: string;
+  items: readonly { key: View; label: string }[];
+  value: View;
+  onChange: (v: View) => void;
+  idPrefix: string;
+  className?: string;
+  tabClassName: (on: boolean) => string;
+}) {
+  const refs = useRef<(HTMLButtonElement | null)[]>([]);
+  const at = Math.max(
+    0,
+    items.findIndex((t) => t.key === value),
+  );
+  const move = (by: number) => {
+    const next = (at + by + items.length) % items.length;
+    onChange(items[next].key);
+    refs.current[next]?.focus();
+  };
+  return (
+    <div
+      role="tablist"
+      aria-label={label}
+      className={className}
+      onKeyDown={(e) => {
+        if (e.key === "ArrowRight") move(1);
+        if (e.key === "ArrowLeft") move(-1);
+      }}
+    >
+      {items.map((t, i) => (
+        <button
+          key={t.key}
+          ref={(el) => {
+            refs.current[i] = el;
+          }}
+          type="button"
+          role="tab"
+          id={`${idPrefix}-${t.key}`}
+          aria-selected={i === at}
+          tabIndex={i === at ? 0 : -1}
+          onClick={() => onChange(t.key)}
+          className={tabClassName(i === at)}
+        >
+          {t.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+/**
+ * The registry's own source for the prompt beside it, trimmed, plus the
+ * install line. Highlighted on the server; on wide screens the panel takes
+ * the prompt's height and scrolls inside it.
+ */
+function CodePanel({
+  code,
+  view,
+  onView,
+  className,
+}: {
+  code: RegistryCode;
+  view: View;
+  onView: (v: View) => void;
+  className?: string;
+}) {
+  const shown = view === "install" ? "install" : "demo";
+  return (
+    <div className={cn("relative lg:min-h-0", className)}>
+      {/* No card of its own: the tabs' card on phones, the prompt's on wide screens, with a line between. */}
+      <div
+        className={cn(
+          "flex flex-col overflow-hidden bg-sheet text-left lg:absolute lg:inset-0 lg:h-auto lg:border-l lg:border-line",
+          // The install line is short: on phones the panel fits it rather than holding the file's height.
+          shown === "demo" && "h-[480px]",
+        )}
+      >
+        <div className="flex min-h-[3.25rem] items-center gap-1 border-b border-line px-3 py-2">
+          {/* On phones the tabs above the panel do this. */}
+          <Tabs
+            label="Source"
+            idPrefix="cf-code-tab"
+            items={[
+              { key: "demo", label: "page.tsx" },
+              { key: "install", label: "Install" },
+            ]}
+            value={shown}
+            onChange={onView}
+            className="hidden gap-1 lg:flex"
+            tabClassName={(on) =>
+              cn(
+                mono,
+                "min-h-9 cursor-pointer rounded-full border-0 px-3 text-[0.78rem] font-medium transition-[background-color,color,transform] duration-150 ease-out-quart active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink",
+                on
+                  ? "bg-sheet-sunk text-ink"
+                  : "bg-transparent text-ink-3 hover:text-ink",
+              )
+            }
+          />
+          <a
+            href="https://github.com/david-sling/cmd-facts/blob/main/web/src/registry/examples/sentence-by-role-demo.tsx"
+            target="_blank"
+            rel="noreferrer"
+            className="ml-auto inline-flex min-h-9 items-center gap-1 rounded-full px-3 text-[0.8rem] font-medium text-ink-2 no-underline transition-colors duration-150 hover:text-ink"
+          >
+            Full file
+            <ArrowUpRight aria-hidden className="size-3.5" />
+          </a>
+        </div>
+        <div
+          role="tabpanel"
+          aria-label={shown === "install" ? "Install" : "page.tsx"}
+          tabIndex={0}
+          className="code-sheet min-h-0 flex-1 overflow-auto outline-none focus-visible:shadow-[inset_0_0_0_2px_var(--ink)]"
+          dangerouslySetInnerHTML={{ __html: code[shown] }}
+        />
+      </div>
+    </div>
+  );
+}
+
+/**
+ * The registry section's wide area, on the project's green. Wide screens put
+ * the prompt beside its source; phones get one panel at a time, behind three
+ * tabs. Both panels stay mounted, so a decision survives a tab switch.
+ */
 function RegistryShowcase() {
+  const { code } = route.useLoaderData();
+  const [view, setView] = useState<View>("prompt");
   const link =
     "inline-flex min-h-11 items-center gap-1.5 rounded-full bg-[oklch(1_0_0/0.45)] px-4 text-[0.9rem] font-semibold text-[var(--cmd-facts-deep)] no-underline transition-[background-color,transform] duration-150 ease-out-quart hover:bg-[oklch(1_0_0/0.75)] active:scale-[0.96]";
   return (
     <div className="rounded-[32px] bg-[var(--cmd-facts)] p-4 sm:p-8">
-      <RolePrompt />
-      <div className="mx-auto mt-4 flex max-w-[640px] flex-wrap items-center gap-2">
+      <div
+        className={cn(
+          code &&
+            "overflow-hidden rounded-[24px] bg-sheet shadow-[var(--shadow-tile)] lg:overflow-visible lg:rounded-none lg:bg-transparent lg:shadow-none",
+        )}
+      >
+        {code && (
+          <Tabs
+            label="Demo and source"
+            idPrefix="cf-view-tab"
+            items={[
+              { key: "prompt", label: "Demo" },
+              { key: "demo", label: "Code" },
+              { key: "install", label: "Install" },
+            ]}
+            value={view}
+            onChange={setView}
+            className="flex border-b border-line lg:hidden"
+            tabClassName={(on) =>
+              cn(
+                "min-h-12 flex-1 cursor-pointer border-0 px-3 text-[0.9rem] font-semibold transition-[background-color,color] duration-150 ease-out-quart focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ink",
+                on
+                  ? "bg-sheet text-ink"
+                  : "bg-sheet-sunk text-ink-3 hover:text-ink",
+              )
+            }
+          />
+        )}
+        <div
+          className={cn(
+            // minmax(0, …): the code's longest line must scroll, not widen the column.
+            "grid grid-cols-[minmax(0,1fr)]",
+            code
+              ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-0 lg:overflow-hidden lg:rounded-[24px] lg:bg-sheet lg:shadow-[var(--shadow-tile)]"
+              : "mx-auto max-w-[640px]",
+          )}
+        >
+          <div className={cn(code && view !== "prompt" && "hidden lg:block")}>
+            <RolePrompt className={cn(code && "rounded-none shadow-none")} />
+          </div>
+          {code && (
+            <CodePanel
+              code={code}
+              view={view}
+              onView={setView}
+              className={cn(view === "prompt" && "hidden lg:block")}
+            />
+          )}
+        </div>
+      </div>
+      <div className="mt-4 flex flex-wrap items-center gap-2">
         <a
           className={link}
           href="https://cmd-facts.davidsling.in/react"
@@ -813,8 +1013,9 @@ export function CmdFactsCase({ project }: { project: Project }) {
           The sentence component takes the command and nothing else.{" "}
           <code>linePartsOf</code> labels the line word by word, so the same
           role can be coloured in both places: the address it reaches, the
-          machine, the file, the person. This is the registry's by-role demo,
-          redrawn in this site's type.
+          machine, the file, the person. Below is the registry's by-role
+          demo, redrawn in this site's type, beside a trimmed copy of its
+          source.
         </p>
       </CaseSection>
 

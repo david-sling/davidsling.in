@@ -8,21 +8,27 @@ import { OfflynCase } from "@/components/work/offlyn";
 import { ValetCase } from "@/components/work/valet";
 import { WaveCase } from "@/components/work/wave";
 import { projects } from "@/lib/content";
+import { getRegistryCode } from "@/lib/registry-code";
 import { seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/work/$slug")({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
     const project = projects.find((p) => p.slug === params.slug);
     if (!project) throw notFound();
-    return project;
+    // Only cmd-facts shows source; without it the page still renders, minus the code panel.
+    const code =
+      project.slug === "cmd-facts"
+        ? await getRegistryCode().catch(() => null)
+        : null;
+    return { project, code };
   },
   head: ({ loaderData }) => ({
     meta: loaderData
       ? seo({
-          title: `${loaderData.name} — David Sling`,
-          description: loaderData.summary,
-          path: `/work/${loaderData.slug}`,
-          image: `work/${loaderData.slug}`,
+          title: `${loaderData.project.name} — David Sling`,
+          description: loaderData.project.summary,
+          path: `/work/${loaderData.project.slug}`,
+          image: `work/${loaderData.project.slug}`,
         })
       : [],
   }),
@@ -39,7 +45,7 @@ const cases = {
 };
 
 function ProjectPage() {
-  const project = Route.useLoaderData();
+  const { project } = Route.useLoaderData();
   const Case = cases[project.slug];
   return (
     <>

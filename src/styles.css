@@ -523,6 +523,30 @@
   color: var(--shiki-dark);
 }
 
+/* Highlighted source beside a demo (cmd-facts' registry section): same themes as posts, on the panel's own sheet. */
+@layer components {
+  .code-sheet pre {
+    margin: 0;
+    min-width: max-content;
+    padding: 1.1em 1.3em;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.8rem;
+    line-height: 1.65;
+    background: transparent !important;
+  }
+  .code-sheet pre span {
+    color: var(--shiki-light);
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .code-sheet pre span {
+    color: var(--shiki-dark);
+  }
+}
+:root[data-theme="dark"] .code-sheet pre span {
+  color: var(--shiki-dark);
+}
+
 /* Equanim's variable sliders: a thin deep track, a round thumb that grows while held. */
 @layer components {
   .eq-range {
