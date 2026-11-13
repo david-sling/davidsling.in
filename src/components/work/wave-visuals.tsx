@@ -346,7 +346,7 @@ export function Architecture() {
 
 type Commit = [date: string, subject: string, claude: 0 | 1];
 
-/** All 220 commits in order; the ones with a Claude co-author line are filled. */
+/** A snapshot of the first 220 commits in order; the ones with a Claude co-author line are filled. The live totals are in the prose above it. */
 export function CommitGrid() {
   const list = commits as Commit[];
   const [hover, setHover] = useState<Commit | null>(null);
@@ -356,7 +356,7 @@ export function CommitGrid() {
     <figure className="m-0 rounded-[32px] bg-sheet p-6 shadow-[var(--shadow-tile)] sm:p-8">
       <figcaption className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
         <span className="text-[1.05rem] font-semibold text-ink">
-          Every commit, oldest first
+          The first {list.length} commits, oldest first
         </span>
         <span className="flex items-center gap-4 text-[0.85rem] text-ink-3">
           <span className="flex items-center gap-1.5">

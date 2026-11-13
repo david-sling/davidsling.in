@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, FileText } from "lucide-react";
 import { SlideArrow } from "@/components/button";
+import { CommitCount } from "@/components/commit-count";
 import { CopyEmail } from "@/components/copy-button";
 import { HighlightedText } from "@/components/highlighted-text";
 import { Pulse } from "@/components/home/pulse";
@@ -46,7 +47,9 @@ export function HowIBuild() {
                 commits on GitHub (opens in a new tab)
               </span>
             </a>
-            , <HighlightedText>191 of 220 commits</HighlightedText> carry a
+            , <HighlightedText>
+              <CommitCount repo="wave" />
+            </HighlightedText> carry a
             Claude co-author line.
           </p>
           <ul

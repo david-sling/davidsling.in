@@ -1,3 +1,4 @@
+import { CommitCount } from "@/components/commit-count";
 import { useEffect, useRef, useState } from "react";
 import type { Project } from "@/lib/content";
 import {
@@ -1371,8 +1372,8 @@ export function ValetCase({ project }: { project: Project }) {
         <p>
           The relay reuses <a href="/work/wave">Wave</a>'s plumbing: token
           handling, long-polling and rate limits, on the same Redis under its
-          own prefix. <strong>Claude Code wrote the code</strong>, and every
-          commit so far carries its co-author line. When a fresh agent tried the
+          own prefix. <strong>Claude Code wrote the code</strong>:{" "}
+          <CommitCount repo="valet" the /> carry its co-author line. When a fresh agent tried the
           skill file cold, the places it stumbled went straight back into the
           skill.
         </p>

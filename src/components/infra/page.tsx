@@ -23,6 +23,8 @@ import {
 } from "lucide-react";
 import { siGithub, siRedis } from "simple-icons";
 import { SlideArrow } from "@/components/button";
+import { CommitCount } from "@/components/commit-count";
+import type { CommitRepo } from "@/lib/commits";
 import { Explain } from "@/components/work/cmd-facts";
 import { onField } from "@/components/work/case";
 import { projects, site, type ProjectSlug } from "@/lib/content";
@@ -807,22 +809,19 @@ function Status({ live }: { live: boolean }) {
 
 /* ───────────────────────── Build and guard ───────────────────────── */
 
-const ledger: { slug: ProjectSlug; built: string; guard: string }[] = [
+const ledger: { slug: CommitRepo; guard: string }[] = [
   {
     slug: "wave",
-    built: "191 of 220 commits carry a Claude co-author line.",
     guard:
       "Every request carries a 256-bit token. Only its SHA-256 hash is stored, and it's compared in constant time.",
   },
   {
     slug: "valet",
-    built: "All but one commit carries a Claude co-author line.",
     guard:
       "Every command runs under a macOS sandbox profile that starts from deny all. The allow-or-ask call is made in Rust, on the owner's machine.",
   },
   {
     slug: "cmd-facts",
-    built: "124 of 155 commits carry a Claude co-author line.",
     guard:
       "No model at run time. Every fact is written by hand, and the writing rules run as tests.",
   },
@@ -894,7 +893,10 @@ export function Principle() {
                   <Bot aria-hidden className="size-3.5" strokeWidth={2.25} />
                   Agents wrote
                 </p>
-                <p className="mt-1 max-w-[36ch] text-ink-2">{row.built}</p>
+                <p className="mt-1 max-w-[36ch] text-ink-2">
+                  <CommitCount repo={row.slug} /> carry a Claude co-author
+                  line.
+                </p>
               </div>
               <div>
                 <p className="flex items-center gap-1.5 text-[0.82rem] font-medium text-ink-3">

@@ -11,6 +11,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { getRouteApi } from "@tanstack/react-router";
+import { CommitCount } from "@/components/commit-count";
 import { useJson } from "@/components/home/pulse";
 import type { RegistryCode } from "@/lib/registry-code";
 import type { Project } from "@/lib/content";
@@ -1115,7 +1116,9 @@ export function CmdFactsCase({ project }: { project: Project }) {
           <code>pnpm test</code>, not by review alone.
         </p>
         <p>
-          Claude wrote most of the code: <strong>124 of the 155 commits</strong>{" "}
+          Claude wrote most of the code: <strong>
+            <CommitCount repo="cmd-facts" the />
+          </strong>{" "}
           carry its co-author line. My part was the spec and the refusals —
           deciding what this library must never do was most of the design.
         </p>
