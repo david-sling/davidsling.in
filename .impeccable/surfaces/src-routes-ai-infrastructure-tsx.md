@@ -22,6 +22,8 @@ Content truth (from David, 2026-11-13, checked against the repos):
 
 Constraints: the site's familiar structure and craft; no eyebrows, no numbered labels, no gradient text; every motion has a reduced-motion path; project fields appear only where that project is speaking.
 
+Build path: code-led. The project default is comp-led, but this session had no image generation tool, so the round ran on HTML sketches and David's locked sketch (infra-switch.html) is the composition.
+
 ## Direction contract
 
 THESIS: the page opens on one question, "Who's on the other side?", and the answer picks the tool. It refuses the category default of a headline over three equal tool cards.

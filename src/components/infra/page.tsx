@@ -12,6 +12,7 @@ import {
   Laptop,
   LogIn,
   MessagesSquare,
+  Plus,
   RotateCcw,
   ShieldCheck,
   Sparkles,
@@ -43,9 +44,17 @@ const sides: {
   label: string;
   slug: "wave" | "valet";
   icon: LucideIcon;
+  /** Shown instead of the label where the two options can't share a phone's width. */
+  short?: string;
 }[] = [
   { id: "agent", label: "Another agent", slug: "wave", icon: Bot },
-  { id: "person", label: "A person, no agent", slug: "valet", icon: UserRound },
+  {
+    id: "person",
+    label: "A person, no agent",
+    short: "Just a person",
+    slug: "valet",
+    icon: UserRound,
+  },
 ];
 
 /** What each tool carries: messages, a key to someone's machine, a plain sentence. */
@@ -100,7 +109,7 @@ export function InfraHero() {
               return (
                 <label
                   key={s.id}
-                  className="relative flex min-h-12 cursor-pointer select-none items-center justify-center rounded-full px-2 text-center text-[0.82rem] font-semibold leading-tight min-[420px]:text-[0.88rem] transition-transform duration-150 ease-out-quart active:scale-[0.97] active:duration-75 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-3 has-[:focus-visible]:outline-blue-strong sm:px-4 sm:text-[0.95rem]"
+                  className="relative flex min-h-12 cursor-pointer select-none items-center justify-center rounded-full px-2 text-center text-[0.88rem] font-semibold leading-tight transition-transform duration-150 ease-out-quart active:scale-[0.97] active:duration-75 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-3 has-[:focus-visible]:outline-blue-strong sm:px-4 sm:text-[0.95rem]"
                 >
                   <input
                     type="radio"
@@ -114,7 +123,8 @@ export function InfraHero() {
                     <motion.span
                       layoutId="side-thumb"
                       aria-hidden
-                      className="absolute inset-0 rounded-full bg-ink"
+                      className="absolute inset-0 rounded-full transition-colors duration-300"
+                      style={{ background: `var(--${s.slug})` }}
                       transition={
                         reduce
                           ? { duration: 0 }
@@ -125,15 +135,25 @@ export function InfraHero() {
                   <span
                     className={cn(
                       "relative inline-flex items-center gap-2 transition-colors duration-200",
-                      on ? "text-sheet" : "text-ink-2 hover:text-ink",
+                      on ? "text-[var(--on)]" : "text-ink-2 hover:text-ink",
                     )}
+                    style={{ "--on": `var(--${s.slug}-deep)` } as React.CSSProperties}
                   >
                     <s.icon
                       aria-hidden
-                      className="size-4 shrink-0 max-[419px]:hidden"
+                      className="size-4 shrink-0"
                       strokeWidth={2.25}
                     />
-                    {s.label}
+                    {s.short ? (
+                      <>
+                        <span className="max-[419px]:hidden">{s.label}</span>
+                        <span aria-hidden className="min-[420px]:hidden">
+                          {s.short}
+                        </span>
+                      </>
+                    ) : (
+                      s.label
+                    )}
                   </span>
                 </label>
               );
@@ -388,7 +408,8 @@ function WaveChannel() {
   );
 }
 
-const ASK = "rm -rf ~/Library/Caches/com.example.app";
+// Short enough to stay on one line in the prompt at phone width.
+const ASK = "rm -rf ~/.cache/acme";
 
 function ValetPrompt() {
   const [answer, setAnswer] = useState<"allowed" | "denied" | null>(null);
@@ -456,7 +477,7 @@ function ValetPrompt() {
             <Link
               to="/work/$slug"
               params={{ slug: "cmd-facts" }}
-              className="group/link ml-auto inline-flex min-h-11 items-center gap-2 rounded-full bg-[var(--cmd-facts)] px-4 text-[0.88rem] font-semibold text-[var(--cmd-facts-deep)] no-underline transition-transform duration-150 ease-out-quart active:scale-[0.97] active:duration-75"
+              className="group/link ml-auto inline-flex min-h-11 items-center justify-between gap-2 rounded-full bg-[var(--cmd-facts)] px-4 max-sm:w-full text-[0.88rem] font-semibold text-[var(--cmd-facts-deep)] no-underline transition-transform duration-150 ease-out-quart active:scale-[0.97] active:duration-75"
             >
               The sentence is cmd-facts
               <SlideArrow />
@@ -653,11 +674,11 @@ export function Foundation() {
         </div>
       </div>
 
-      <div className="mt-12 rounded-[40px] bg-sheet-sunk p-4 shadow-[inset_0_0_0_1px_var(--line)] sm:p-8">
+      <div className="mt-12">
         <div
           role="group"
           aria-label="Which stage to show"
-          className="inline-grid grid-cols-2 rounded-full bg-sheet p-1.5 shadow-[var(--shadow-tile)]"
+          className="inline-grid grid-cols-2 rounded-full bg-sheet-sunk p-1.5 shadow-[inset_0_0_0_1px_var(--line)]"
         >
           {views.map((v) => {
             const on = v.id === planned;
@@ -716,6 +737,8 @@ export function Foundation() {
                 className={cn(
                   "group/link flex min-h-[9.5rem] flex-col justify-between rounded-[28px] p-5 no-underline transition-transform duration-300 ease-out-expo hover:-translate-y-1 active:scale-[0.985] active:duration-75",
                   i === 0 && "lg:col-start-1",
+                  // On one column the library goes below the shared layers: it doesn't sit on them.
+                  t.slug === "cmd-facts" && "max-lg:order-last max-lg:mt-6",
                 )}
                 style={
                   {
@@ -793,7 +816,7 @@ const ledger: { slug: ProjectSlug; built: string; guard: string }[] = [
   },
   {
     slug: "valet",
-    built: "Every commit so far carries a Claude co-author line.",
+    built: "All but one commit carries a Claude co-author line.",
     guard:
       "Every command runs under a macOS sandbox profile that starts from deny all. The allow-or-ask call is made in Rust, on the owner's machine.",
   },
@@ -839,8 +862,10 @@ export function Principle() {
         </div>
       </div>
       <p className="mt-10 max-w-[34ch] text-[clamp(1.5rem,2.6vw,2.1rem)] font-semibold leading-tight tracking-[-0.02em]">
-        Use AI to build, use deterministic systems to guard. That's the safest
-        way to build fast.
+        <span className="text-ink-3">
+          Use AI to build, use deterministic systems to guard.
+        </span>{" "}
+        That's the safest way to build fast.
       </p>
 
       <ul className="m-0 mt-8 p-0">
@@ -890,6 +915,54 @@ export function Principle() {
 
 /* ───────────────────────────── Next ───────────────────────────── */
 
+/** The three tools as tiles on a shelf, with empty places kept for the next ones. */
+function Shelf() {
+  const tilt = [-7, 5, -4, 6, -5];
+  const tile =
+    "grid size-12 shrink-0 place-items-center rounded-[16px] [transform:rotate(var(--tilt))] hover:animate-[sticker-wobble_0.6s_var(--ease-out)] sm:size-20 sm:rounded-[24px]";
+  return (
+    <ul
+      aria-label="Three tools so far, with room for more"
+      className="m-0 flex list-none gap-2.5 p-0 sm:gap-3"
+    >
+      {(["wave", "valet", "cmd-facts"] as const).map((slug, i) => {
+        const Icon = toolIcon[slug];
+        return (
+          <li
+            key={slug}
+            data-motion="travel"
+            className={cn(tile, "shadow-[var(--shadow-tile)]")}
+            style={
+              {
+                "--tilt": `${tilt[i]}deg`,
+                background: `var(--${slug})`,
+                color: `var(--${slug}-deep)`,
+              } as React.CSSProperties
+            }
+          >
+            <Icon aria-hidden className="size-6 sm:size-9" strokeWidth={2} />
+            <span className="sr-only">{project(slug).name}</span>
+          </li>
+        );
+      })}
+      {[3, 4].map((i) => (
+        <li
+          key={i}
+          aria-hidden
+          data-motion="travel"
+          className={cn(
+            tile,
+            "border-2 border-dashed border-[color-mix(in_oklch,var(--ink)_30%,transparent)] text-ink-3",
+          )}
+          style={{ "--tilt": `${tilt[i]}deg` } as React.CSSProperties}
+        >
+          <Plus className="size-5 sm:size-7" strokeWidth={2} />
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export function Next() {
   const github = site.socials.find((s) => s.label === "GitHub")!;
   return (
@@ -907,7 +980,9 @@ export function Next() {
             account comes first, and the next tools start from there.
           </p>
         </div>
-        <div className="flex flex-wrap gap-2.5 lg:justify-end">
+        <div className="flex flex-col gap-10 lg:items-end lg:gap-14">
+          <Shelf />
+          <div className="flex flex-wrap gap-2.5 lg:justify-end">
           <a
             href={github.href}
             target="_blank"
@@ -932,6 +1007,7 @@ export function Next() {
             All work
             <SlideArrow />
           </Link>
+          </div>
         </div>
       </div>
     </section>
