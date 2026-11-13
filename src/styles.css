@@ -59,7 +59,8 @@
   --blue-text: oklch(0.47 0.1 224);
 
   /* Per-project colours, carried over from the work index on the old site. */
-  --wave: #f8c840;
+  /* Softened from #f8c840 (13 Nov 2026): the full-strength yellow was too bright across whole sheets. */
+  --wave: oklch(0.88 0.12 92);
   --wave-text: oklch(0.43 0.085 80);
   --wave-deep: oklch(0.22 0.04 85);
   --offlyn: #ff6b9f;

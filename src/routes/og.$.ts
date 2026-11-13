@@ -7,7 +7,7 @@ import { projects, formatDate } from "@/lib/content";
  */
 const blue = { field: "#67d0e8", ink: "#0b2530" };
 const projectInk: Record<string, { field: string; ink: string }> = {
-  wave: { field: "#f8c840", ink: "#2b2208" },
+  wave: { field: "#f4d576", ink: "#2b2208" },
   equanim: { field: "#06b6d4", ink: "#0b1f27" },
   offlyn: { field: "#ff6b9f", ink: "#3a1520" },
   "ai-protect": { field: "#2563eb", ink: "#f8fafc" },
