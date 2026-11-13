@@ -1,4 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { githubCache, githubHeaders } from '@/lib/github.server'
 
 const USER = 'david-sling'
 
@@ -12,7 +13,7 @@ export type GithubPulse = {
 /**
  * Public GitHub activity: the contribution calendar (from the public
  * contributions page, no token needed) and the latest non-merge public
- * commit (commit search API). Cached at the edge for an hour.
+ * commit (commit search API). Cached on the CDN as lib/github.server describes.
  */
 export const Route = createFileRoute('/api/github')({
   server: {
@@ -24,9 +25,9 @@ export const Route = createFileRoute('/api/github')({
           days: calendar.status === 'fulfilled' ? calendar.value.days : [],
           commit: commit.status === 'fulfilled' ? commit.value : null,
         }
-        return Response.json(body, {
-          headers: { 'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400' },
-        })
+        // A half-answer (one source failed) is retried after a minute instead of being kept for a window.
+        const complete = calendar.status === 'fulfilled' && commit.status === 'fulfilled'
+        return Response.json(body, { headers: { 'Cache-Control': githubCache(complete) } })
       },
     },
   },
@@ -58,7 +59,7 @@ async function fetchCalendar() {
 async function fetchLatestCommit() {
   const res = await fetch(
     `https://api.github.com/search/commits?q=author:${USER}+is:public&sort=author-date&order=desc&per_page=10`,
-    { headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'davidsling.in' } },
+    { headers: githubHeaders() },
   )
   if (!res.ok) throw new Error(`search ${res.status}`)
   const data = (await res.json()) as {
