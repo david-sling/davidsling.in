@@ -34,6 +34,14 @@ async function cardFor(page: string) {
       path: "/blogs",
       ...blue,
     };
+  if (page === "ai-infrastructure")
+    return {
+      title: "Infrastructure for AI",
+      summary:
+        "Wave, Valet and cmd-facts: three tools for people who work with AI agents, built to share one foundation.",
+      path: "/ai-infrastructure",
+      ...blue,
+    };
   const [kind, slug] = page.split("/");
   if (kind === "blogs") {
     const post = listPosts().find((p) => p.slug === slug);

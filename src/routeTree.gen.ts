@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AiInfrastructureRouteImport } from './routes/ai-infrastructure'
 import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as ApiGithubRouteImport } from './routes/api/github'
 import { Route as ApiNowPlayingRouteImport } from './routes/api/now-playing'
@@ -22,6 +23,11 @@ import { Route as WorkSlugRouteImport } from './routes/work.$slug'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AiInfrastructureRoute = AiInfrastructureRouteImport.update({
+  id: '/ai-infrastructure',
+  path: '/ai-infrastructure',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResumeRoute = ResumeRouteImport.update({
@@ -67,6 +73,7 @@ const WorkSlugRoute = WorkSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ai-infrastructure': typeof AiInfrastructureRoute
   '/resume': typeof ResumeRoute
   '/api/github': typeof ApiGithubRoute
   '/api/now-playing': typeof ApiNowPlayingRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ai-infrastructure': typeof AiInfrastructureRoute
   '/resume': typeof ResumeRoute
   '/api/github': typeof ApiGithubRoute
   '/api/now-playing': typeof ApiNowPlayingRoute
@@ -90,6 +98,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ai-infrastructure': typeof AiInfrastructureRoute
   '/resume': typeof ResumeRoute
   '/api/github': typeof ApiGithubRoute
   '/api/now-playing': typeof ApiNowPlayingRoute
@@ -103,6 +112,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/ai-infrastructure'
     | '/resume'
     | '/api/github'
     | '/api/now-playing'
@@ -114,6 +124,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/ai-infrastructure'
     | '/resume'
     | '/api/github'
     | '/api/now-playing'
@@ -125,6 +136,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/ai-infrastructure'
     | '/resume'
     | '/api/github'
     | '/api/now-playing'
@@ -137,6 +149,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AiInfrastructureRoute: typeof AiInfrastructureRoute
   ResumeRoute: typeof ResumeRoute
   ApiGithubRoute: typeof ApiGithubRoute
   ApiNowPlayingRoute: typeof ApiNowPlayingRoute
@@ -154,6 +167,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ai-infrastructure': {
+      id: '/ai-infrastructure'
+      path: '/ai-infrastructure'
+      fullPath: '/ai-infrastructure'
+      preLoaderRoute: typeof AiInfrastructureRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/resume': {
@@ -217,6 +237,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AiInfrastructureRoute: AiInfrastructureRoute,
   ResumeRoute: ResumeRoute,
   ApiGithubRoute: ApiGithubRoute,
   ApiNowPlayingRoute: ApiNowPlayingRoute,

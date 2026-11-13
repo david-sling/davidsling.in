@@ -12,7 +12,8 @@ const TAMIL_FIRST = "டேவிட்";
 
 const nav = [
   { href: "/#work", label: "Work" },
-  { href: "/#experience", label: "Experience" },
+  { href: "/ai-infrastructure", label: "AI infra" },
+  { href: "/#experience", label: "Experience", wide: true },
   { href: "/#writing", label: "Writing" },
 ];
 
@@ -77,13 +78,19 @@ export function SiteHeader() {
         <nav aria-label="Primary" onPointerLeave={() => setHovered(null)}>
           <ul className="flex items-center p-0 sm:gap-0.5">
             {nav.map((item) => (
-              <li key={item.href} className="list-none">
+              <li
+                key={item.href}
+                // Four links don't fit beside the mark on a phone; Experience is a scroll away on the home page.
+                className={
+                  "wide" in item ? "list-none max-[439px]:hidden" : "list-none"
+                }
+              >
                 <a
                   href={item.href}
                   onPointerEnter={() => setHovered(item.href)}
                   onFocus={() => setHovered(item.href)}
                   onBlur={() => setHovered(null)}
-                  className="relative flex min-h-11 items-center rounded-full px-2 text-[0.88rem] min-[400px]:px-3 sm:text-[0.92rem] font-medium text-ink-2 no-underline transition-colors duration-150 hover:text-ink sm:px-4"
+                  className="relative flex min-h-11 items-center whitespace-nowrap rounded-full px-2 text-[0.88rem] min-[400px]:px-3 sm:text-[0.92rem] font-medium text-ink-2 no-underline transition-colors duration-150 hover:text-ink sm:px-4"
                 >
                   {hovered === item.href && (
                     <motion.span

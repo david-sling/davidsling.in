@@ -333,6 +333,16 @@
   }
 }
 
+/* A message crossing the wire between two ends (the AI infrastructure page). */
+@keyframes wire-travel {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(100cqw - 100%));
+  }
+}
+
 @keyframes dash-flow {
   to {
     stroke-dashoffset: -10;

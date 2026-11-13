@@ -133,7 +133,7 @@ function roleOf(part: Part | undefined): string | null {
   return "show" in part && part.show === "host" ? "host" : (part.role ?? null);
 }
 
-function Explain({
+export function Explain({
   line,
   compact,
   preview,
