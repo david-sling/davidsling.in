@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The other side — sketch</title>
+<style>
+  :root{--ground:oklch(0.962 0.004 225);--sheet:oklch(0.993 0.002 225);--sunk:oklch(0.945 0.005 225);--line:oklch(0.89 0.006 225);--ink:oklch(0.21 0.014 245);--ink2:oklch(0.45 0.012 245);--ink3:oklch(0.58 0.01 245);--blue:oklch(0.81 0.105 214);--wave:#f8c840;--valet:#efd09b;--cf:#4ec981}
+  *{box-sizing:border-box;margin:0}
+  body{width:1440px;height:900px;overflow:hidden;background:var(--ground);color:var(--ink);font-family:"General Sans",ui-sans-serif,system-ui,sans-serif;font-size:17px;line-height:1.5}
+  .wrap{width:1240px;margin:0 auto;padding:0 24px}
+  header{height:72px;display:flex;align-items:center;justify-content:space-between}
+  .mark{display:flex;align-items:center;gap:10px;font-weight:600}
+  .disc{width:36px;height:36px;border-radius:50%;background:var(--blue)}
+  nav{display:flex;gap:28px;color:var(--ink2);font-weight:500;font-size:15px}
+  nav b{color:var(--ink);background:var(--sheet);padding:10px 16px;border-radius:999px;margin:-10px -16px;font-weight:500}
+  .pill{height:44px;padding:0 20px;border-radius:999px;background:var(--sheet);display:flex;align-items:center;font-weight:600;font-size:15px}
+  .grid{display:grid;grid-template-columns:0.82fr 1.18fr;gap:16px;margin-top:16px}
+  .intro{background:var(--sheet);border-radius:40px;padding:48px;height:640px;display:flex;flex-direction:column}
+  h1{font-size:74px;line-height:.95;letter-spacing:-.04em;font-weight:600}
+  .lead{margin-top:22px;font-size:21px;font-weight:500;color:var(--ink2);line-height:1.35;max-width:26ch}
+  .q{margin-top:auto;font-size:30px;font-weight:600;letter-spacing:-.02em}
+  .seg{margin-top:16px;display:flex;gap:8px;padding:6px;border-radius:999px;background:var(--sunk);width:max-content}
+  .seg span{height:52px;padding:0 24px;border-radius:999px;display:flex;align-items:center;font-weight:600}
+  .seg .on{background:var(--ink);color:var(--sheet)}
+  .stage{border-radius:40px;background:var(--wave);height:640px;padding:44px;position:relative;color:oklch(0.22 0.04 85)}
+  .stage h2{font-size:56px;letter-spacing:-.04em;font-weight:600;line-height:1}
+  .stage p{margin-top:12px;font-size:21px;font-weight:500;max-width:30ch;line-height:1.3}
+  .row{position:absolute;left:44px;right:44px;top:270px;display:grid;grid-template-columns:1fr 1.5fr 1fr;align-items:center}
+  .node{background:var(--sheet);color:var(--ink);border-radius:28px;padding:22px;height:150px;box-shadow:0 6px 14px -4px oklch(0.21 0.014 245/.18)}
+  .node b{display:block;font-size:24px;letter-spacing:-.02em}
+  .wire{height:150px;position:relative}
+  .wire:before{content:"";position:absolute;left:0;right:0;top:74px;border-top:3px dashed oklch(0.22 0.04 85)}
+  .msg{position:absolute;left:50%;top:38px;transform:translateX(-50%);background:oklch(0.22 0.04 85);color:var(--wave);padding:14px 22px;border-radius:20px;font-weight:600;font-size:22px;white-space:nowrap}
+  .other{position:absolute;left:44px;right:44px;bottom:44px;display:flex;gap:12px}
+  .chip{flex:1;border-radius:24px;padding:18px 22px;background:oklch(1 0 0/.5);font-weight:600;font-size:22px}
+  .chip i{display:inline-block;width:14px;height:14px;border-radius:50%;margin-right:10px}
+  .found{margin-top:16px;border-radius:40px 40px 0 0;background:var(--sheet);padding:36px 48px;display:flex;justify-content:space-between;align-items:center}
+  .found b{font-size:40px;letter-spacing:-.03em;font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="mark"><span class="disc"></span>David Sling</div>
+    <nav><span>Work</span><b>AI infra</b><span>Experience</span><span>Writing</span></nav>
+    <div class="pill">me@davidsling.in</div>
+  </header>
+  <div class="grid">
+    <section class="intro">
+      <h1>I build infrastructure for AI.</h1>
+      <p class="lead">Three tools for people who work with agents all day. Pick who your agent needs to reach.</p>
+      <p class="q">Who's on the other side?</p>
+      <div class="seg"><span class="on">Another agent</span><span>A person, no agent</span></div>
+    </section>
+    <section class="stage">
+      <h2>Wave</h2>
+      <p>Agent to agent. Paste one prompt into each and they are in the same channel.</p>
+      <div class="row">
+        <div class="node"><b>Your agent</b>Claude Code, on your Mac</div>
+        <div class="wire"><span class="msg">schema changed, rebuild?</span></div>
+        <div class="node"><b>Their agent</b>Codex, on their laptop</div>
+      </div>
+      <div class="other">
+        <div class="chip"><i style="background:var(--valet)"></i>Valet, when there's no agent</div>
+        <div class="chip"><i style="background:var(--cf)"></i>cmd-facts, inside Valet</div>
+      </div>
+    </section>
+  </div>
+  <section class="found"><b>One Redis under both, today.</b><span class="pill" style="background:var(--sunk)">One account for all of it, next</span></section>
+</div>
+</body>
+</html>

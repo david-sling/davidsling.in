@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, FileText } from "lucide-react";
 import { SlideArrow } from "@/components/button";
+import { CommitCount } from "@/components/commit-count";
 import { CopyEmail } from "@/components/copy-button";
 import { HighlightedText } from "@/components/highlighted-text";
 import { Pulse } from "@/components/home/pulse";
@@ -46,7 +47,9 @@ export function HowIBuild() {
                 commits on GitHub (opens in a new tab)
               </span>
             </a>
-            , <HighlightedText>191 of 220 commits</HighlightedText> carry a
+            , <HighlightedText>
+              <CommitCount repo="wave" />
+            </HighlightedText> carry a
             Claude co-author line.
           </p>
           <ul
@@ -480,7 +483,7 @@ export function PostList({
 export function SiteFooter() {
   return (
     <footer className="mx-auto max-w-[1240px] px-4 pb-6 pt-28 sm:px-6 sm:pt-36">
-      <div className="rounded-[40px] bg-sheet px-6 py-16 text-center sm:px-14 sm:py-24">
+      <div className="group/foot relative overflow-hidden rounded-[40px] bg-sheet px-6 pt-16 text-center sm:px-14 sm:pt-24 lg:pb-24">
         <h2 className="text-[clamp(3rem,9vw,6rem)] font-semibold leading-none tracking-[-0.04em]">
           Say hi.
         </h2>
@@ -510,6 +513,26 @@ export function SiteFooter() {
             </li>
           ))}
         </ul>
+        {/* David, pointing at the invitation. In flow under the links on small screens; beside the copy from lg. */}
+        <div
+          data-motion="travel"
+          className="pointer-events-none relative mx-auto mt-12 h-[300px] w-[230px] transition-transform duration-500 ease-out-expo group-hover/foot:-translate-y-1.5 lg:absolute lg:bottom-0 lg:right-[3%] lg:mt-0 lg:h-[88%] lg:w-[210px] xl:right-[4%] xl:w-[290px]"
+        >
+          <span
+            aria-hidden
+            className="absolute left-1/2 top-[16%] aspect-square w-[105%] -translate-x-1/2 rounded-full bg-blue"
+          />
+          <img
+            src="/media/me/say-hi-sm.webp"
+            srcSet="/media/me/say-hi-sm.webp 360w, /media/me/say-hi.webp 640w"
+            sizes="(min-width: 1280px) 290px, 230px"
+            alt="David Sling smiling, hands together, in a white shirt"
+            width={360}
+            height={762}
+            loading="lazy"
+            className="absolute left-0 top-0 w-full max-w-none"
+          />
+        </div>
       </div>
       <div className="flex flex-col items-center justify-between gap-2 px-2 pt-6 text-center text-[0.88rem] text-ink-3 sm:flex-row sm:text-left">
         <p>

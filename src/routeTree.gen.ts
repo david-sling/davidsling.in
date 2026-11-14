@@ -10,7 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AiInfrastructureRouteImport } from './routes/ai-infrastructure'
 import { Route as ResumeRouteImport } from './routes/resume'
+import { Route as ApiCommitsRouteImport } from './routes/api/commits'
 import { Route as ApiGithubRouteImport } from './routes/api/github'
 import { Route as ApiNowPlayingRouteImport } from './routes/api/now-playing'
 import { Route as ApiNpmRouteImport } from './routes/api/npm'
@@ -24,9 +26,19 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AiInfrastructureRoute = AiInfrastructureRouteImport.update({
+  id: '/ai-infrastructure',
+  path: '/ai-infrastructure',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResumeRoute = ResumeRouteImport.update({
   id: '/resume',
   path: '/resume',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCommitsRoute = ApiCommitsRouteImport.update({
+  id: '/api/commits',
+  path: '/api/commits',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiGithubRoute = ApiGithubRouteImport.update({
@@ -67,7 +79,9 @@ const WorkSlugRoute = WorkSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/ai-infrastructure': typeof AiInfrastructureRoute
   '/resume': typeof ResumeRoute
+  '/api/commits': typeof ApiCommitsRoute
   '/api/github': typeof ApiGithubRoute
   '/api/now-playing': typeof ApiNowPlayingRoute
   '/api/npm': typeof ApiNpmRoute
@@ -78,7 +92,9 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/ai-infrastructure': typeof AiInfrastructureRoute
   '/resume': typeof ResumeRoute
+  '/api/commits': typeof ApiCommitsRoute
   '/api/github': typeof ApiGithubRoute
   '/api/now-playing': typeof ApiNowPlayingRoute
   '/api/npm': typeof ApiNpmRoute
@@ -90,7 +106,9 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/ai-infrastructure': typeof AiInfrastructureRoute
   '/resume': typeof ResumeRoute
+  '/api/commits': typeof ApiCommitsRoute
   '/api/github': typeof ApiGithubRoute
   '/api/now-playing': typeof ApiNowPlayingRoute
   '/api/npm': typeof ApiNpmRoute
@@ -103,7 +121,9 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/ai-infrastructure'
     | '/resume'
+    | '/api/commits'
     | '/api/github'
     | '/api/now-playing'
     | '/api/npm'
@@ -114,7 +134,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/ai-infrastructure'
     | '/resume'
+    | '/api/commits'
     | '/api/github'
     | '/api/now-playing'
     | '/api/npm'
@@ -125,7 +147,9 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/ai-infrastructure'
     | '/resume'
+    | '/api/commits'
     | '/api/github'
     | '/api/now-playing'
     | '/api/npm'
@@ -137,7 +161,9 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AiInfrastructureRoute: typeof AiInfrastructureRoute
   ResumeRoute: typeof ResumeRoute
+  ApiCommitsRoute: typeof ApiCommitsRoute
   ApiGithubRoute: typeof ApiGithubRoute
   ApiNowPlayingRoute: typeof ApiNowPlayingRoute
   ApiNpmRoute: typeof ApiNpmRoute
@@ -156,11 +182,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ai-infrastructure': {
+      id: '/ai-infrastructure'
+      path: '/ai-infrastructure'
+      fullPath: '/ai-infrastructure'
+      preLoaderRoute: typeof AiInfrastructureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/resume': {
       id: '/resume'
       path: '/resume'
       fullPath: '/resume'
       preLoaderRoute: typeof ResumeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/commits': {
+      id: '/api/commits'
+      path: '/api/commits'
+      fullPath: '/api/commits'
+      preLoaderRoute: typeof ApiCommitsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/github': {
@@ -217,7 +257,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AiInfrastructureRoute: AiInfrastructureRoute,
   ResumeRoute: ResumeRoute,
+  ApiCommitsRoute: ApiCommitsRoute,
   ApiGithubRoute: ApiGithubRoute,
   ApiNowPlayingRoute: ApiNowPlayingRoute,
   ApiNpmRoute: ApiNpmRoute,

@@ -1,4 +1,5 @@
 import type { Project } from "@/lib/content";
+import { CommitCount } from "@/components/commit-count";
 import {
   CaseHero,
   CaseSection,
@@ -281,7 +282,10 @@ export function WaveCase({ project }: { project: Project }) {
         </p>
         <p>
           Claude Code wrote most of the code.{" "}
-          <strong>191 of the 220 commits</strong> carry its co-author line. My
+          <strong>
+            <CommitCount repo="wave" the />
+          </strong>{" "}
+          carry its co-author line. My
           part was the spec, the review, and the calls an agent can't make on
           its own: what to leave out, what an idle agent should cost, and what a
           stranger's agent must never be able to read.

@@ -7,7 +7,7 @@ import { projects, formatDate } from "@/lib/content";
  */
 const blue = { field: "#67d0e8", ink: "#0b2530" };
 const projectInk: Record<string, { field: string; ink: string }> = {
-  wave: { field: "#f8c840", ink: "#2b2208" },
+  wave: { field: "#f4d576", ink: "#2b2208" },
   equanim: { field: "#06b6d4", ink: "#0b1f27" },
   offlyn: { field: "#ff6b9f", ink: "#3a1520" },
   "ai-protect": { field: "#2563eb", ink: "#f8fafc" },
@@ -32,6 +32,14 @@ async function cardFor(page: string) {
       summary:
         "Notes on building with AI agents, and the odd thought that isn’t about code.",
       path: "/blogs",
+      ...blue,
+    };
+  if (page === "ai-infrastructure")
+    return {
+      title: "Infrastructure for AI",
+      summary:
+        "Wave, Valet and cmd-facts: three tools for people who work with AI agents, built to share one foundation.",
+      path: "/ai-infrastructure",
       ...blue,
     };
   const [kind, slug] = page.split("/");

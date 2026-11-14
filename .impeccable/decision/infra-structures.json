@@ -1,0 +1,46 @@
+{
+  "title": "Choose the page structure — AI infrastructure page",
+  "question": "Same site, same look. Which structure should the new page lead with? The other ideas still appear further down the page.",
+  "options": [
+    {
+      "id": "switch",
+      "kind": "assigned",
+      "label": "The other side",
+      "kicker": "THE ROLL",
+      "lineage": "A question the visitor answers",
+      "thesis": "The page opens on one question, who is on the other side, and the answer picks the tool.",
+      "palette": ["#f1f3f5", "#16202b", "#67d0e8", "#f8c840", "#efd09b", "#4ec981"],
+      "materials": ["rounded sheets", "project colour fields", "segmented control"],
+      "viewport": "Headline and a two-way switch on the left; on the right a colour field that turns Wave yellow or Valet sand and draws that connection, with cmd-facts inside Valet's prompt.",
+      "risk": "The whole ecosystem is never on screen at once in the first viewport; the shared foundation waits below the fold.",
+      "html": ".impeccable/mocks/decision/infra-switch.html"
+    },
+    {
+      "id": "map",
+      "kind": "dealt",
+      "label": "The map leads",
+      "lineage": "An architecture diagram you can hover",
+      "thesis": "The first viewport is the whole ecosystem as one live diagram, with the shared foundation drawn underneath.",
+      "palette": ["#f1f3f5", "#16202b", "#67d0e8", "#f8c840", "#efd09b", "#4ec981"],
+      "materials": ["rounded sheets", "project colour fields", "dashed connectors"],
+      "viewport": "A short headline, then one large sheet: your agent on the left, Wave and Valet as colour blocks in the middle, the other agent and the other Mac on the right, cmd-facts attached to Valet, and an ink bar for Redis today and auth, database and billing planned.",
+      "risk": "Diagrams can read as a slide; it has to be dense and interactive enough to be worth a first viewport, and it needs a different layout on phones.",
+      "html": ".impeccable/mocks/decision/infra-map.html"
+    },
+    {
+      "id": "principle",
+      "kind": "dealt",
+      "label": "The principle leads",
+      "lineage": "A manifesto split in two",
+      "thesis": "The page opens on the philosophy itself, split into a build half and a guard half, and every tool is shown against it.",
+      "palette": ["#f1f3f5", "#16202b", "#67d0e8", "#f8c840", "#efd09b", "#4ec981"],
+      "materials": ["rounded sheets", "blue fill", "ink fill"],
+      "viewport": "Two large sheets side by side: blue for \"Use AI to build\", ink for \"Use deterministic systems to guard\". Under them a two-column ledger pairs each tool with the deterministic thing that guards it.",
+      "risk": "Leads with a belief before showing a single tool, so it leans on the copy; the ecosystem map moves to the second screen.",
+      "html": ".impeccable/mocks/decision/infra-principle.html"
+    }
+  ],
+  "reroll": true,
+  "buildPath": { "value": "code", "toggle": false },
+  "steer": true
+}
